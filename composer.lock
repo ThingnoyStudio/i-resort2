@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "6c082eab302e1309b4cd0cfa193f2352",
@@ -942,12 +942,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramosisw/yii2-material-dashboard.git",
-                "reference": "260866084d939d7b8aa38d2f8c1385dec8d0b600"
+                "reference": "1677f564129f71d64f7749d95b3f3ad40886e859"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramosisw/yii2-material-dashboard/zipball/260866084d939d7b8aa38d2f8c1385dec8d0b600",
-                "reference": "260866084d939d7b8aa38d2f8c1385dec8d0b600",
+                "url": "https://api.github.com/repos/ramosisw/yii2-material-dashboard/zipball/1677f564129f71d64f7749d95b3f3ad40886e859",
+                "reference": "1677f564129f71d64f7749d95b3f3ad40886e859",
                 "shasum": ""
             },
             "require": {
@@ -988,7 +988,7 @@
                 "theme",
                 "yii2"
             ],
-            "time": "2018-01-31T14:43:33+00:00"
+            "time": "2018-06-14T14:37:58+00:00"
         },
         {
             "name": "rmrevin/yii2-fontawesome",
@@ -2355,16 +2355,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "ed5fd2281113729f1ebcc64d101ad66028aeb3d5"
+                "reference": "591a30922f54656695e59b1f39501aec513403da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/ed5fd2281113729f1ebcc64d101ad66028aeb3d5",
-                "reference": "ed5fd2281113729f1ebcc64d101ad66028aeb3d5",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/591a30922f54656695e59b1f39501aec513403da",
+                "reference": "591a30922f54656695e59b1f39501aec513403da",
                 "shasum": ""
             },
             "require": {
@@ -2415,7 +2415,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2018-04-18T13:33:00+00:00"
+            "time": "2018-06-14T15:05:28+00:00"
         },
         {
             "name": "sebastian/diff",

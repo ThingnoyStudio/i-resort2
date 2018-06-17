@@ -37,6 +37,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="shortcut icon" href="<?= Yii::getAlias('@favicon')?>" type="image/x-icon" />
         <?php $this->head() ?>
     </head>
     <body class="<?= AdminLteHelper::skinClass() ?> sidebar-mini">
