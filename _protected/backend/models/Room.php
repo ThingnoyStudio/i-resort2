@@ -31,7 +31,8 @@ class Room extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Rname', 'Rnumber', 'Rdes', 'Rimg','Rprice'], 'string'],
+            [['Rname', 'Rdes', 'Rimg','Rprice'], 'string'],
+            [[ 'Rnumber'] , 'unique'],
             [['RSid'], 'integer'],
         ];
     }
