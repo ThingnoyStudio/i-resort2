@@ -95,7 +95,7 @@ use yii\helpers\Html;
                          <div class="pull-left">
                            <?= Html::a(
                                'ผู้ใช้งาน',
-                               ['/user/index'],
+                               ['/users/index2'],
                                ['data-method' => 'post', 'class' => 'btn btn-primary btn-round','style'=>'padding: 12px 25px;']
                            ) ?>
                          </div>

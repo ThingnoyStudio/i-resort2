@@ -44,6 +44,16 @@ class UsersController extends Controller
         ]);
     }
 
+    public function actionIndex2()
+    {
+        $searchModel = new UsersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Users model.
      * @param integer $id

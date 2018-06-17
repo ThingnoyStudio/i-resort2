@@ -30,7 +30,7 @@ class Room extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Rname', 'Rnumber', 'Rdes', 'Rimg'], 'string'],
+            [['Rname', 'Rnumber', 'Rdes', 'Rimg','Rprice'], 'string'],
             [['RSid'], 'integer'],
         ];
     }
@@ -45,6 +45,7 @@ class Room extends \yii\db\ActiveRecord
             'Rname' => 'ชื่อห้อง',
             'Rnumber' => 'หมายเลขห้อง',
             'Rdes' => 'รายละเอียด',
+            'Rprice' => 'ราคา',
             'Rimg' => 'รูปภาพ',
             'RSid' => 'รหัสสถานะห้อง',
         ];

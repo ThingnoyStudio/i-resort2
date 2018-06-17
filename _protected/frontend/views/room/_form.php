@@ -1,5 +1,7 @@
 <?php
 
+use backend\models\Roomtype;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,20 +14,35 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Rname')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'Rname')->textInput() ?>
 
-    <?= $form->field($model, 'Rnumber')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'Rnumber')->textInput([
+        'type' => 'number'
+    ]) ?>
+    <?= $form->field($model, 'Rprice')->textInput([
+        'type' => 'number'
+    ]) ?>
 
     <?= $form->field($model, 'Rdes')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'Rimg')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'Rimg')->fileInput()  ?>
 
-    <?= $form->field($model, 'RSid')->textInput() ?>
+    <?= $form->field($model, 'RSid')->dropDownList(
+        ArrayHelper::map(\backend\models\Roomstatus::find()->all(),'RSid','RSname'),
+        ['promp'=>'เลือกประเภทตำแหน่ง']
+    ) ?>
+
+    <?= $form->field($model, 'RTid')->dropDownList(
+        ArrayHelper::map(Roomtype::find()->all(),'RTid','RTname'),
+        ['promp'=>'เลือกประเภทตำแหน่ง']
+    ) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'สร้าง' : 'แก้ไข', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'ยกเลิก'), ['room/index'], ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+

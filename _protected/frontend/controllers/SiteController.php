@@ -290,6 +290,12 @@ class SiteController extends Controller
                 {
                     if (Yii::$app->getUser()->login($user)) 
                     {
+
+                        // insert data to table
+                        Yii::$app->db->createCommand()->insert('users', [
+                            'iduser' => $user->id,'USid' => 1,
+                        ])->execute();
+
                         return $this->goHome();
                     }
                 }

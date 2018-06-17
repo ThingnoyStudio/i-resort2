@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\Users;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
@@ -123,132 +124,205 @@ $script = <<< JS
 JS;
 $this->registerJs($script, View::POS_LOAD, 'myOption'); ?>
 
+
 <div class = "sidebar-wrapper" >
     <ul class = "nav" id = "sidebar" >
-<?php
-if (Yii::$app->user->isGuest){
-?>
-
-    <p> บุคคลทั่วไป </p>
-    <li>
-        <a href = "<?= Url::to(['site/index'])?>">
-            <i class = "material-icons" > store </i>
-            <p> หน้าแรก </p>
-        </a>
-    </li>
-    <li>
-        <a href = "<?= Url::to(['/room/index'])?>">
-            <i class = "material-icons" > store </i>
-            <p> ห้องพัก </p>
-        </a>
-    </li>
-
-    <li>
-        <a href = "<?= Url::to(['/food/index'])?>">
-            <i class = "material-icons" >local_dining</i>
-            <p> เมนูอาหาร </p>
-        </a>
-    </li>
-    <li>
-        <a href = "<?= Url::to(['/promotion/index'])?>">
-            <i class = "material-icons" > stars </i>
-            <p> โปรโมชั่น </p>
-        </a>
-    </li>
-    <li>
-        <a href = "<?= Url::to(['/news/index'])?>">
-            <i class = "material-icons" > stars </i>
-            <p> ข่าวสาร </p>
-        </a>
-    </li>
+        <?php
+        if (Yii::$app->user->isGuest){
+            ?>
 
 
+            <p> บุคคลทั่วไป </p>
+            <li>
+                <a href = "<?= Url::to(['site/index'])?>">
+                    <i class = "material-icons" > store </i>
+                    <p> หน้าแรก </p>
+                </a>
+            </li>
+            <li>
+                <a href = "<?= Url::to(['/room/index'])?>">
+                    <i class = "material-icons" > store </i>
+                    <p> ห้องพัก </p>
+                </a>
+            </li>
 
-    <?php
-}else{
-?>
-<!--    อยากเช็คสถานะของุ้ใช้งานเพื่อแสดงหรือซ้อนบางอัน-->
-
-    <p> สมาชิก </p>
-    <li>
-        <a href = "<?= Url::to(['site/index'])?>">
-            <i class = "material-icons" > store </i>
-            <p> หน้าแรก </p>
-        </a>
-    </li>
-    <li>
-        <a href = "<?= Url::to(['/room/index'])?>">
-            <i class = "material-icons" > store </i>
-            <p> ห้องพัก </p>
-        </a>
-    </li>
-
-
-        <li>
-            <a href = "<?= Url::to(['/food/index'])?>">
-                <i class = "material-icons" >local_dining</i>
-                <p> เมนูอาหาร </p>
-            </a>
-        </li>
-        <li>
-            <a href = "<?= Url::to(['/promotion/index'])?>">
-                <i class = "material-icons" > stars </i>
-                <p> โปรโมชั่น </p>
-            </a>
-        </li>
-    <li>
-        <a href = "<?= Url::to(['/news/index'])?>">
-            <i class = "material-icons" > stars </i>
-            <p> ข่าวสาร </p>
-        </a>
-    </li>
-
-    <li>
-        <a href = "<?= Url::to(['/booking/index'])?>">
-            <i class = "material-icons" > store </i>
-            <p> การจองห้องพัก </p>
-        </a>
-    </li>
+            <li>
+                <a href = "<?= Url::to(['/food/index'])?>">
+                    <i class = "material-icons" >local_dining</i>
+                    <p> เมนูอาหาร </p>
+                </a>
+            </li>
+            <li>
+                <a href = "<?= Url::to(['/promotion/index'])?>">
+                    <i class = "material-icons" > stars </i>
+                    <p> โปรโมชั่น </p>
+                </a>
+            </li>
+            <li>
+                <a href = "<?= Url::to(['/news/index'])?>">
+                    <i class = "material-icons" > stars </i>
+                    <p> ข่าวสาร </p>
+                </a>
+            </li>
 
 
 
-    <p> พนักงานต้อนรับ </p>
-    <li>
-        <a href = "<?= Url::to(['/users/index'])?>">
-            <i class = "material-icons" > stars </i>
-            <p> จัดการข้อมูลลูกค้า </p>
-        </a>
-    </li>
-    <li>
-        <a href = "<?= Url::to(['/booking/index'])?>">
-            <i class = "material-icons" > store </i>
-            <p> การจองห้องพัก </p>
-        </a>
-    </li>
+            <?php
+        }else{
+            ?>
 
-    <p> ผู้บริหาร </p>
-    <li>
-        <a href = "<?= Url::to(['/users/index'])?>">
-            <i class = "material-icons" > stars </i>
-            <p> รายงานการเข้าพัก </p>
-        </a>
-    </li>
-    <li>
-        <a href = "<?= Url::to(['/users/index'])?>">
-            <i class = "material-icons" > stars </i>
-            <p> รายงานค่าเช่าห้องพัก  </p>
-        </a>
-    </li>
-    <li>
-        <a href = "<?= Url::to(['/users/index'])?>">
-            <i class = "material-icons" > stars </i>
-            <p> รายงานค่าการทำอาหาร  </p>
-        </a>
-    </li>
 
-    <?php
-} //else
-?>
+            <?php
+//            $Usatatus = Users::find()->where('iduser ='.Yii::$app->user->id)->all();
+            $Usatatus = Users::findOne(Yii::$app->user->id);
 
-   </ul>
+//            $com1 = $Usatatus->createCommand();
+//            $orderd1 = $com1->queryAll();
+            if ( $Usatatus->USid == 1) {
+                ?>
+
+                <p> สมาชิก </p>
+                <li>
+                    <a href="<?= Url::to(['site/index']) ?>">
+                        <i class="material-icons"> store </i>
+                        <p> หน้าแรก </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= Url::to(['/room/index']) ?>">
+                        <i class="material-icons"> store </i>
+                        <p> ห้องพัก </p>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="<?= Url::to(['/food/index']) ?>">
+                        <i class="material-icons">local_dining</i>
+                        <p> เมนูอาหาร </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= Url::to(['/promotion/index']) ?>">
+                        <i class="material-icons"> stars </i>
+                        <p> โปรโมชั่น </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= Url::to(['/news/index']) ?>">
+                        <i class="material-icons"> stars </i>
+                        <p> ข่าวสาร </p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?= Url::to(['/booking/index']) ?>">
+                        <i class="material-icons"> store </i>
+                        <p> การจองห้องพัก </p>
+                    </a>
+                </li>
+
+
+                <?php
+            }else if ( $Usatatus->USid == 2){
+                ?>
+
+                <p> ผู้บริหาร </p>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> รายงานการเข้าพัก </p>
+                    </a>
+                </li>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> รายงานค่าเช่าห้องพัก  </p>
+                    </a>
+                </li>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> รายงานค่าการทำอาหาร  </p>
+                    </a>
+                </li>
+
+                <?php
+            }else if ( $Usatatus->USid == 3){
+                ?>
+
+                <p> พนักงานต้อนรับ </p>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> จัดการข้อมูลลูกค้า </p>
+                    </a>
+                </li>
+                <li>
+                    <a href = "<?= Url::to(['/booking/index'])?>">
+                        <i class = "material-icons" > store </i>
+                        <p> การจองห้องพัก </p>
+                    </a>
+                </li>
+                <?php
+            }else if ( $Usatatus->USid == 4){
+                ?>
+
+                <p> แม่บ้าน </p>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> ข้อมูลห้องพัก</p>
+                    </a>
+                </li>
+                <?php
+            }else if ( $Usatatus->USid == 5){
+                ?>
+                <p> ฝ่ายโภชนาการ </p>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> ข้อมูลอาหาร</p>
+                    </a>
+                </li>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> ข้อมูลการสั่งอาหาร</p>
+                    </a>
+                </li>
+
+                <?php
+            }else{
+                ?>
+                <p> ฝ่ายการเงิน </p>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> จัดการโปรโมชั่น</p>
+                    </a>
+                </li>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> จัดการห้องพัก</p>
+                    </a>
+                </li>
+                <li>
+                    <a href = "<?= Url::to(['/users/index'])?>">
+                        <i class = "material-icons" > stars </i>
+                        <p> รายงานค่าอาหาร</p>
+                    </a>
+                </li>
+
+
+                <?php
+            } //else
+            ?>
+
+            <?php
+        } //else
+        ?>
+
+    </ul>
 </div>
