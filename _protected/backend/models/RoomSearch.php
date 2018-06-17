@@ -19,7 +19,7 @@ class RoomSearch extends Room
     {
         return [
             [['Rid', 'RSid'], 'integer'],
-            [['Rname', 'Rnumber', 'Rdes', 'Rimg'], 'safe'],
+            [['Rname', 'Rnumber', 'Rdes', 'Rimg','Rprice'], 'safe'],
         ];
     }
 

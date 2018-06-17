@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Rid',
             'Rname:ntext',
             'Rnumber:ntext',
+            'Rprice:ntext',
             'Rdes:ntext',
 //            'Rimg:ntext',
             [

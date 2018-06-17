@@ -19,13 +19,21 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'Rnumber')->textInput([
         'type' => 'number'
     ]) ?>
+    <?= $form->field($model, 'Rprice')->textInput([
+        'type' => 'number'
+    ]) ?>
 
     <?= $form->field($model, 'Rdes')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'Rimg')->fileInput()  ?>
 
     <?= $form->field($model, 'RSid')->dropDownList(
-        ArrayHelper::map(Roomtype::find()->all(),'RSid','RSname'),
+        ArrayHelper::map(\backend\models\Roomstatus::find()->all(),'RSid','RSname'),
+        ['promp'=>'เลือกประเภทตำแหน่ง']
+    ) ?>
+
+    <?= $form->field($model, 'RTid')->dropDownList(
+        ArrayHelper::map(Roomtype::find()->all(),'RTid','RTname'),
         ['promp'=>'เลือกประเภทตำแหน่ง']
     ) ?>
 
