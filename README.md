@@ -3,7 +3,8 @@ i-resort management
 
 ## How to Run Project
  1. run composer update 
-    - cd to **root project** and write command ``` composer update ```
+    - run cmd by administrator --> Right click on cmd and Run as administrator
+    - cd to **root project** and write command ``` composer update ``` for load or update dependencies
  2. run php init
     - cd to **_protected** and write command ``` php init ```
 
