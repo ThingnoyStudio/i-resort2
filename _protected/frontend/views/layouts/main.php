@@ -27,6 +27,7 @@ AppAsset::register($this);
 
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link rel="shortcut icon" href="<?= Yii::getAlias('@favicon')?>" type="image/x-icon" />
     <?php $this->head() ?>
 
 <body id="mybody">
