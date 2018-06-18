@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2018 at 02:36 PM
+-- Generation Time: Jun 18, 2018 at 05:13 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `resort`
+-- Database: `iresortdb`
 --
 
 -- --------------------------------------------------------
@@ -83,7 +83,9 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('member', 3, 1528897906),
 ('member', 4, 1529219556),
 ('member', 5, 1529219885),
-('member', 6, 1529220341);
+('member', 6, 1529220341),
+('member', 7, 1529243816),
+('member', 8, 1529289544);
 
 -- --------------------------------------------------------
 
@@ -251,7 +253,8 @@ INSERT INTO `news` (`Nid`, `Ntopic`, `Ndes`, `Nimg`) VALUES
 
 CREATE TABLE `orderdetail` (
   `ODid` int(11) NOT NULL COMMENT 'รหัส',
-  `Fid` int(11) DEFAULT NULL COMMENT 'รหัสอาหาร'
+  `Fid` int(11) DEFAULT NULL COMMENT 'รหัสอาหาร',
+  `Oid` int(11) DEFAULT NULL COMMENT 'รหัสออเดอร์'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 -- --------------------------------------------------------
@@ -264,8 +267,7 @@ CREATE TABLE `orders` (
   `Oid` int(11) NOT NULL COMMENT 'รหัส',
   `Odate` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'วันที่',
   `Optotal` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ราคารวม',
-  `Pid` int(11) DEFAULT NULL COMMENT 'การชำระเงิน',
-  `ODid` int(11) DEFAULT NULL COMMENT 'รายละเอียด'
+  `Pid` int(11) DEFAULT NULL COMMENT 'การชำระเงิน'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 -- --------------------------------------------------------
@@ -318,7 +320,7 @@ CREATE TABLE `room` (
 INSERT INTO `room` (`Rid`, `Rname`, `Rnumber`, `Rprice`, `Rdes`, `Rimg`, `RSid`, `RTid`) VALUES
 (1, 'สวิท', '1', '1500', 'jghmhmnghnhg', 'download.jpg', 1, NULL),
 (2, 'ไม่สวิท', '2', '2000', 'เ้เ่เ้่เ้่เ้่ด้เ่tjhjfgjdjd', 'hgnghnghng.jpg', 1, NULL),
-(3, 'ดอกไม้', '2', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 1, NULL),
+(3, 'ดอกไม้', '3', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 1, NULL),
 (4, 'ดอกไม้บาน', '4', '2500', 'เ้ท้่ทเ่้ท่้ท้่ทเ่ทเ่', 'hjh.jpg', 1, NULL),
 (5, 'ดอกไม้บานมาก', '5', '3000', 'เืเืเ้ื้ื้พื้ดืbbnngfnjnhjmg', 'images.jpg', 1, NULL);
 
@@ -382,9 +384,9 @@ CREATE TABLE `session` (
 --
 
 INSERT INTO `session` (`id`, `expire`, `data`) VALUES
-('ac0d2ohom9qikimnkb6vi9m5bj', 1529236014, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31363a222f7265736f72742f6261636b656e642f223b5f5f69647c693a313b),
-('coks6eu2fup068q1jmish5df2t', 1529240404, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b),
-('e0i5p3j0r8vggms3scbj82mrl0', 1529237609, 0x5f5f666c6173687c613a303a7b7d);
+('0qgkulmaieitufg3b4ajj8nic7', 1529288901, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b),
+('817bue2nh4psf1nh9i9u133jfu', 1529292859, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b),
+('9v3j3t9duivnbio90p1000fgba', 1529292925, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a383b);
 
 -- --------------------------------------------------------
 
@@ -411,7 +413,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `status`, `auth_key`, `password_reset_token`, `account_activation_token`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin@gmail.com', '$2y$13$MZJoKmYjk2DfmBofIbdiauvyShiGHFURgPVu.ohctQPKhvGSuVtje', 10, 'onhv0lO2GGyLv2zk7towuZd_FPkPJ28c', NULL, NULL, 1528887395, 1528887395),
-(6, 'test225', 'jhkhj@gmail.com', '$2y$13$Q9R4EvP7Hty6MKRt2SocuexkrvG3Fop2RrEi/542mPzNhhpg3Znum', 10, 'G2EzBIi7_oUMriGcZsG9HtX--SQB3zzv', NULL, NULL, 1529220341, 1529220341);
+(6, 'test225', 'jhkhj@gmail.com', '$2y$13$Q9R4EvP7Hty6MKRt2SocuexkrvG3Fop2RrEi/542mPzNhhpg3Znum', 10, 'G2EzBIi7_oUMriGcZsG9HtX--SQB3zzv', NULL, NULL, 1529220341, 1529220341),
+(7, 'bb', 'b@gmail.com', '$2y$13$92j9Hq4UgQHApEHNwmVJqu5YpZGZjqiTkXTPxJLZLGj5fL4Htjn7u', 10, 'ySYbb4xSByryo9Itkf3DeLLb1XfCVrmW', NULL, NULL, 1529243816, 1529243816),
+(8, 'po', 'po@gmail.com', '$2y$13$aNtPpyjsrAGkLxuiNEZLJ.GP80NNrPQWkCUfLVd7KUT8pvG/gnnge', 10, 'uKQV6HsB8Tu2lpkodJQ50ttJfnlJkAEo', NULL, NULL, 1529289544, 1529289544);
 
 -- --------------------------------------------------------
 
@@ -436,8 +440,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Uid`, `Ufname`, `Ulname`, `Uemail`, `Uphone`, `Uimg`, `ADid`, `USid`, `iduser`) VALUES
-(1, 'nopparut', 'yasataro', 'noppakit15@gmail.com', '0821034148', 'man.png', 1, NULL, NULL),
-(6, 'อัยการ', 'อัย', 'jfjfgj@gmail.com', '025785963', 'marc.jpg', NULL, 2, 6);
+(1, 'nopparut', 'yasataro', 'noppakit15@gmail.com', '0821034148', 'man.png', 1, 1, NULL),
+(6, 'อัยการ', 'อัย', 'jfjfgj@gmail.com', '025785963', 'marc.jpg', NULL, 2, 6),
+(7, 'ใจดี', 'โคตรๆ', 'f@gmail.com', '0814586952', 'tim_80x80.png', NULL, 6, 7),
+(8, 'po', 'po', 'po15@gmail.com', '02457787545', 'อูจิน1.jpg', NULL, 5, 8);
 
 -- --------------------------------------------------------
 
@@ -667,12 +673,12 @@ ALTER TABLE `roomtype`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `userstatus`
 --

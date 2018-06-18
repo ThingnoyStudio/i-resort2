@@ -28,19 +28,34 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@themes';
 
     public $css = [
-        'css/header.css',
         'css/bootstrap.min.css',
-        'css/material-dashboard.css',
-        'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
-        'http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons',
+        'css/now-ui-kit.css',
+        'css/header.css',
+        'https://fonts.googleapis.com/css?family=Montserrat:400,700,200',
+        'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
+        'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
     ];
     public $js = [
-        'js/material.min.js',
-        'js/chartist.min.js',
-        'js/bootstrap-notify.js',
-        'js/material-dashboard.js',
-        'js/superfish.js',
+        'js/core/jquery.3.2.1.min.js',
+        'js/core/popper.min.js',
+        'js/core/bootstrap.min.js',
+        'js/now-ui-kit.js',
+        'js/plugins/bootstrap-switch.js'
     ];
+//    public $css = [
+//        'css/header.css',
+//        'css/bootstrap.min.css',
+//        'css/material-dashboard.css',
+//        'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+//        'http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons',
+//    ];
+//    public $js = [
+//        'js/material.min.js',
+//        'js/chartist.min.js',
+//        'js/bootstrap-notify.js',
+//        'js/material-dashboard.js',
+//        'js/superfish.js',
+//    ];
 
     public $depends = [
         'yii\web\YiiAsset',

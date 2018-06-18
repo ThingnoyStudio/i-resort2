@@ -5,146 +5,119 @@ use yii\helpers\Html;
 /* @var $content string */
 ?>
 
-<nav class="navbar navbar-transparent navbar-absolute">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" id="navbarbrand" href="#"><?= Html::encode($this->title) ?></a>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-
-
-        <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                <img src="<?= Yii::getAlias('@ShowUde') ?>" class="img" alt="User Image" style="    float: left;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-top: -2px;"/>
-              <?php
-               if (Yii::$app->user->isGuest){
-                ?>
-                <!-- <p class="hidden-lg hidden-md">Alexander Pierce</p> -->
-                <span>กรุณาเข้าสู่ระบบ</span>
-                <?php
-              }else{
-                  ?>
-
-                  <span><?= Yii::$app->user->identity->username ?></span>
-
-                  <?php
-                } //else
-                  ?>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="35">
+    <div class="container">
+        <div class="dropdown button-dropdown">
+<!--            <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">-->
+<!--                <span class="button-bar"></span>-->
+<!--                <span class="button-bar"></span>-->
+<!--                <span class="button-bar"></span>-->
+<!--            </a>-->
+            <a href="<?= yii\helpers\Url::to(['/site/index']) ?>" class="navbar-brand">
+                <div class="logo" style="    border-radius: 50%;
+    border: 1px solid #333;
+    display: block;
+    height: 46px;
+    width: 46px;
+    float: left;
+    overflow: hidden;
+    background: white;">
+                    <img src="<?= Yii::getAlias('@HeaderIcon')?>" width="60" height="60">
+                </div>
+<!--                <p style="font-size: x-large">ระบบพยากรณ์ ผู้ป่วยมะเร็งและเนื้องอกในประเทศไทย</p>-->
             </a>
-            <ul class="dropdown-menu" style="width: 240px;">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-header">Dropdown header</a>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">One more separated link</a>
+            </div>
+        </div>
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="#" rel="tooltip"
+               title="Resort management system" data-placement="bottom" target="" style="font-size: 1.4571em;">
+                <?= Html::encode($this->title) ?>
+            </a>
+            <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                    aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </button>
+        </div>
 
-                <li class="user-header">
-                  <div class="card card-profile" style="box-shadow: unset;padding: 0px 12px;">
+        <!--        <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="../assets/img/blurred-image-1.jpg">-->
+        <div class="collapse navbar-collapse justify-content-end" id="navigation"
+             data-nav-image="<?= Yii::getAlias('@UploadsImg') . '/blurred-image-1.jpg' ?>">
 
+            <ul class="navbar-nav">
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Back to Kit</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Have an issue?</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="#"-->
+<!--                       target="_blank">-->
+<!--                        <i class="fa fa-twitter"></i>-->
+<!--                        <p class="d-lg-none d-xl-none">Twitter</p>-->
+<!--                    </a>-->
+<!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link" rel="tooltip" title="หน้าหลัก" data-placement="bottom" href="#"
+                       target="">
+                        <i class="fa fa-home" style="font-size: 21px;"></i>
+                        <p class="d-lg-none d-xl-none">หน้าหลัก</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" rel="tooltip" title="ข่าวเกี่ยวกับ อัยรีสอร์ท" data-placement="bottom" href="#"
+                       target="">
+                        <i class="now-ui-icons files_single-copy-04"></i>
+                        <p class="d-lg-none d-xl-none">ข่าวสาร</p>
+                    </a>
+                </li>
+<li class="nav-item">
+                    <a class="nav-link" rel="tooltip" title="โปรโมชั่น" data-placement="bottom" href="#"
+                       target="">
+                        <i class="now-ui-icons ui-1_bell-53"></i>
+                        <p class="d-lg-none d-xl-none">โปรโมชั่น</p>
+                    </a>
+                </li>
 
-                    <?php
-                     if (Yii::$app->user->isGuest){
-                      ?>
-
-                         <div class="card-avatar" style="max-width: 88px;">
-                             <a href="#pablo">
-                                 <img class="img" src="<?= Yii::getAlias('@ShowUde') ?>" style="    border-radius: 50%;"/>
-
-                             </a>
-                         </div>
-
-
-                         <div class="content">
-         								<h6 class="category text-gray">คุณยังไม่ได้เข้าสู่ระบบ</h6>
-         								<h4 class="card-title">Guest User</h4>
-
-                         <div class="pull-left">
-                           <?= Html::a(
-                               'สมัคร',
-                               ['/site/signup'],
-                               ['data-method' => 'post', 'class' => 'btn btn-primary btn-round','style'=>'padding: 12px 25px;']
-                           ) ?>
-                         </div>
-                         <div class="pull-right">
-                             <?= Html::a(
-                                 'เข้าสู่ระบบ',
-                                 ['/site/login'],
-                                 ['data-method' => 'post', 'class' => 'btn btn-primary btn-round','style'=>'padding: 12px 25px;']
-                             ) ?>
-                         </div>
-     							   </div>
-                        <!-- $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-                        $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']]; -->
-
-
-                    <?php
-                  }else{
-                      ?>
-
-                         <div class="card-avatar" style="max-width: 88px;">
-                             <a href="#pablo">
-                                 <img class="img" src="<?= Yii::getAlias('@ShowUde') ?>" style="    border-radius: 50%;"/>
-
-                             </a>
-                         </div>
-
-
-                         <div class="content">
-         								<h6 class="category text-gray">ยินดีต้อนรับ</h6>
-         								<h4 class="card-title"><?= Yii::$app->user->identity->username ?></h4>
-
-                         <div class="pull-left">
-                           <?= Html::a(
-                               'ผู้ใช้งาน',
-                               ['/users/index2'],
-                               ['data-method' => 'post', 'class' => 'btn btn-primary btn-round','style'=>'padding: 12px 25px;']
-                           ) ?>
-                         </div>
-                         <div class="pull-right">
-                             <?= Html::a(
-                                 'ออกจากระบบ',
-                                 ['/site/logout'],
-                                 ['data-method' => 'post', 'class' => 'btn btn-primary btn-round','style'=>'padding: 12px 25px;']
-                             ) ?>
-                         </div>
-     							   </div>
-                        <!-- $menuItems[] = [
-                            'label' => Yii::t('app', 'Logout'). ' (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']
-                        ]; -->
-                    <?php
-                  } //else
-                    ?>
+<!--                <li class="noty-cart" data-turbolinks="false">-->
+<!--                    <button class="btn btn-primary btn-simple">-->
+<!--                        <i class="now-ui-icons ui-2_favourite-28"></i> With Icon-->
+<!--                    </button>-->
+<!--                </li>-->
 
 
-    						  </div>
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-expanded="false" style="text-transform: unset;font-size: small">
+<!--                        <i class="now-ui-icons ui-1_settings-gear-63" aria-hidden="true"></i>-->
+                        <i class="now-ui-icons users_single-02" aria-hidden="true"></i>
+                        <span style="text-transform: unset !important;">test user</span>
+
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-header">จัดการข้อมูลส่วนตัว</a>
+                        <a class="dropdown-item" href="#">โปรไฟล์</a>
+                        <a class="dropdown-item" href="#">ประวัติการทำรายการ</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">ออกจากระบบ</a>
+                    </div>
                 </li>
 
 
-
             </ul>
-        </li>
-
-      </ul>
-
-<!--      <form class="navbar-form navbar-right" role="search">-->
-<!--        <div class="form-group  is-empty">-->
-<!--          <input type="text" class="form-control" placeholder="Search">-->
-<!--          <span class="material-input"></span>-->
-<!--        </div>-->
-<!--        <button type="submit" class="btn btn-white btn-round btn-just-icon">-->
-<!--          <i class="material-icons">search</i><div class="ripple-container"></div>-->
-<!--        </button>-->
-<!--      </form>-->
+        </div>
     </div>
-  </div>
 </nav>
+<!-- End Navbar -->

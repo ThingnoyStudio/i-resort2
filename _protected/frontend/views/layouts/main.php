@@ -1,9 +1,11 @@
 <?php
+
 use frontend\assets\AppAsset;
 // use frontend\widgets\Alert;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+
 // use yii\bootstrap\Nav;
 // use yii\bootstrap\NavBar;
 // use yii\widgets\Breadcrumbs;
@@ -22,90 +24,49 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <link rel="shortcut icon" href="<?= Yii::getAlias('@favicon')?>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?= Yii::getAlias('@favicon') ?>" type="image/x-icon"/>
     <?php $this->head() ?>
 
-<body id="mybody">
+<body class="profile-page sidebar-collapse" id="mybody">
 <?php $this->beginBody() ?>
 
 
-<nav class="navbar filter-bar navbar-fixed-top filled">
-    <div class="container">
-        <!--        <div class="notification">-->
-        <!--            <div id="notif-message" class="notif-message" style="display: none;" notice-type="success">-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <div data-no-turbolink="">
-                <a href="<?= Url::to(['/site/index']) ?>" class="navbar-brand">
-                    <div class="logo">
-                        <img src="<?= Yii::getAlias('@HeaderIcon')?>" width="60" height="60">
-                    </div>
-                    <p style="font-size: x-large">I-Resort resort & restaurant</p>
-                </a>
-            </div>
+<!-- header -->
+<?= $this->render(
+    'header.php'
+//            ['navbarbrand' => $navbarbrand]
+) ?>
 
+
+<div class="wrapper">
+
+    <div class="page-header page-header-small" filter-color="orange" style="min-height: unset">
+        <div class="page-header-image" data-parallax="true"
+             style="background-image: url('<?= Yii::getAlias('@UploadsImg') . '/bg5.jpg' ?>');">
         </div>
+        <div class="container">
+            <div class="content-center">
 
+                <h3 class="title">อัย-รีสอร์ท</h3>
+                <p class="category" style="color: rgba(255, 255, 255, 0.9);">บริการจองห้องพัก และ ภัตตาคาร ด้วยรางวัลการันตีระดับ 5 ดาว</p>
+
+            </div>
+        </div>
     </div>
 
-</nav>
+
+    <!--     content & footer -->
+    <?= $this->render(
+        'content.php',
+        ['content' => $content]
+    ) ?>
 
 
-
-<div class="wrapper" style="margin-top: 64px;">
-
-    <div class="sidebar" data-color="purple" data-image="<?= Yii::getAlias('@uploadUrl').'/img/sidebar-1.jpg' ?>">
-
-        <!--			<div class="logo">-->
-        <!--                <= Html::a("<i class=\"fa fa-line-chart\"></i> " . Yii::t('app', 'ระบบพยากรณ์ ผู้ป่วยมะเร็งฯ'),-->
-        <!--                    ['index'],-->
-        <!--                    [-->
-        <!--                        'class' => 'simple-text',-->
-        <!--                    ]) ?>-->
-        <!--			</div>-->
-
-        <?php $navbarbrand = 'Material Dashboard'; ?>
-
-
-        <!-- left -->
-        <?=	$this->render(
-            'left.php'
-        // ['directoryAsset' => $directoryAsset]
-        )
-        ?>
-
-    </div>
-
-    <div class="main-panel">
-
-
-        <!-- header -->
-        <?= $this->render(
-            'header.php',
-            ['navbarbrand' => $navbarbrand]
-        ) ?>
-
-
-        <!-- content & footer -->
-        <?= $this->render(
-            'content.php',
-            ['content' => $content]
-        ) ?>
-
-
-
-    </div>
 </div>
 
 <?php $this->endBody() ?>

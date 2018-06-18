@@ -16,8 +16,8 @@ return [
         // - template comes with: 'default', 'slate', 'spacelab' and 'cerulean'
         'view' => [
             'theme' => [
-                'pathMap' => ['@app/views' => '@webroot/themes/material/views'],
-                'baseUrl' => '@web/themes/material',
+                'pathMap' => ['@app/views' => '@webroot/themes/nowui/views'],
+                'baseUrl' => '@web/themes/nowui',
             ],
         ],
         'session' => [
