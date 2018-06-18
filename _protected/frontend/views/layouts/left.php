@@ -280,13 +280,13 @@ $this->registerJs($script, View::POS_LOAD, 'myOption'); ?>
                 ?>
                 <p> ฝ่ายโภชนาการ </p>
                 <li>
-                    <a href = "<?= Url::to(['/users/index'])?>">
+                    <a href = "<?= Url::to(['/food/index'])?>">
                         <i class = "material-icons" > stars </i>
                         <p> ข้อมูลอาหาร</p>
                     </a>
                 </li>
                 <li>
-                    <a href = "<?= Url::to(['/users/index'])?>">
+                    <a href = "<?= Url::to(['/orders/index'])?>">
                         <i class = "material-icons" > stars </i>
                         <p> ข้อมูลการสั่งอาหาร</p>
                     </a>

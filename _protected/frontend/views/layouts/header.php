@@ -48,19 +48,21 @@ use yii\helpers\Html;
 
                 <li class="user-header">
                   <div class="card card-profile" style="box-shadow: unset;padding: 0px 12px;">
-      							<div class="card-avatar" style="max-width: 88px;">
-      								<a href="#pablo">
-      									<img class="img" src="<?= Yii::getAlias('@ShowUde') ?>" style="    border-radius: 50%;"/>
-
-      								</a>
-      							</div>
 
 
                     <?php
                      if (Yii::$app->user->isGuest){
                       ?>
 
-                      <div class="content">
+                         <div class="card-avatar" style="max-width: 88px;">
+                             <a href="#pablo">
+                                 <img class="img" src="<?= Yii::getAlias('@ShowUde') ?>" style="    border-radius: 50%;"/>
+
+                             </a>
+                         </div>
+
+
+                         <div class="content">
          								<h6 class="category text-gray">คุณยังไม่ได้เข้าสู่ระบบ</h6>
          								<h4 class="card-title">Guest User</h4>
 
@@ -87,8 +89,15 @@ use yii\helpers\Html;
                   }else{
                       ?>
 
+                         <div class="card-avatar" style="max-width: 88px;">
+                             <a href="#pablo">
+                                 <img class="img" src="<?= Yii::getAlias('@ShowUde') ?>" style="    border-radius: 50%;"/>
 
-                      <div class="content">
+                             </a>
+                         </div>
+
+
+                         <div class="content">
          								<h6 class="category text-gray">ยินดีต้อนรับ</h6>
          								<h4 class="card-title"><?= Yii::$app->user->identity->username ?></h4>
 
