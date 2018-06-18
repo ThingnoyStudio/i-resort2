@@ -20,8 +20,9 @@
 *::-webkit-scrollbar-track{
   background-color: rgba(0, 0, 0, 0.2);
 }
+/*boy*/
 *::-webkit-scrollbar{
-  width: 10px;
+  width: 2px;
   background-color: rgba(245, 245, 245, 0);
 }
 *::-webkit-scrollbar-thumb{
@@ -3665,7 +3666,6 @@ footer .btn {
   color: #999999;
 }
 .card img {
-  background: white;
   width: 100%;
   height: auto;
 }

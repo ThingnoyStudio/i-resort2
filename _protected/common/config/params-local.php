@@ -14,5 +14,7 @@ Yii::setAlias('@UploadNews','@appRoot2/uploads/images/news/'); // อัพ news
 Yii::setAlias('@ShowN','@appRoot3/uploads/images/news/');//โชว์ news
 
 Yii::setAlias('@favicon','@appRoot3/uploads/favicon.ico');//for show favicon
+
+Yii::setAlias('@HeaderIcon','@appRoot3/uploads/logo1.png');//for show header icon
 return [
 ];
