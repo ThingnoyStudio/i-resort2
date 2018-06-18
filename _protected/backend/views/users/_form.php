@@ -2,6 +2,7 @@
 
 use backend\models\Address;
 use backend\models\Userstatus;
+use borales\extensions\phoneInput\PhoneInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -21,7 +22,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Uemail')->input('email')  ?>
 
-    <?= $form->field($model, 'Uphone')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'Uphone')->widget(PhoneInput::className(), [
+        'jsOptions' => [
+            'preferredCountries' => ['th', 'pl', 'ua'],
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'Uimg')->fileInput() ?>
 
