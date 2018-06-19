@@ -97,14 +97,15 @@ use yii\helpers\Html;
 
                 <li class="nav-item">
                     <a class="nav-link" rel="tooltip" title="ข่าวสารเกี่ยวกับ อัยรีสอร์ท" data-placement="bottom"
-                       href="#"
+                       href="<?= yii\helpers\Url::to(['/news/index']) ?>"
                        target="">
                         <i class="material-icons">library_books</i>
                         <p class="d-lg-none d-xl-none">ข่าวสาร</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="โปรโมชั่น" data-placement="bottom" href="#"
+                    <a class="nav-link" rel="tooltip" title="โปรโมชั่น" data-placement="bottom"
+                       href="<?= yii\helpers\Url::to(['/promotion/index']) ?>"
                        target="">
                         <i class="material-icons">notifications</i>
                         <p class="d-lg-none d-xl-none">โปรโมชั่น</p>
