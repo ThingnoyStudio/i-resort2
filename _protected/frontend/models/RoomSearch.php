@@ -50,11 +50,16 @@ class RoomSearch extends Room
         $query->select('*')
             ->from('room')
             ->join('INNER JOIN','roomstatus','room.RSid = roomstatus.RSid')
-            ->join('INNER JOIN','roomtype','room.RTid = roomtype.RTid')->all();
+            ->join('INNER JOIN','roomtype','room.RTid = roomtype.RTid')
+            ->all();
+
+
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+//            'p' => $p
         ]);
 
         $this->load($params);

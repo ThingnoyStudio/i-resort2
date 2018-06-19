@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Room;
 use frontend\models\RoomSearch;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,9 +39,28 @@ class RoomController extends Controller
         $searchModel = new RoomSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $dateNow = date('Y-m-d');
+        $query2 = new Query();
+        $query2->select('Pdistant')
+            ->from('promotion')
+            ->andFilterWhere(['<=', 'Pdatestart', $dateNow])
+            ->andFilterWhere(['>=', 'Pdateend', $dateNow])
+
+        ;
+        $command = $query2->createCommand();
+        $data = $command->queryAll();
+        if(count($data)==0){
+            $p =0;
+        }else{
+            foreach ($data as $item1)
+            $p =$item1['Pdistant'];
+//            $p =50;
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'p' => $p,
         ]);
     }
 

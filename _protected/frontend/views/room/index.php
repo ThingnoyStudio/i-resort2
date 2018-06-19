@@ -7,6 +7,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RoomSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $p yii\data\ActiveDataProvider */
 
 $this->title = 'ห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
@@ -94,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <h3><span class="badge badge-info"
                                       style="margin-right: 4px"><?=  $model['Rnumber']?></span><?=  $model['Rname']  ?>
                                 <div class="time pull-right  premium-product ">
-                                    ฿<?=  $model['Rprice']?></div>
+                                    ฿<?=  ($model['Rprice'] - $p )?></div>
                             </h3>
 
                             <p><?= $model['Rdes'] ?></p>

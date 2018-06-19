@@ -6,34 +6,45 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\News */
 
-$this->title = $model->Nid;
+$this->title = $model->Ntopic;
 $this->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->Ntopic) ?></h1>
 
-    <p>
-<!--        <= Html::a('Update', ['update', 'id' => $model->Nid], ['class' => 'btn btn-primary']) ?>-->
-<!--        <= Html::a('Delete', ['delete', 'id' => $model->Nid], [-->
-<!--            'class' => 'btn btn-danger',-->
-<!--            'data' => [-->
-<!--                'confirm' => 'Are you sure you want to delete this item?',-->
-<!--                'method' => 'post',-->
-<!--            ],-->
-<!--        ]) ?>-->
-    </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-//            'Nid',
-            'Ntopic:ntext',
-            'Ndes:ntext',
-            'Nimg:ntext',
-            'Nvdo:ntext',
-        ],
-    ]) ?>
+    <div class="row">
+        <div class="clearfix"></div>
+<!--    <div class="col-xs-12 col-sm-6   ">-->
+        <div class="card" data-turbolinks="false">
+            <div class="thumbnail" >
+                <img src="<?= Yii::getAlias('@ShowN') . $model->Nimg ?>"
+                     data-retina="<?= Yii::getAlias('@ShowN') .$model->Nimg  ?>"
+                     alt="No Image">
+
+
+            </div>
+            <div class="card-info">
+
+
+                    <h3><?=
+                        $model->Ntopic;
+                        ?>
+                    </h3>
+
+                <iframe width="420" height="345" src="<?= $model->Nvdo; ?>">
+                </iframe>
+
+                    <p><?=
+                        $model->Ndes;
+                        ?> </p>
+
+
+            </div>
+        </div>
+<!--    </div>-->
+    </div>
 
 </div>

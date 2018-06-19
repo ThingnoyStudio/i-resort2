@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="card-info">
 
-                    <a href="/product/paper-dashboard-2-pro">
+                    <a href="<?= yii\helpers\Url::to(['/news/view2','id' =>$myModel['Nid']]) ?>">
                         <h3><?=
                             $myModel['Ntopic']
                             ?>
