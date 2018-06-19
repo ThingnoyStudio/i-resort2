@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Room;
+use yii\db\Query;
 
 /**
  * RoomSearch represents the model behind the search form of `frontend\models\Room`.
@@ -18,7 +19,7 @@ class RoomSearch extends Room
     public function rules()
     {
         return [
-            [['Rid', 'RSid'], 'integer'],
+            [['Rid', 'RSid','RTid'], 'integer'],
             [['Rname', 'Rnumber', 'Rdes', 'Rimg'], 'safe'],
         ];
     }
@@ -41,8 +42,15 @@ class RoomSearch extends Room
      */
     public function search($params)
     {
-        $query = Room::find();
+//        $query = Room::find();
+//        $query = Room::find()->join('INNER JOIN','roomstatus','room.RSid = roomstatus.RSid')
+//        ->join('INNER JOIN','roomtype','room.RTid = roomtype.RTid');
 
+        $query = new Query();
+        $query->select('*')
+            ->from('room')
+            ->join('INNER JOIN','roomstatus','room.RSid = roomstatus.RSid')
+            ->join('INNER JOIN','roomtype','room.RTid = roomtype.RTid')->all();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -61,12 +69,14 @@ class RoomSearch extends Room
         $query->andFilterWhere([
             'Rid' => $this->Rid,
             'RSid' => $this->RSid,
+            'RTid' => $this->RTid,
         ]);
 
         $query->andFilterWhere(['like', 'Rname', $this->Rname])
             ->andFilterWhere(['like', 'Rnumber', $this->Rnumber])
             ->andFilterWhere(['like', 'Rdes', $this->Rdes])
             ->andFilterWhere(['like', 'Rimg', $this->Rimg]);
+
 
         return $dataProvider;
     }

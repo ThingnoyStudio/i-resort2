@@ -30,7 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'Rnumber:ntext',
             'Rdes:ntext',
             'Rimg:ntext',
-            //'RSid',
+            'RSname',
+            'RTname',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -31,7 +31,7 @@ class Room extends \yii\db\ActiveRecord
     {
         return [
             [['Rname', 'Rnumber', 'Rdes', 'Rimg','Rprice'], 'string'],
-            [['RSid'], 'integer'],
+            [['RSid','RTid'], 'integer'],
         ];
     }
 
@@ -48,6 +48,7 @@ class Room extends \yii\db\ActiveRecord
             'Rprice' => 'ราคา',
             'Rimg' => 'รูปภาพ',
             'RSid' => 'รหัสสถานะห้อง',
+            'RTid' => 'รหัสสถานะห้อง',
         ];
     }
 }
