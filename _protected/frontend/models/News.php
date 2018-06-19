@@ -11,6 +11,7 @@ use Yii;
  * @property string $Ntopic หัวข้อ
  * @property string $Ndes รายละเอียด
  * @property string $Nimg รูปภาพ
+ *  * @property string $Nvdo รูปภาพ
  */
 class News extends \yii\db\ActiveRecord
 {

@@ -34,8 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         ?>
                     </h3>
 
-                <iframe width="420" height="345" src="<?= $model->Nvdo; ?>">
-                </iframe>
+                <br><br>
+
+                <object width="420" height="315"
+                        data="<?=
+                        $model->Nvdo;
+                        ?>">
+                </object>
+                <br>
 
                     <p><?=
                         $model->Ndes;

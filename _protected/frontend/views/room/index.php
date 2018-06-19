@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <h3><span class="badge badge-info"
                                       style="margin-right: 4px"><?=  $model['Rnumber']?></span><?=  $model['Rname']  ?>
                                 <div class="time pull-right  premium-product ">
-                                    ฿<?=  ($model['Rprice'] - $p )?></div>
+                                    ฿<?=  $model['Rprice']  ?> ฿<?=  ($model['Rprice'] - $p )?></div>
                             </h3>
 
                             <p><?= $model['Rdes'] ?></p>
