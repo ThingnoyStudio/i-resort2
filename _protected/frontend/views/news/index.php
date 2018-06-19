@@ -35,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--    ]); ?>-->
 
 
-
+    <div class="row">
+        <div class="clearfix"></div>
 
     <?php
 //    $newQuery = clone $dataProvider->query;
@@ -82,6 +83,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
 
-
+    </div>
 
 </div>
