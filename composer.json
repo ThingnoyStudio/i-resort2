@@ -18,7 +18,8 @@
         "mihaildev/yii2-ckeditor": "*",
         "dmstr/yii2-adminlte-asset": "2.*",
         "ramosisw/yii2-material-dashboard": "dev-master",
-        "borales/yii2-phone-input": "*"
+        "borales/yii2-phone-input": "*",
+        "kartik-v/yii2-date-range": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

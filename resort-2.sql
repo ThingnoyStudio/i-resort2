@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2018 at 06:49 AM
+-- Generation Time: Jun 19, 2018 at 11:54 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -244,7 +244,8 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`Nid`, `Ntopic`, `Ndes`, `Nimg`, `Nvdo`) VALUES
-(1, 'ลด 20 %', 'ลด 20 % ในวันที่ 14 /6 /61', 'sidebar-3.jpg', NULL);
+(1, 'ลด 20 %', 'ลด 20 % ในวันที่ 14 /6 /61', '1000.jpg', ''),
+(2, 'เทสวิดีโอ', 'dbbdbdfb', 'images.jpg', 'vdssdf');
 
 -- --------------------------------------------------------
 
@@ -319,11 +320,11 @@ CREATE TABLE `room` (
 --
 
 INSERT INTO `room` (`Rid`, `Rname`, `Rnumber`, `Rprice`, `Rdes`, `Rimg`, `RSid`, `RTid`) VALUES
-(1, 'สวิท', '1', '1500', 'jghmhmnghnhg', 'download.jpg', 1, NULL),
-(2, 'ไม่สวิท', '2', '2000', 'เ้เ่เ้่เ้่เ้่ด้เ่tjhjfgjdjd', 'hgnghnghng.jpg', 1, NULL),
-(3, 'ดอกไม้', '3', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 1, NULL),
-(4, 'ดอกไม้บาน', '4', '2500', 'เ้ท้่ทเ่้ท่้ท้่ทเ่ทเ่', 'hjh.jpg', 1, NULL),
-(5, 'ดอกไม้บานมาก', '5', '3000', 'เืเืเ้ื้ื้พื้ดืbbnngfnjnhjmg', 'images.jpg', 1, NULL);
+(1, 'สวิท', '1', '1500', 'jghmhmnghnhg', 'download.jpg', 1, 1),
+(2, 'ไม่สวิท', '2', '2000', 'เ้เ่เ้่เ้่เ้่ด้เ่tjhjfgjdjd', 'hgnghnghng.jpg', 1, 1),
+(3, 'ดอกไม้', '3', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 1, 2),
+(4, 'ดอกไม้บาน', '4', '2500', 'เ้ท้่ทเ่้ท่้ท้่ทเ่ทเ่', 'hjh.jpg', 1, 2),
+(5, 'ดอกไม้บานมาก', '5', '3000', 'เืเืเ้ื้ื้พื้ดืbbnngfnjnhjmg', 'images.jpg', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -387,9 +388,10 @@ CREATE TABLE `session` (
 INSERT INTO `session` (`id`, `expire`, `data`) VALUES
 ('0qgkulmaieitufg3b4ajj8nic7', 1529288901, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b),
 ('9v3j3t9duivnbio90p1000fgba', 1529302385, 0x5f5f666c6173687c613a303a7b7d),
-('ie8a6ptiqn6h4ov0blgfqq0e92', 1529381648, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b),
-('m5br4e7fik9tb8pge1ossp88ur', 1529381091, 0x5f5f666c6173687c613a303a7b7d),
-('ohvqa5pjgbbngbd9o2vqoe4b20', 1529308544, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b);
+('i8t8sr2p28ig9hlebsrsht1k26', 1529402466, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b),
+('m5br4e7fik9tb8pge1ossp88ur', 1529403463, 0x5f5f666c6173687c613a303a7b7d),
+('ohvqa5pjgbbngbd9o2vqoe4b20', 1529308544, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b),
+('s2cvqpd10su19lipekp8l3h4ph', 1529385202, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b);
 
 -- --------------------------------------------------------
 
@@ -636,7 +638,7 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `Nid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=2;
+  MODIFY `Nid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `orderdetail`
 --
