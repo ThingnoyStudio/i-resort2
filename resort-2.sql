@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2018 at 05:13 AM
+-- Generation Time: Jun 19, 2018 at 06:49 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -235,15 +235,16 @@ CREATE TABLE `news` (
   `Nid` int(11) NOT NULL COMMENT 'รหัส',
   `Ntopic` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'หัวข้อ',
   `Ndes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'รายละเอียด',
-  `Nimg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'รูปภาพ'
+  `Nimg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'รูปภาพ',
+  `Nvdo` text COLLATE utf16_unicode_ci COMMENT 'วิดิโอ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 --
 -- Dumping data for table `news`
 --
 
-INSERT INTO `news` (`Nid`, `Ntopic`, `Ndes`, `Nimg`) VALUES
-(1, 'ลด 20 %', 'ลด 20 % ในวันที่ 14 /6 /61', 'sidebar-3.jpg');
+INSERT INTO `news` (`Nid`, `Ntopic`, `Ndes`, `Nimg`, `Nvdo`) VALUES
+(1, 'ลด 20 %', 'ลด 20 % ในวันที่ 14 /6 /61', 'sidebar-3.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -385,8 +386,10 @@ CREATE TABLE `session` (
 
 INSERT INTO `session` (`id`, `expire`, `data`) VALUES
 ('0qgkulmaieitufg3b4ajj8nic7', 1529288901, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b),
-('817bue2nh4psf1nh9i9u133jfu', 1529292859, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b),
-('9v3j3t9duivnbio90p1000fgba', 1529292925, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a383b);
+('9v3j3t9duivnbio90p1000fgba', 1529302385, 0x5f5f666c6173687c613a303a7b7d),
+('ie8a6ptiqn6h4ov0blgfqq0e92', 1529381648, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b),
+('m5br4e7fik9tb8pge1ossp88ur', 1529381091, 0x5f5f666c6173687c613a303a7b7d),
+('ohvqa5pjgbbngbd9o2vqoe4b20', 1529308544, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b);
 
 -- --------------------------------------------------------
 

@@ -52,9 +52,9 @@ use yii\helpers\Html;
             </button>
         </div>
 
-        <!--        <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="../assets/img/blurred-image-1.jpg">-->
-        <div class="collapse navbar-collapse justify-content-end" id="navigation"
-             data-nav-image="<?= Yii::getAlias('@UploadsImg') . '/blurred-image-1.jpg' ?>">
+        <ul class="collapse navbar-collapse justify-content-end" id="navigation"
+            data-nav-image="<?= Yii::getAlias('@UploadsImg') . '/blurred-image-1.jpg' ?>" style="    margin-top: 0;
+    margin-bottom: -1rem;">
 
             <ul class="navbar-nav">
                 <!--                <li class="nav-item">-->
@@ -111,6 +111,14 @@ use yii\helpers\Html;
                         <p class="d-lg-none d-xl-none">โปรโมชั่น</p>
                     </a>
                 </li>
+<li class="nav-item">
+                    <a class="nav-link" rel="tooltip" title="ประวัติการทำรายการ" data-placement="bottom"
+                       href="<?= yii\helpers\Url::to(['/promotion/index']) ?>"
+                       target="">
+                        <i class="material-icons">assignment</i>
+                        <p class="d-lg-none d-xl-none">ประวัติการทำรายการ</p>
+                    </a>
+                </li>
 
                 <!--                <li class="noty-cart" data-turbolinks="false">-->
                 <!--                    <button class="btn btn-primary btn-simple">-->
@@ -119,29 +127,109 @@ use yii\helpers\Html;
                 <!--                </li>-->
 
 
-
-
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                       aria-expanded="false" style="text-transform: unset;font-size: small">
-                        <!--                        <i class="now-ui-icons ui-1_settings-gear-63" aria-hidden="true"></i>-->
-                        <!--                        <i class="material-icons" aria-hidden="true">account_circle</i>-->
-                        <i class="now-ui-icons users_single-02" aria-hidden="true"></i>
-                        <span style="text-transform: unset !important;">test user</span>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       style="font-size: small;padding: 0.5rem 0.7rem;display: block;">
 
+                        <img src="<?= Yii::getAlias('@ShowUde') ?>" class="img" alt="User Image" style="    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;"/>
+                        <?php
+                        if (Yii::$app->user->isGuest) {
+                            ?>
+                            <!-- <p class="hidden-lg hidden-md">Alexander Pierce</p> -->
+                            <span>กรุณาเข้าสู่ระบบ</span>
+                            <?php
+                        } else {
+                            ?>
+
+                            <span><?= Yii::$app->user->identity->username ?></span>
+
+                            <?php
+                        } //else
+                        ?>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-header">จัดการข้อมูลส่วนตัว</a>
-                        <a class="dropdown-item" href="#">โปรไฟล์</a>
-                        <a class="dropdown-item" href="#">ประวัติการทำรายการ</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">ออกจากระบบ</a>
-                    </div>
+                    <ul class="dropdown-menu" style="width: 200px; padding: 4px 9px">
+
+                        <li class="user-header">
+                            <div class="card card-profile" style="box-shadow: unset;padding: 0px 12px;display: unset">
+                                <div class="card-avatar" style="max-width: 88px;">
+                                    <a href="#pablo">
+                                        <img class="img" src="<?= Yii::getAlias('@ShowUde') ?>"
+                                             style="    border-radius: 50%;"/>
+
+                                    </a>
+                                </div>
+
+
+                                <?php
+                                if (Yii::$app->user->isGuest) {
+                                    ?>
+
+                                    <div class="content">
+                                        <h6 class="category text-gray">คุณยังไม่ได้เข้าสู่ระบบ</h6>
+                                        <h4 class="card-title">Guest User</h4>
+
+                                        <div class="pull-left">
+                                            <?= Html::a(
+                                                'สมัครสมาชิก',
+                                                ['/site/signup'],
+                                                ['data-method' => 'post', 'class' => 'btn btn-primary btn-round', 'style' => 'padding: 9px 13px;']
+                                            ) ?>
+                                        </div>
+                                        <div class="pull-right">
+                                            <?= Html::a(
+                                                'เข้าสู่ระบบ',
+                                                ['/site/login'],
+                                                ['data-method' => 'post', 'class' => 'btn btn-primary btn-round', 'style' => 'padding: 9px 13px;']
+                                            ) ?>
+                                        </div>
+                                    </div>
+                                    <!-- $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+                                    $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']]; -->
+
+
+                                    <?php
+                                } else {
+                                    ?>
+
+
+                                    <div class="content">
+                                        <h6 class="category text-gray">ยินดีต้อนรับ</h6>
+                                        <h4 class="card-title"><?= Yii::$app->user->identity->username ?></h4>
+
+                                        <div class="pull-left">
+                                            <?= Html::a(
+                                                'โปรไฟล์',
+                                                ['/user/index'],
+                                                ['data-method' => 'post', 'class' => 'btn btn-primary btn-round', 'style' => 'padding: 9px 17px;']
+                                            ) ?>
+                                        </div>
+                                        <div class="pull-right">
+                                            <?= Html::a(
+                                                'ออกจากระบบ',
+                                                ['/site/logout'],
+                                                ['data-method' => 'post', 'class' => 'btn btn-primary btn-round', 'style' => 'padding: 9px 11px;']
+                                            ) ?>
+                                        </div>
+                                    </div>
+                                    <?php
+                                } //else
+                                ?>
+
+
+                            </div>
+                        </li>
+
+                    </ul>
                 </li>
 
 
             </ul>
-        </div>
+    </div>
     </div>
 </nav>
 <!-- End Navbar -->
