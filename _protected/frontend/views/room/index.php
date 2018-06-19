@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
         foreach ($dataProvider->models as $model) {
             ?>
 
-            <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 " data-my-order="2018-05-16 09:50:13 -0500 ">
+            <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 " >
                 <div class="card" data-turbolinks="false">
                     <div class="thumbnail" style="max-height: 232.91px">
                         <img src="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>"
@@ -130,8 +130,50 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="modal-body">
 
-                            // ใส่ ตรงนี้
 
+                            <div class="col-xs-12 " >
+                                <div class="card" data-turbolinks="false">
+                                    <div class="thumbnail" style="max-height: 232.91px">
+                                        <img src="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>"
+                                             data-retina="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>" alt="No Image">
+
+<!--                                        <a href="#" class="thumb-cover"></a>-->
+<!--                                        <b class="actions">-->
+<!--                                            <a class="btn btn-info btn-round btn-fill" rel="tooltip" title="" data-remote="true"-->
+<!--                                               href="#" data-original-title="จองห้องพัก" data-toggle="modal"-->
+<!--                                               data-target="#--><?//= $model['Rnumber'] ?><!--">-->
+<!--                                                <i class="fa fa-shopping-cart"></i>-->
+<!--                                            </a>-->
+
+                                        </b>
+
+                                    </div>
+                                    <div class="card-info">
+
+                                        <a>
+
+                                            <h3><span class="badge badge-info"
+                                                      style="margin-right: 4px"><?= $model['Rnumber'] ?></span><?= $model['Rname'] ?>
+                                                <div class="time pull-right  premium-product ">
+                                    <span class="line-through " style="text-decoration: line-through;font-size: 18px;color: #777777;">
+                                        ฿<?= $model['Rprice'] ?>
+                                    </span>
+                                                    <span class="line-through " style="color: #FF281E;">
+                                        ฿<?= ($model['Rprice'] - $p) ?>
+                                    </span>
+                                                </div>
+                                            </h3>
+
+                                            <p><?= $model['Rdes'] ?></p>
+                                        </a>
+                                        <i class="material-icons"
+                                           style="top: 1px;font-size: unset;margin-right: 3px;position: relative;">local_offer</i><?= $model['RTname'] ?>
+                                        <span class="badge badge-primary float-right"><?= $model['RSname'] ?></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            // ใส่ ตรงนี้
 
                         </div>
                         <div class="modal-footer">
