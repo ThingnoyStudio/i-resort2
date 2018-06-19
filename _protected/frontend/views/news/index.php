@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create News', ['create'], ['class' => 'btn btn-success']) ?>
+<!--        = Html::a('Create News', ['create'], ['class' => 'btn btn-success']) ?>-->
     </p>
 
 <!--    = GridView::widget([-->
@@ -59,16 +59,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-info">
 
                     <a href="/product/paper-dashboard-2-pro">
-                        <h3><?php
+                        <h3><?=
                             $myModel['Ntopic']
                             ?>
                         </h3>
 
-                        <p><?php
+                        <p><?=
                             $myModel['Ndes']
                             ?> </p>
                     </a>
-                    
+
                 </div>
             </div>
         </div>
