@@ -19,7 +19,7 @@ class NewsSearch extends News
     {
         return [
             [['Nid'], 'integer'],
-            [['Ntopic', 'Ndes', 'Nimg'], 'safe'],
+            [['Ntopic', 'Ndes', 'Nimg', 'Nvdo'], 'safe'],
         ];
     }
 

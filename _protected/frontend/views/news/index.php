@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <a href="#" class="thumb-cover"></a>
                     <b class="actions">
-                        <a href="#" class="btn btn-neutral btn-round btn-fill" rel="tooltip"
+                        <a href="<?= yii\helpers\Url::to(['/news/view2','id' =>$myModel['Nid']]) ?>" class="btn btn-neutral btn-round btn-fill" rel="tooltip"
                            title=""
                            data-original-title="รายละเอียด">
                             <i class="fa fa-align-left"></i>
