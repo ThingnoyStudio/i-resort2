@@ -34,14 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--        ],-->
 <!--    ]); ?>-->
 
-    <div class="tab-content gallery">
-        <div class="tab-pane active" id="room" role="tabpanel">
-            <div class="col-md-10 ml-auto mr-auto">
+
+
+
     <?php
 //    $newQuery = clone $dataProvider->query;
 //    $model = $newQuery->limit(1)->one();
     foreach( $dataProvider->models as $myModel) {
         ?>
+<!--            <div class="col-md-10 ml-auto mr-auto">-->
         <div class="col-xs-12 col-sm-6  col-md-6 col-lg-6 ">
             <div class="card" data-turbolinks="false">
                 <div class="thumbnail">
@@ -75,11 +76,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
+
         <?php
     }
     ?>
-            </div>
-        </div>
-    </div>
+
+
+
 
 </div>
