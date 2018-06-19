@@ -8,10 +8,19 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\RoomSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $p yii\data\ActiveDataProvider */
+/* @var $model2 frontend\models\Booking */
 
 $this->title = 'ห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php
+$addon = <<< HTML
+<span class="input-group-addon">
+    <i class="glyphicon glyphicon-calendar"></i>
+</span>
+HTML;
+?>
+
 <div class="room-index">
 
     <!--    <h1><= Html::encode($this->title) ?></h1>-->
@@ -174,6 +183,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             </div>
                             // ใส่ ตรงนี้
+
+<!--                            <php-->
+<!---->
+<!--                            echo '<h5><b>วันที่เริ่มต้น - สิ้นสุด</b></h5>';-->
+<!--                            $model2->Bdatein = date('Y-m-d');//ตัวแปลวันที่เริ่มต้น-->
+<!--                            $model2->Bdateout = date('Y-m-d');//ตัวแปลวันที่เข้าพัก-->
+<!--                            //    $form->field($model, 'kvdate1');-->
+<!--                            echo '<div class="input-group drp-container">';-->
+<!--                            echo DateRangePicker::widget([-->
+<!--                                    'model'=>$model2,-->
+<!--                                    'attribute' => 'datebetween',-->
+<!--                                    'useWithAddon'=>true,-->
+<!--                                    'convertFormat'=>true,-->
+<!--                                    'startAttribute' => 'Bdatein',-->
+<!--                                    'endAttribute' => 'Bdateout',-->
+<!--                                    'pluginOptions'=>[-->
+<!--                                        'locale'=>['format' => 'Y-m-d'],-->
+<!--                                    ]-->
+<!--                                ]).$addon;-->
+<!---->
+<!--                            echo '</div>';-->
+<!--                            ?>-->
+
 
                         </div>
                         <div class="modal-footer">

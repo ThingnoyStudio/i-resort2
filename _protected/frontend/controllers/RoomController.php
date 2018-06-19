@@ -52,8 +52,9 @@ class RoomController extends Controller
         if(count($data)==0){
             $p =0;
         }else{
-            foreach ($data as $item1)
-            $p =$item1['Pdistant'];
+            foreach ($data as $item1){
+            $p = $item1['Pdistant'];
+            }
 //            $p =50;
         }
 
