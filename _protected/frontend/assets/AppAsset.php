@@ -31,6 +31,7 @@ class AppAsset extends AssetBundle
         'css/bootstrap.min.css',
         'css/now-ui-kit.css',
         'css/header.css',
+        'css/profilecard.css',
         'https://fonts.googleapis.com/css?family=Montserrat:400,700,200',
         'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
         'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
