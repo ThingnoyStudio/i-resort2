@@ -29,7 +29,7 @@ class News extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Ntopic', 'Ndes', 'Nimg'], 'string'],
+            [['Ntopic', 'Ndes', 'Nimg', 'Nvdo'], 'string'],
         ];
     }
 
@@ -43,6 +43,7 @@ class News extends \yii\db\ActiveRecord
             'Ntopic' => 'หัวข้อ',
             'Ndes' => 'รายละเอียด',
             'Nimg' => 'รูปภาพ',
+            'Nvdo' => 'วิดีโอ',
         ];
     }
 

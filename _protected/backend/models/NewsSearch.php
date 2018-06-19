@@ -19,7 +19,7 @@ class NewsSearch extends News
     {
         return [
             [['Nid'], 'integer'],
-            [['Ntopic', 'Ndes', 'Nimg'], 'safe'],
+            [['Ntopic', 'Ndes', 'Nimg','Nvdo'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class NewsSearch extends News
 
         $query->andFilterWhere(['like', 'Ntopic', $this->Ntopic])
             ->andFilterWhere(['like', 'Ndes', $this->Ndes])
-            ->andFilterWhere(['like', 'Nimg', $this->Nimg]);
+            ->andFilterWhere(['like', 'Nimg', $this->Nimg])
+        ->andFilterWhere(['like', 'Nvdo', $this->Nimg]);
 
         return $dataProvider;
     }

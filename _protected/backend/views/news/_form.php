@@ -17,6 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'Ndes')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'Nimg')->fileInput() ?>
+    <?= $form->field($model, 'Nvdo')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'สร้าง' : 'แก้ไข', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
