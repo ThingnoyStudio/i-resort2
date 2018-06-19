@@ -36,11 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <br><br>
 
-                <object width="420" height="315"
-                        data="<?=
-                        $model->Nvdo;
-                        ?>">
-                </object>
+                <center>
+
+
+                <iframe width="800" height="315" src="<?=
+                $model->Nvdo;
+                ?>"
+                        frameborder="0" allow="autoplay;
+                encrypted-media" allowfullscreen>
+
+                </iframe>
+                </center>
                 <br>
 
                     <p><?=
