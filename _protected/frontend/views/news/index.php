@@ -34,6 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--        ],-->
 <!--    ]); ?>-->
 
+    <div class="tab-content gallery">
+        <div class="tab-pane active" id="room" role="tabpanel">
+            <div class="col-md-10 ml-auto mr-auto">
     <?php
 //    $newQuery = clone $dataProvider->query;
 //    $model = $newQuery->limit(1)->one();
@@ -75,5 +78,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
     }
     ?>
+            </div>
+        </div>
+    </div>
 
 </div>
