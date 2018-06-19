@@ -62,7 +62,7 @@ class NewsController extends Controller
 
     public function actionView2($id)
     {
-        return $this->render('view', [
+        return $this->render('view2', [
             'model' => $this->findModel($id),
         ]);
     }
