@@ -34,6 +34,7 @@ class AppAsset extends AssetBundle
         'https://fonts.googleapis.com/css?family=Montserrat:400,700,200',
         'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
         'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        'https://fonts.googleapis.com/icon?family=Material+Icons',
     ];
     public $js = [
         'js/core/jquery.3.2.1.min.js',

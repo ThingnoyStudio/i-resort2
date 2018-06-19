@@ -413,7 +413,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                                 </div>
 
                             </div>
-<div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
+                            <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
                                 <div class="card" data-turbolinks="false">
                                     <div class="thumbnail">
                                         <img src="<?= Yii::getAlias('@UploadsImg') . '/bg5.jpg' ?>"
@@ -462,7 +462,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                                 </div>
 
                             </div>
-<div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
+                            <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
                                 <div class="card" data-turbolinks="false">
                                     <div class="thumbnail">
                                         <img src="<?= Yii::getAlias('@UploadsImg') . '/bg5.jpg' ?>"
@@ -511,7 +511,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                                 </div>
 
                             </div>
-<div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
+                            <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
                                 <div class="card" data-turbolinks="false">
                                     <div class="thumbnail">
                                         <img src="<?= Yii::getAlias('@UploadsImg') . '/bg5.jpg' ?>"
@@ -560,7 +560,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                                 </div>
 
                             </div>
-<div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
+                            <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
                                 <div class="card" data-turbolinks="false">
                                     <div class="thumbnail">
                                         <img src="<?= Yii::getAlias('@UploadsImg') . '/bg5.jpg' ?>"
@@ -609,7 +609,7 @@ $this->title = Yii::t('app', Yii::$app->name);
                                 </div>
 
                             </div>
-<div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
+                            <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
                                 <div class="card" data-turbolinks="false">
                                     <div class="thumbnail">
                                         <img src="<?= Yii::getAlias('@UploadsImg') . '/bg5.jpg' ?>"
