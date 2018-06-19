@@ -19,23 +19,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <!--        <=  Html::a('Create Room', ['create'], ['class' => 'btn btn-success']) ?>-->
     <!--    </p>-->
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-//            'Rid',
-            'Rname:ntext',
-            'Rnumber:ntext',
-            'Rdes:ntext',
-            'Rimg:ntext',
-            'RSname',
-            'RTname',
-
-//            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+<!--    <= GridView::widget([-->
+<!--        'dataProvider' => $dataProvider,-->
+<!--        'filterModel' => $searchModel,-->
+<!--        'columns' => [-->
+<!--            ['class' => 'yii\grid\SerialColumn'],-->
+<!---->
+<!--//            'Rid',-->
+<!--            'Rname:ntext',-->
+<!--            'Rnumber:ntext',-->
+<!--            'Rdes:ntext',-->
+<!--            'Rimg:ntext',-->
+<!--            'RSname',-->
+<!--            'RTname',-->
+<!---->
+<!--//            ['class' => 'yii\grid\ActionColumn'],-->
+<!--        ],-->
+<!--    ]); ?>-->
 
 
     <div class="row">
@@ -48,14 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         <?php
-        foreach ($dataProvider->models as $key => $model) {
+        foreach ($dataProvider->models as  $model) {
             ?>
 
             <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 " data-my-order="2018-05-16 09:50:13 -0500 ">
                 <div class="card" data-turbolinks="false">
                     <div class="thumbnail" style="max-height: 232.91px">
-                        <img src="<?= Yii::getAlias('@ShowR') . print_r($model->Rimg, true); ?>"
-                             data-retina="<?= Yii::getAlias('@ShowR') . print_r($model->Rimg, true); ?>" alt="No Image">
+                        <img src="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>"
+                             data-retina="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>" alt="No Image">
 
                         <a href="#" class="thumb-cover"></a>
 
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <!--                                <i class="fa fa-laptop"></i>-->
                             <!--                            </a>-->
                             <a class="btn btn-info btn-round btn-fill" rel="tooltip" title="" data-remote="true"
-                               href="#" data-original-title="จองห้องพัก" data-toggle="modal" data-target="#<?= print_r($model->Rnumber, true); ?>">
+                               href="#" data-original-title="จองห้องพัก" data-toggle="modal" data-target="#<?= $model['Rnumber']  ?>">
                                 <i class="fa fa-shopping-cart"></i>
                             </a>
 
@@ -91,23 +91,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a href="#">
 
                             <h3><span class="badge badge-info"
-                                      style="margin-right: 4px"><?= print_r($model->Rnumber, true); ?></span><?= print_r($model->Rname, true); ?>
+                                      style="margin-right: 4px"><?=  $model['Rnumber']?></span><?=  $model['Rname']  ?>
                                 <div class="time pull-right  premium-product ">
-                                    ฿<?= print_r($model->Rname, true); ?></div>
+                                    ฿<?=  $model['Rprice']?></div>
                             </h3>
 
-                            <p><?= print_r($model->Rdes, true); ?></p>
+                            <p><?= $model['Rdes'] ?></p>
                         </a>
                         <i class="material-icons"
-                           style="top: 1px;font-size: unset;margin-right: 3px;position: relative;">local_offer</i>สวีต
-                        <span class="badge badge-primary float-right">ไม่ว่าง</span>
+                           style="top: 1px;font-size: unset;margin-right: 3px;position: relative;">local_offer</i><?=  $model['RTname'] ?>
+                        <span class="badge badge-primary float-right"><?=  $model['RSname'] ?></span>
                     </div>
                 </div>
 
             </div>
 
             <!-- Modal Core -->
-            <div class="modal fade" id="<?= print_r($model->Rnumber, true); ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            <div class="modal fade" id="<?= $model['Rnumber'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
