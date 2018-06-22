@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Pdistant')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'Ping')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'Pimg')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

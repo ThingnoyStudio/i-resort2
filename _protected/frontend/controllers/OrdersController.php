@@ -44,6 +44,17 @@ class OrdersController extends Controller
         ]);
     }
 
+
+    public function actionIndex2()
+    {
+        $searchModel = new OrdersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index2', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Orders model.
      * @param integer $id

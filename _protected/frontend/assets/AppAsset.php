@@ -42,7 +42,8 @@ class AppAsset extends AssetBundle
         'js/core/popper.min.js',
         'js/core/bootstrap.min.js',
         'js/now-ui-kit.js',
-        'js/plugins/bootstrap-switch.js'
+        'js/plugins/bootstrap-switch.js',
+        'js/plugins/bootstrap-datepicker.js',
     ];
 //    public $css = [
 //        'css/header.css',

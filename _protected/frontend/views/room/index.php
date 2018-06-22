@@ -1,26 +1,25 @@
 <?php
 
 use kartik\daterange\DateRangePicker;
+//use kartik\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RoomSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $p yii\data\ActiveDataProvider */
-/* @var $model2 frontend\models\Booking */
+
+$addon = <<< HTML
+<span class="input-group-addon">
+   <i class="material-icons">today</i>
+</span>
+HTML;
 
 $this->title = 'ห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php
-$addon = <<< HTML
-<span class="input-group-addon">
-    <i class="glyphicon glyphicon-calendar"></i>
-</span>
-HTML;
-?>
-
 <div class="room-index">
 
     <!--    <h1><= Html::encode($this->title) ?></h1>-->
@@ -62,7 +61,7 @@ HTML;
         foreach ($dataProvider->models as $model) {
             ?>
 
-            <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 " >
+            <div class="col-xs-12 col-sm-6  col-md-4 col-lg-4 ">
                 <div class="card" data-turbolinks="false">
                     <div class="thumbnail" style="max-height: 232.91px">
                         <img src="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>"
@@ -105,7 +104,8 @@ HTML;
                             <h3><span class="badge badge-info"
                                       style="margin-right: 4px"><?= $model['Rnumber'] ?></span><?= $model['Rname'] ?>
                                 <div class="time pull-right  premium-product ">
-                                    <span class="line-through " style="text-decoration: line-through;font-size: 18px;color: #777777;">
+                                    <span class="line-through "
+                                          style="text-decoration: line-through;font-size: 18px;color: #777777;">
                                         ฿<?= $model['Rprice'] ?>
                                     </span>
                                     <span class="line-through " style="color: #FF281E;">
@@ -138,21 +138,21 @@ HTML;
                                 หมายเลข<?= ' ' . $model['Rnumber'] . ' ' . $model['Rname'] ?></h4>
                         </div>
                         <div class="modal-body">
-
-
-                            <div class="col-xs-12 " >
-                                <div class="card" data-turbolinks="false">
-                                    <div class="thumbnail" style="max-height: 232.91px">
+                            <div class="col-xs-12 ">
+                                <div class="card" data-turbolinks="false" style="margin: 0px 0px 25px 0px;">
+                                    <div class="thumbnail" style="max-height: 158.91px">
                                         <img src="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>"
-                                             data-retina="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>" alt="No Image">
+                                             data-retina="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>"
+                                             alt="No Image">
 
-<!--                                        <a href="#" class="thumb-cover"></a>-->
-<!--                                        <b class="actions">-->
-<!--                                            <a class="btn btn-info btn-round btn-fill" rel="tooltip" title="" data-remote="true"-->
-<!--                                               href="#" data-original-title="จองห้องพัก" data-toggle="modal"-->
-<!--                                               data-target="#--><?//= $model['Rnumber'] ?><!--">-->
-<!--                                                <i class="fa fa-shopping-cart"></i>-->
-<!--                                            </a>-->
+                                        <!--                                        <a href="#" class="thumb-cover"></a>-->
+                                        <!--                                        <b class="actions">-->
+                                        <!--                                            <a class="btn btn-info btn-round btn-fill" rel="tooltip" title="" data-remote="true"-->
+                                        <!--                                               href="#" data-original-title="จองห้องพัก" data-toggle="modal"-->
+                                        <!--                                               data-target="#-->
+                                        <?//= $model['Rnumber'] ?><!--">-->
+                                        <!--                                                <i class="fa fa-shopping-cart"></i>-->
+                                        <!--                                            </a>-->
 
                                         </b>
 
@@ -164,7 +164,8 @@ HTML;
                                             <h3><span class="badge badge-info"
                                                       style="margin-right: 4px"><?= $model['Rnumber'] ?></span><?= $model['Rname'] ?>
                                                 <div class="time pull-right  premium-product ">
-                                    <span class="line-through " style="text-decoration: line-through;font-size: 18px;color: #777777;">
+                                    <span class="line-through "
+                                          style="text-decoration: line-through;font-size: 18px;color: #777777;">
                                         ฿<?= $model['Rprice'] ?>
                                     </span>
                                                     <span class="line-through " style="color: #FF281E;">
@@ -184,33 +185,17 @@ HTML;
                             </div>
                             // ใส่ ตรงนี้
 
-<!--                            <php-->
-<!---->
-<!--                            echo '<h5><b>วันที่เริ่มต้น - สิ้นสุด</b></h5>';-->
-<!--                            $model2->Bdatein = date('Y-m-d');//ตัวแปลวันที่เริ่มต้น-->
-<!--                            $model2->Bdateout = date('Y-m-d');//ตัวแปลวันที่เข้าพัก-->
-<!--                            //    $form->field($model, 'kvdate1');-->
-<!--                            echo '<div class="input-group drp-container">';-->
-<!--                            echo DateRangePicker::widget([-->
-<!--                                    'model'=>$model2,-->
-<!--                                    'attribute' => 'datebetween',-->
-<!--                                    'useWithAddon'=>true,-->
-<!--                                    'convertFormat'=>true,-->
-<!--                                    'startAttribute' => 'Bdatein',-->
-<!--                                    'endAttribute' => 'Bdateout',-->
-<!--                                    'pluginOptions'=>[-->
-<!--                                        'locale'=>['format' => 'Y-m-d'],-->
-<!--                                    ]-->
-<!--                                ]).$addon;-->
-<!---->
-<!--                            echo '</div>';-->
-<!--                            ?>-->
 
 
+                            <div class="col-12" style="display: flex;font-size: x-large;">
+                                <div class="col-md-6">ยอดรวมสุทธิ</div>
+                                <div class="col-md-6" style="text-align: right;color: #FF281E;font-weight: 500;">฿232</div>
+
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-info btn-simple">Save</button>
+                            <button type="button" class="btn btn-info ">Save</button>
                         </div>
                     </div>
                 </div>
@@ -222,5 +207,52 @@ HTML;
 
         <div class="clearfix"></div>
     </div>
+
+    <?php
+    $form = ActiveForm::begin();
+
+
+    echo '<div class="input-group drp-container">';
+    echo DateRangePicker::widget([
+            'name'=>'date_range_4',
+            'value'=>'01/12/2015',
+            'useWithAddon'=>true,
+            'pluginOptions'=>[
+                'singleDatePicker'=>true,
+                'showDropdowns'=>true
+            ]
+        ]) . $addon;
+    echo '</div>';
+
+    echo '<div class="input-group drp-container">';
+    echo DateRangePicker::widget([
+            'name'=>'kvdate3',
+            'value' => '2018-10-04 - 2018-11-14',
+            'useWithAddon'=>true,
+            'convertFormat'=>true,
+            'startAttribute' => 'from_date',
+            'endAttribute' => 'to_date',
+            'pluginOptions'=>[
+                'locale'=>['format' => 'Y-m-d'],
+//                'showDropdowns'=>true
+            ]
+        ]).$addon;
+    echo '</div>';
+
+//    echo DateRangePicker::widget([
+//        'model'=>$model,
+//        'attribute'=>'datetime_range',
+//        'convertFormat'=>true,
+//        'pluginOptions'=>[
+//            'timePicker'=>true,
+//            'timePickerIncrement'=>30,
+//            'locale'=>[
+//                'format'=>'Y-m-d h:i A'
+//            ]
+//        ]
+//    ]);
+
+    ActiveForm::end();
+    ?>
 
 </div>

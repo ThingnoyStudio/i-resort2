@@ -12,11 +12,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Fname')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'Fname')->textInput() ?>
 
-    <?= $form->field($model, 'Fprice')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'Fimg')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'Fprice')->textInput([
+        'type' => 'number'
+    ]) ?>
+    <?= $form->field($model, 'Fimg')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

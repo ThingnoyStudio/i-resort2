@@ -31,7 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'Fid',
             'Fname:ntext',
             'Fprice:ntext',
-            'Fimg:ntext',
+//            'Fimg:ntext',
+            [
+                'format' => 'raw',
+                'attribute' => 'Fimg',
+                'value' => Html::img(Yii::getAlias('@ShowF')  . $model->Fimg , ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+            ],
         ],
     ]) ?>
 

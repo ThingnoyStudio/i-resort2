@@ -44,6 +44,17 @@ class FoodController extends Controller
         ]);
     }
 
+    public function actionIndex2()
+    {
+        $searchModel = new FoodSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index2', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Food model.
      * @param integer $id
@@ -66,7 +77,9 @@ class FoodController extends Controller
     {
         $model = new Food();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->Fimg = $model->upload($model,'Fimg');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->Fid]);
         }
 

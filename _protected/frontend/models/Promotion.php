@@ -12,7 +12,7 @@ use Yii;
  * @property string $Pdatestart วันที่เริ่ม
  * @property string $Pdateend วันที่สิ้นสุด
  * @property string $Pdistant ส่วนลด
- * @property string $Ping รูปภาพ
+ * @property string $Pimg รูปภาพ
  */
 class Promotion extends \yii\db\ActiveRecord
 {
@@ -30,7 +30,7 @@ class Promotion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'Ping'], 'string'],
+            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'Pimg'], 'string'],
         ];
     }
 
@@ -45,7 +45,7 @@ class Promotion extends \yii\db\ActiveRecord
             'Pdatestart' => 'วันที่เริ่ม',
             'Pdateend' => 'วันที่สิ้นสุด',
             'Pdistant' => 'ส่วนลด',
-            'Ping' => 'รูปภาพ',
+            'Pimg' => 'รูปภาพ',
         ];
     }
 }

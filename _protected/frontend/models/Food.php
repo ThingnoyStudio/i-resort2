@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "food".
@@ -43,5 +44,21 @@ class Food extends \yii\db\ActiveRecord
             'Fprice' => 'ราคา',
             'Fimg' => 'รูปภาพ',
         ];
+    }
+
+    public function upload($model,$attribute)
+    {
+        $photo  = UploadedFile::getInstance($model, $attribute);
+        //$path = 'C:/xampp/htdocs/udondeliveryu3/uploads/images/Restaurantimg/';
+        $path = Yii::getAlias('@UploadFood');
+        if ($this->validate() && $photo !== null) {
+
+            // $fileName = md5($photo->baseName.time()) . '.' . $photo->extension;
+            $fileName = $photo->baseName . '.' . $photo->extension;
+            if($photo->saveAs($path.'/'.$fileName)){
+                return $fileName;
+            }
+        }
+        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
     }
 }

@@ -9,6 +9,11 @@ Yii::setAlias('@ShowU','@appRoot3/uploads/images/users/');//โชว์ user
 Yii::setAlias('@UploadRoom','@appRoot2/uploads/images/room/');//อัพ oom
 Yii::setAlias('@ShowR','@appRoot3/uploads/images/room/');//โชว์ room
 
+Yii::setAlias('@UploadFood','@appRoot2/uploads/images/food/');//อัพ food
+Yii::setAlias('@ShowF','@appRoot3/uploads/images/food/');//โชว์ food
+
+Yii::setAlias('@UploadPromotion','@appRoot2/uploads/images/promption/');//อัพ food
+Yii::setAlias('@ShowP','@appRoot3/uploads/images/promotion/');//โชว์ food
 
 Yii::setAlias('@UploadNews','@appRoot2/uploads/images/news/'); // อัพ news
 Yii::setAlias('@ShowN','@appRoot3/uploads/images/news/');//โชว์ news
