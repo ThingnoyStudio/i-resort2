@@ -18,14 +18,16 @@ $addon = <<< HTML
 </span>
 HTML;
 
-$script = <<< JS
+//$script = <<< JS
 
-$(#kvdate).change(function() {
-  alert('kk');
-});
-$(#kvdate).on('click', function() {
-  alert('kk');
-});
+// $(#kvdate).change(function() {
+//   alert('kk');
+// });
+
+// $('#kvdate').on('input', function() { 
+//     console.log("sss");
+//     $(this).val() // get the current value of the input field.
+// });
 
 //$(function() {
 //    // $('input[name="dates"]').dat/erangepicker();
@@ -41,8 +43,8 @@ $(#kvdate).on('click', function() {
 //});
 //
 //
-JS;
-$this->registerJs($script, View::POS_END, 'myOption3');
+//JS;
+//$this->registerJs($script, View::POS_END, 'myOption3');
 
 $this->title = 'ห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
@@ -230,8 +232,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?php
                                     echo '<div class="input-group">';
                                     echo DateRangePicker::widget([
-                                            'name' => 'kvdate3',
-                                            'id' => 'kvdate',
+                                            'name' => 'kvdate'.$model['Rnumber'],
+                                            'id' => 'kvdate'.$model['Rnumber'],
                                             'value' => date('d-m-Y').' - '.date('d-m-Y'),
                                             'useWithAddon' => true,
                                             'convertFormat' => true,
@@ -262,7 +264,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-info ">Save</button>
+                            <button type="button" class="btn btn-info " id="dd">Save</button>
                         </div>
                     </div>
                 </div>
