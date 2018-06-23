@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Room;
 use Yii;
 use frontend\models\Booking;
 use frontend\models\BookingSearch;
@@ -47,23 +48,24 @@ class BookingController extends Controller
 
     public function actionReportbooking()
     {
-        $searchModel = new BookingSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//        $searchModel = new BookingSearch();
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-//        $query = new Query();
-//        $query->select('*')->from('booking')
-//            ->join('INNER JOIN','room','booking.Rid = room.Rid')
-//            ->join('INNER JOIN','roomstatus','room.RSid = roomstatus.RSid')->all()
-//            ;
-//
-//        $com =$query->createCommand();
-//        $dataProvider = $com->queryAll();
+        $query = new Query();
+        $query->select('*')->from('booking')
+            ->join('INNER JOIN','room','booking.Rid = room.Rid')
+            ->join('INNER JOIN','roomstatus','room.RSid = roomstatus.RSid')->all()
+            ;
+
+        $com =$query->createCommand();
+        $dataProvider = $com->queryAll();
 
         return $this->render('reportbooking', [
 //            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
 
     public function actionIndex2()
     {
