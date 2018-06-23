@@ -3,7 +3,6 @@
 namespace backend\models;
 
 use Yii;
-use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "users".
@@ -17,6 +16,8 @@ use yii\web\UploadedFile;
  * @property int $ADid รหัสที่อยู่
  * @property int $USid สถานะผู้ใช้งาน
  * @property int $iduser
+ *
+ * @property Userstatus $uS
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -36,6 +37,7 @@ class Users extends \yii\db\ActiveRecord
         return [
             [['Ufname', 'Ulname', 'Uemail', 'Uphone', 'Uimg'], 'string'],
             [['ADid', 'USid', 'iduser'], 'integer'],
+            [['USid'], 'exist', 'skipOnError' => true, 'targetClass' => Userstatus::className(), 'targetAttribute' => ['USid' => 'USid']],
         ];
     }
 
@@ -57,19 +59,11 @@ class Users extends \yii\db\ActiveRecord
         ];
     }
 
-    public function upload($model,$attribute)
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUS()
     {
-        $photo  = UploadedFile::getInstance($model, $attribute);
-        //$path = 'C:/xampp/htdocs/udondeliveryu3/uploads/images/Restaurantimg/';
-        $path = Yii::getAlias('@UploadUser');
-        if ($this->validate() && $photo !== null) {
-
-            // $fileName = md5($photo->baseName.time()) . '.' . $photo->extension;
-            $fileName = $photo->baseName . '.' . $photo->extension;
-            if($photo->saveAs($path.'/'.$fileName)){
-                return $fileName;
-            }
-        }
-        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
+        return $this->hasOne(Userstatus::className(), ['USid' => 'USid']);
     }
 }

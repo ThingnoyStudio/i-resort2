@@ -40,4 +40,9 @@ class Userstatus extends \yii\db\ActiveRecord
             'USname' => 'ชื่อสถานะผู้ใช้งาน',
         ];
     }
+
+    public function getUsers()
+    {
+        return $this->hasOne(Users::className(), ['USid' => 'Usid']);
+    }
 }

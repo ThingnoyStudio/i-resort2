@@ -48,8 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'Uemail:ntext',
             'Uphone:ntext',
 
-            //'ADid',
-            //'USid',
+//            'USname',
+            [
+                'attribute' => 'USid',
+                'value' => 'uS.USname',
+            ],
+//            'userstatus.USname',
             //'iduser',
 
             ['class' => 'yii\grid\ActionColumn'],

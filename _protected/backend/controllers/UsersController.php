@@ -2,14 +2,12 @@
 
 namespace backend\controllers;
 
-use backend\models\AddressSearch;
 use Yii;
 use backend\models\Users;
 use backend\models\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
  * UsersController implements the CRUD actions for Users model.
@@ -54,12 +52,7 @@ class UsersController extends Controller
      */
     public function actionView($id)
     {
-        $searchModel = new AddressSearch();
-        $dataProvider = $searchModel->search($id);
-
         return $this->render('view', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
             'model' => $this->findModel($id),
         ]);
     }
@@ -73,9 +66,7 @@ class UsersController extends Controller
     {
         $model = new Users();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->Uimg = $model->upload($model,'Uimg');
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->Uid]);
         }
 
@@ -95,9 +86,7 @@ class UsersController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->Uimg = $model->upload($model,'Uimg');
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->Uid]);
         }
 
@@ -105,8 +94,6 @@ class UsersController extends Controller
             'model' => $model,
         ]);
     }
-
-
 
     /**
      * Deletes an existing Users model.
