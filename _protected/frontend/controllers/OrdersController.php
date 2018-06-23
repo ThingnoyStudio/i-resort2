@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use frontend\models\OrderdetailSearch;
+use kartik\mpdf\Pdf;
 use Mpdf\Tag\Q;
 use Yii;
 use frontend\models\Orders;
@@ -45,14 +47,45 @@ class OrdersController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionMpdfdemo1()
+    {
+        $searchModel = new OrdersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $content = $this->renderPartial('index3', [
+//            'model' => $model,
+//            'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            // etc...
+        ]);
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            'content' => $content,
+            'filename' => 'your_filename.pdf',
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            'format' => Pdf::FORMAT_A4,
+//            'format' => [100, 236],
+            'cssFile' => '@frontend/pdf.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'options' => [
+                'title' => 'Factuur',
+
+            ],
+            'methods' => [
+
+            ]
+        ]);
+
+        return $pdf->render();
+    }
 
     public function actionIndex2()
     {
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-
         return $this->render('index2', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

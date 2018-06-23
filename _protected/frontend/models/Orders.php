@@ -57,6 +57,14 @@ class Orders extends \yii\db\ActiveRecord
         return $this->hasOne(Orderdetail::className(), ['Oid' => 'Oid']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPayment()
+    {
+        return $this->hasOne(Payment::className(), ['Pid' => 'PMid']);
+    }
+
 
 
 }

@@ -10,10 +10,6 @@ use yii\grid\GridView;
 
 $this->title = 'Orders';
 ?>
-<p>
-    <?= Html::a('Print', ['mpdfdemo1'], ['class' => 'btn btn-success']) ?>
-</p>
-
 <div class="orders-index">
     <table>
         <tr>
