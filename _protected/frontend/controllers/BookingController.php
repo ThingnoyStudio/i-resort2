@@ -48,17 +48,17 @@ class BookingController extends Controller
 
     public function actionReportbooking()
     {
-//        $searchModel = new BookingSearch();
-//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new BookingSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $query = new Query();
-        $query->select('*')->from('booking')
-            ->join('INNER JOIN','room','booking.Rid = room.Rid')
-            ->join('INNER JOIN','roomstatus','room.RSid = roomstatus.RSid')->all()
-            ;
-
-        $com =$query->createCommand();
-        $dataProvider = $com->queryAll();
+//        $query = new Query();
+//        $query->select('*')->from('booking')
+//            ->join('INNER JOIN','room','booking.Rid = room.Rid')
+//            ->join('INNER JOIN','roomstatus','room.RSid = roomstatus.RSid')->all()
+//            ;
+//
+//        $com =$query->createCommand();
+//        $dataProvider = $com->queryAll();
 
         return $this->render('reportbooking', [
 //            'searchModel' => $searchModel,
