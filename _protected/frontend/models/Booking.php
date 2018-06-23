@@ -77,4 +77,12 @@ class Booking extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['Uid' => 'Uid']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPayment()
+    {
+        return $this->hasOne(Payment::className(), ['PMid' => 'PMid']);
+    }
+
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\models;
+namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Address;
+use frontend\models\Payment;
 
 /**
- * AddressSearch represents the model behind the search form of `backend\models\Address`.
+ * PaymentSearch represents the model behind the search form of `frontend\models\Payment`.
  */
-class AddressSearch extends Address
+class PaymentSearch extends Payment
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class AddressSearch extends Address
     public function rules()
     {
         return [
-            [['ADid'], 'integer'],
-            [['ADnumber', 'ADhome', 'ADsubdistrict', 'ADdistrict', 'ADprovince', 'ADzipcode'], 'safe'],
+            [['PMid'], 'integer'],
+            [['PMname'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class AddressSearch extends Address
      */
     public function search($params)
     {
-        $query = Address::find()->where('Uid ='.$params);
+        $query = Payment::find();
 
         // add conditions that should always apply here
 
@@ -59,15 +59,10 @@ class AddressSearch extends Address
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'ADid' => $this->ADid,
+            'PMid' => $this->PMid,
         ]);
 
-        $query->andFilterWhere(['like', 'ADnumber', $this->ADnumber])
-            ->andFilterWhere(['like', 'ADhome', $this->ADhome])
-            ->andFilterWhere(['like', 'ADsubdistrict', $this->ADsubdistrict])
-            ->andFilterWhere(['like', 'ADdistrict', $this->ADdistrict])
-            ->andFilterWhere(['like', 'ADprovince', $this->ADprovince])
-            ->andFilterWhere(['like', 'ADzipcode', $this->ADzipcode]);
+        $query->andFilterWhere(['like', 'PMname', $this->PMname]);
 
         return $dataProvider;
     }

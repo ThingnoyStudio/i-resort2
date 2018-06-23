@@ -68,6 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['title' => 'View user',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
+                                'idA' => 'ADid',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'update' => function ($url, $model, $key) {
