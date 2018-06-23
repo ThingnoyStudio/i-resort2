@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\Address;
+use backend\models\AddressSearch;
 use Yii;
 use backend\models\Users;
 use backend\models\UsersSearch;
@@ -52,8 +54,11 @@ class UsersController extends Controller
      */
     public function actionView($id)
     {
+        $searchModel = new AddressSearch();
+        $dataProvider = $searchModel->search($id);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
         ]);
     }
 

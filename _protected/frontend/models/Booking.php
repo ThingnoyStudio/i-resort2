@@ -17,6 +17,7 @@ use Yii;
  * @property string $Bdateout วันที่เช็คเอ้า
  * @property string $PMid การชำระเงิน
  * @property string $datebetween ช่วงเวลา
+
  */
 class Booking extends \yii\db\ActiveRecord
 {
@@ -54,7 +55,26 @@ class Booking extends \yii\db\ActiveRecord
             'Bdatein' => 'วันที่เช็คอิน',
             'Bdateout' => 'วันที่เช็คเอ้า',
             'PMid' => 'การชำระเงิน',
-            'datebetween' => 'ช่วงเวลา'
+            'datebetween' => 'ช่วงเวลา',
+            'room.Rname' => 'ชื่อห้อง',
         ];
     }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRoom()
+    {
+        return $this->hasOne(Room::className(), ['Rid' => 'Rid']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasOne(Users::className(), ['Uid' => 'Uid']);
+    }
+
 }

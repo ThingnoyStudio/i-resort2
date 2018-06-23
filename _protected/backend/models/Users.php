@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -66,4 +67,13 @@ class Users extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Userstatus::className(), ['USid' => 'USid']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'iduser']);
+    }
+
 }

@@ -29,9 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'Uid',
+//            'Uid',
             'Ufname:ntext',
             'Ulname:ntext',
+            'user.username',
             'Uemail:ntext',
             'Uphone:ntext',
 //            'Uimg:ntext',
@@ -49,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+//        'filterModel' => $searchModel,
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'],
 
