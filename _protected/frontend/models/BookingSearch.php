@@ -19,7 +19,7 @@ class BookingSearch extends Booking
     {
         return [
             [['Bid'], 'integer'],
-            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday', 'Bdatein', 'Bdateout', 'PMid'], 'safe'],
+            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday', 'Bdatein', 'Bdateout', 'PMid','Btotal'], 'safe'],
         ];
     }
 
@@ -69,7 +69,8 @@ class BookingSearch extends Booking
             ->andFilterWhere(['like', 'Bnday', $this->Bnday])
             ->andFilterWhere(['like', 'Bdatein', $this->Bdatein])
             ->andFilterWhere(['like', 'Bdateout', $this->Bdateout])
-            ->andFilterWhere(['like', 'PMid', $this->PMid]);
+            ->andFilterWhere(['like', 'PMid', $this->PMid])
+        ->andFilterWhere(['like', 'Btotal', $this->Btotal]);
 
         return $dataProvider;
     }

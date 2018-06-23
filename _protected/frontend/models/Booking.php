@@ -17,6 +17,7 @@ use Yii;
  * @property string $Bdateout วันที่เช็คเอ้า
  * @property string $PMid การชำระเงิน
  * @property string $datebetween ช่วงเวลา
+* @property string $Btotal ราคาสุทธิ
 
  */
 class Booking extends \yii\db\ActiveRecord
@@ -35,7 +36,7 @@ class Booking extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween'], 'string'],
+            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween','Btotal'], 'string'],
             [['Bdatein', 'Bdateout'], 'safe'],
         ];
     }
@@ -55,6 +56,7 @@ class Booking extends \yii\db\ActiveRecord
             'Bdatein' => 'วันที่เช็คอิน',
             'Bdateout' => 'วันที่เช็คเอ้า',
             'PMid' => 'การชำระเงิน',
+            'Btotal' => 'ราคาสุทธิ',
             'datebetween' => 'ช่วงเวลา',
             'room.Rname' => 'ชื่อห้อง',
         ];
