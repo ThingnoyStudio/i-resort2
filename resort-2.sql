@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2018 at 11:54 AM
+-- Generation Time: Jun 23, 2018 at 10:57 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -35,15 +35,16 @@ CREATE TABLE `address` (
   `ADsubdistrict` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ตำบล',
   `ADdistrict` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'อำเภอ',
   `ADprovince` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'จังหวัด',
-  `ADzipcode` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'รหัสไปรษณี'
+  `ADzipcode` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'รหัสไปรษณี',
+  `Uid` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 --
 -- Dumping data for table `address`
 --
 
-INSERT INTO `address` (`ADid`, `ADnumber`, `ADhome`, `ADsubdistrict`, `ADdistrict`, `ADprovince`, `ADzipcode`) VALUES
-(1, '111', 'ghghg', 'bfghgfhg', 'gbfgfg', 'fgbfgbfg', '14242');
+INSERT INTO `address` (`ADid`, `ADnumber`, `ADhome`, `ADsubdistrict`, `ADdistrict`, `ADprovince`, `ADzipcode`, `Uid`) VALUES
+(1, '111', 'ghghg', 'bfghgfhg', 'gbfgfg', 'fgbfgbfg', '14242', '6');
 
 -- --------------------------------------------------------
 
@@ -185,10 +186,19 @@ CREATE TABLE `booking` (
   `Uid` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ผู้ใช้งาน',
   `ADid` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ที่อยู่',
   `Bnday` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'จำนวนวัน',
-  `Bdatein` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'วันที่เช็คอิน',
-  `Bdateout` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'วันที่เช็คเอ้า',
-  `Pid` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'การชำระเงิน'
+  `Bdatein` date DEFAULT NULL COMMENT 'วันที่เช็คอิน',
+  `Bdateout` date DEFAULT NULL COMMENT 'วันที่เช็คเอ้า',
+  `PMid` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'การชำระเงิน',
+  `datebetween` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ช่วงเวลา',
+  `Btotal` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ราคาสุทธิ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+--
+-- Dumping data for table `booking`
+--
+
+INSERT INTO `booking` (`Bid`, `Bdate`, `Rid`, `Uid`, `ADid`, `Bnday`, `Bdatein`, `Bdateout`, `PMid`, `datebetween`, `Btotal`) VALUES
+(1, '2018-06-23', '1', '6', NULL, '6', '2018-06-23', '2018-06-28', '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -202,6 +212,14 @@ CREATE TABLE `food` (
   `Fprice` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ราคา',
   `Fimg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'รูปภาพ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+--
+-- Dumping data for table `food`
+--
+
+INSERT INTO `food` (`Fid`, `Fname`, `Fprice`, `Fimg`) VALUES
+(1, 'ข้าวผัด', '30', 'download (1).jpg'),
+(2, 'ส้มตำ', '34', 'DSC_8155.jpg');
 
 -- --------------------------------------------------------
 
@@ -236,7 +254,7 @@ CREATE TABLE `news` (
   `Ntopic` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'หัวข้อ',
   `Ndes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'รายละเอียด',
   `Nimg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'รูปภาพ',
-  `Nvdo` text COLLATE utf16_unicode_ci COMMENT 'วิดิโอ'
+  `Nvdo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'วิดิโอ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 --
@@ -244,8 +262,8 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`Nid`, `Ntopic`, `Ndes`, `Nimg`, `Nvdo`) VALUES
-(1, 'ลด 20 %', 'ลด 20 % ในวันที่ 14 /6 /61', '1000.jpg', ''),
-(2, 'เทสวิดีโอ', 'dbbdbdfb', 'images.jpg', 'vdssdf');
+(1, 'ลด 20 %', 'ลด 20 % ในวันที่ 14 /6 /61', '1000.jpg', 'https://www.youtube.com/embed/awtuTjNmYkI'),
+(2, 'เทสวิดีโอ', 'dbbdbdfb', 'images.jpg', 'https://www.youtube.com/embed/awtuTjNmYkI');
 
 -- --------------------------------------------------------
 
@@ -259,6 +277,14 @@ CREATE TABLE `orderdetail` (
   `Oid` int(11) DEFAULT NULL COMMENT 'รหัสออเดอร์'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
+--
+-- Dumping data for table `orderdetail`
+--
+
+INSERT INTO `orderdetail` (`ODid`, `Fid`, `Oid`) VALUES
+(1, 1, 1),
+(2, 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -269,8 +295,16 @@ CREATE TABLE `orders` (
   `Oid` int(11) NOT NULL COMMENT 'รหัส',
   `Odate` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'วันที่',
   `Optotal` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ราคารวม',
-  `Pid` int(11) DEFAULT NULL COMMENT 'การชำระเงิน'
+  `Pid` int(11) DEFAULT NULL COMMENT 'การชำระเงิน',
+  `Bid` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'การจอง'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`Oid`, `Odate`, `Optotal`, `Pid`, `Bid`) VALUES
+(1, '2018-06-14', '500', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -283,6 +317,13 @@ CREATE TABLE `payment` (
   `PMname` text COLLATE utf16_unicode_ci COMMENT 'ประเภทการชำระเงิน'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`PMid`, `PMname`) VALUES
+(1, 'บัตรเครดิต/เดรบิต');
+
 -- --------------------------------------------------------
 
 --
@@ -292,11 +333,19 @@ CREATE TABLE `payment` (
 CREATE TABLE `promotion` (
   `Pid` int(11) NOT NULL COMMENT 'รหัส',
   `Pname` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ชื่อโปรโมชั่น',
-  `Pdatestart` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'วันที่เริ่ม',
-  `Pdateend` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'วันที่สิ้นสุด',
-  `Pdistant` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ส่วนลด',
+  `Pdatestart` text COLLATE utf16_unicode_ci COMMENT 'วันที่เริ่ม',
+  `Pdateend` text COLLATE utf16_unicode_ci COMMENT 'วันที่สิ้นสุด',
+  `Pdistant` int(11) DEFAULT NULL COMMENT 'ส่วนลด',
   `Ping` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'รูปภาพ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+
+--
+-- Dumping data for table `promotion`
+--
+
+INSERT INTO `promotion` (`Pid`, `Pname`, `Pdatestart`, `Pdateend`, `Pdistant`, `Ping`) VALUES
+(1, 'อกดอดกอกดอกดอกดเเเ', '2018-06-14', '2018-06-30', 50, NULL),
+(2, 'hiuhiuhihikkjjojklkj', '2018-06-14', '2018-06-30', 50, NULL);
 
 -- --------------------------------------------------------
 
@@ -322,8 +371,8 @@ CREATE TABLE `room` (
 INSERT INTO `room` (`Rid`, `Rname`, `Rnumber`, `Rprice`, `Rdes`, `Rimg`, `RSid`, `RTid`) VALUES
 (1, 'สวิท', '1', '1500', 'jghmhmnghnhg', 'download.jpg', 1, 1),
 (2, 'ไม่สวิท', '2', '2000', 'เ้เ่เ้่เ้่เ้่ด้เ่tjhjfgjdjd', 'hgnghnghng.jpg', 1, 1),
-(3, 'ดอกไม้', '3', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 1, 2),
-(4, 'ดอกไม้บาน', '4', '2500', 'เ้ท้่ทเ่้ท่้ท้่ทเ่ทเ่', 'hjh.jpg', 1, 2),
+(3, 'ดอกไม้', '3', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 2, 2),
+(4, 'ดอกไม้บาน', '4', '2500', 'เ้ท้่ทเ่้ท่้ท้่ทเ่ทเ่', 'hjh.jpg', 3, 2),
 (5, 'ดอกไม้บานมาก', '5', '3000', 'เืเืเ้ื้ื้พื้ดืbbnngfnjnhjmg', 'images.jpg', 1, 3);
 
 -- --------------------------------------------------------
@@ -386,11 +435,14 @@ CREATE TABLE `session` (
 --
 
 INSERT INTO `session` (`id`, `expire`, `data`) VALUES
+('0gooouus49p2b941jgpb40utfd', 1529731212, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b),
 ('0qgkulmaieitufg3b4ajj8nic7', 1529288901, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b),
+('2urc7ukugqaj9q8vonf4s85063', 1529422602, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a383b),
+('5cq8fjsng2tf7j1j5flrcsi7ee', 1529745054, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a383b),
 ('9v3j3t9duivnbio90p1000fgba', 1529302385, 0x5f5f666c6173687c613a303a7b7d),
-('i8t8sr2p28ig9hlebsrsht1k26', 1529402466, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b),
-('m5br4e7fik9tb8pge1ossp88ur', 1529403463, 0x5f5f666c6173687c613a303a7b7d),
+('o657ogqtqs4bsalag7p9p5q7su', 1529417094, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a383b),
 ('ohvqa5pjgbbngbd9o2vqoe4b20', 1529308544, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b),
+('opne8rs1rjec7nrotggt9qjk97', 1529417350, 0x5f5f666c6173687c613a303a7b7d),
 ('s2cvqpd10su19lipekp8l3h4ph', 1529385202, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a313b);
 
 -- --------------------------------------------------------
@@ -445,10 +497,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Uid`, `Ufname`, `Ulname`, `Uemail`, `Uphone`, `Uimg`, `ADid`, `USid`, `iduser`) VALUES
-(1, 'nopparut', 'yasataro', 'noppakit15@gmail.com', '0821034148', 'man.png', 1, 1, NULL),
-(6, 'อัยการ', 'อัย', 'jfjfgj@gmail.com', '025785963', 'marc.jpg', NULL, 2, 6),
+(6, 'อัยการ', 'อัย', 'jfjfgj@gmail.com', '025785963', 'marc.jpg', 1, 1, 6),
 (7, 'ใจดี', 'โคตรๆ', 'f@gmail.com', '0814586952', 'tim_80x80.png', NULL, 6, 7),
-(8, 'po', 'po', 'po15@gmail.com', '02457787545', 'อูจิน1.jpg', NULL, 5, 8);
+(8, 'po', 'po', 'po15@gmail.com', '02457787545', 'อูจิน1.jpg', NULL, 2, 8);
 
 -- --------------------------------------------------------
 
@@ -602,7 +653,8 @@ ALTER TABLE `user`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`Uid`);
+  ADD PRIMARY KEY (`Uid`),
+  ADD KEY `USid` (`USid`);
 
 --
 -- Indexes for table `userstatus`
@@ -628,12 +680,12 @@ ALTER TABLE `article`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `Bid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส';
+  MODIFY `Bid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `Fid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส';
+  MODIFY `Fid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `news`
 --
@@ -643,22 +695,22 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `orderdetail`
 --
 ALTER TABLE `orderdetail`
-  MODIFY `ODid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส';
+  MODIFY `ODid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `Oid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส';
+  MODIFY `Oid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `PMid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส';
+  MODIFY `PMid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `promotion`
 --
 ALTER TABLE `promotion`
-  MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส';
+  MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `room`
 --
@@ -717,6 +769,12 @@ ALTER TABLE `auth_item`
 ALTER TABLE `auth_item_child`
   ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`USid`) REFERENCES `userstatus` (`USid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

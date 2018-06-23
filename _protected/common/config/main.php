@@ -5,9 +5,9 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
 
-        'formatter' =>[
-          'class' =>'yii\i18n\Formatter',
-            'dateFormat' =>'php:Y-m-d',
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'dateFormat' => 'php:Y-m-d',
             'datetimeFormat' => 'php:d/m/Y H:i:s',
             'timeFormat' => 'php:H:i:s',
             'timeZone' => 'Asia/Bangkok',
@@ -20,6 +20,15 @@ return [
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [], // do not use yii default one
                 ],
+
+
+//                'yii\web\JqueryAsset' => [
+//                    'sourcePath' => '@webroot/@themes/js/core',
+//                    'js' => ['jquery.3.2.1.min.js']
+////                    'depends' => '@themes/js/core/jquery.3.2.1.min.js',
+//                ],
+
+
                 // // use bootstrap js from CDN
                 // 'yii\bootstrap\BootstrapPluginAsset' => [
                 //     'sourcePath' => null,   // do not use file from our server
@@ -27,12 +36,15 @@ return [
                 //         'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js']
                 // ],
                 // // use jquery from CDN
-                // 'yii\web\JqueryAsset' => [
-                //     'sourcePath' => null,   // do not use file from our server
-                //     'js' => [
-                //         'ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js',
-                //     ]
-                // ],
+//                'yii\web\JqueryAsset' => [
+//                    'sourcePath' => null,   // do not use file from our server
+//                    'js' => [
+////                         'ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js',
+////                        'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
+//                        '/i-resort2/themes/nowui/js/core/jquery.3.2.1.min.js',
+//
+//                    ]
+//                ],
             ],
         ],
         'cache' => [

@@ -61,52 +61,53 @@ use yii\helpers\Html;
 
                 <?php
                 if (Yii::$app->user->isGuest) {
-                ?>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="หน้าหลัก" data-placement="bottom"
-                       href="<?= yii\helpers\Url::to(['/site/index']) ?>"
-                       target="">
-                        <i class="material-icons">home</i>
-                        <p class="d-lg-none d-xl-none">หน้าหลัก</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="จองห้องพัก" data-placement="bottom"
-                       href="<?= yii\helpers\Url::to(['/room/index']) ?>"
-                       target="">
-                        <i class="material-icons">hotel</i>
-                        <p class="d-lg-none d-xl-none">ห้องพัก</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="สั่งอาหาร" data-placement="bottom"
-                       href="<?= yii\helpers\Url::to(['/food/index2']) ?>"
-                       target="">
-                        <i class="material-icons">room_service</i>
-                        <p class="d-lg-none d-xl-none">อาหาร</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="ข่าวสารเกี่ยวกับ อัยรีสอร์ท" data-placement="bottom"
-                       href="<?= yii\helpers\Url::to(['/news/index']) ?>"
-                       target="">
-                        <i class="material-icons">library_books</i>
-                        <p class="d-lg-none d-xl-none">ข่าวสาร</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="โปรโมชั่น" data-placement="bottom"
-                       href="<?= yii\helpers\Url::to(['/promotion/index2']) ?>"
-                       target="">
-                        <i class="material-icons">notifications</i>
-                        <p class="d-lg-none d-xl-none">โปรโมชั่น</p>
-                    </a>
-                </li>
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="หน้าหลัก" data-placement="bottom"
+                           href="<?= yii\helpers\Url::to(['/site/index']) ?>"
+                           target="">
+                            <i class="material-icons">home</i>
+                            <p class="d-lg-none d-xl-none">หน้าหลัก</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="จองห้องพัก" data-placement="bottom"
+                           href="<?= yii\helpers\Url::to(['/room/index']) ?>"
+                           target="">
+                            <i class="material-icons">hotel</i>
+                            <p class="d-lg-none d-xl-none">ห้องพัก</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="สั่งอาหาร" data-placement="bottom"
+                           href="<?= yii\helpers\Url::to(['/food/index2']) ?>"
+                           target="">
+                            <i class="material-icons">room_service</i>
+                            <p class="d-lg-none d-xl-none">อาหาร</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="ข่าวสารเกี่ยวกับ อัยรีสอร์ท" data-placement="bottom"
+                           href="<?= yii\helpers\Url::to(['/news/index']) ?>"
+                           target="">
+                            <i class="material-icons">library_books</i>
+                            <p class="d-lg-none d-xl-none">ข่าวสาร</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="โปรโมชั่น" data-placement="bottom"
+                           href="<?= yii\helpers\Url::to(['/promotion/index2']) ?>"
+                           target="">
+                            <i class="material-icons">notifications</i>
+                            <p class="d-lg-none d-xl-none">โปรโมชั่น</p>
+                        </a>
+                    </li>
                     <?php
                 } else {
                     $Usatatus = Users::findOne(Yii::$app->user->id);
-                    if ( $Usatatus->USid == 1) {
-                    ?>
+//                    echo print_r($Usatatus->Uemail);
+                    if ($Usatatus->USid == 1) {
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="หน้าหลัก" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/site/index']) ?>"
@@ -132,7 +133,8 @@ use yii\helpers\Html;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" rel="tooltip" title="ข่าวสารเกี่ยวกับ อัยรีสอร์ท" data-placement="bottom"
+                            <a class="nav-link" rel="tooltip" title="ข่าวสารเกี่ยวกับ อัยรีสอร์ท"
+                               data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/news/index']) ?>"
                                target="">
                                 <i class="material-icons">library_books</i>
@@ -147,17 +149,17 @@ use yii\helpers\Html;
                                 <p class="d-lg-none d-xl-none">โปรโมชั่น</p>
                             </a>
                         </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="ประวัติการทำรายการ" data-placement="bottom"
-                       href="<?= yii\helpers\Url::to(['/promotion/index']) ?>"
-                       target="">
-                        <i class="material-icons">assignment</i>
-                        <p class="d-lg-none d-xl-none">ประวัติการทำรายการ</p>
-                    </a>
-                </li>
-                <?php
-                } else if ( $Usatatus->USid == 2){
-                ?>
+                        <li class="nav-item">
+                            <a class="nav-link" rel="tooltip" title="ประวัติการทำรายการ" data-placement="bottom"
+                               href="<?= yii\helpers\Url::to(['/promotion/index']) ?>"
+                               target="">
+                                <i class="material-icons">assignment</i>
+                                <p class="d-lg-none d-xl-none">ประวัติการทำรายการ</p>
+                            </a>
+                        </li>
+                        <?php
+                    } else if ($Usatatus->USid == 2) {
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="รายงานการเข้าพัก" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/booking/reportbooking']) ?>"
@@ -174,9 +176,9 @@ use yii\helpers\Html;
                                 <p class="d-lg-none d-xl-none">รายงานการสั่งซื้ออาหาร</p>
                             </a>
                         </li>
-                <?php
-                }else if ( $Usatatus->USid == 3){
-                ?>
+                        <?php
+                    } else if ($Usatatus->USid == 3) {
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="ข้อมูลลูกค้า" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/users/index']) ?>"
@@ -201,9 +203,9 @@ use yii\helpers\Html;
                                 <p class="d-lg-none d-xl-none">ห้องพัก</p>
                             </a>
                         </li>
-                <?php
-                }else if ( $Usatatus->USid == 4){
-                ?>
+                        <?php
+                    } else if ($Usatatus->USid == 4) {
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="ห้องพัก" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/room/index']) ?>"
@@ -212,9 +214,9 @@ use yii\helpers\Html;
                                 <p class="d-lg-none d-xl-none">ห้องพัก</p>
                             </a>
                         </li>
-                <?php
-                }else if ( $Usatatus->USid == 5){
-                ?>
+                        <?php
+                    } else if ($Usatatus->USid == 5) {
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="จัดการข้อมูลอาหาร" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/food/index']) ?>"
@@ -231,9 +233,9 @@ use yii\helpers\Html;
                                 <p class="d-lg-none d-xl-none">การสั่งซื้อ</p>
                             </a>
                         </li>
-                <?php
-                }else{
-                ?>
+                        <?php
+                    } else {
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="จัดการห้องพัก" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/room/index']) ?>"
@@ -242,10 +244,10 @@ use yii\helpers\Html;
                                 <p class="d-lg-none d-xl-none">จัดการห้องพัก</p>
                             </a>
                         </li>
-                <?php
-                } //else
-                ?>
-                <?php
+                        <?php
+                    } //else
+                    ?>
+                    <?php
                 } //else
                 ?>
 

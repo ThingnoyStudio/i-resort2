@@ -4,6 +4,7 @@ use kartik\daterange\DateRangePicker;
 //use kartik\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -12,10 +13,36 @@ use yii\widgets\ActiveForm;
 /* @var $p yii\data\ActiveDataProvider */
 
 $addon = <<< HTML
-<span class="input-group-addon">
-   <i class="material-icons">today</i>
+<span class="input-group-addon" style="padding: 10px 18px 10px 0;">
+    <i class="material-icons">today</i>
 </span>
 HTML;
+
+$script = <<< JS
+
+$(#kvdate).change(function() {
+  alert('kk');
+});
+$(#kvdate).on('click', function() {
+  alert('kk');
+});
+
+//$(function() {
+//    // $('input[name="dates"]').dat/erangepicker();
+//
+//    $('input[name="dates"]').daterangepicker({
+//    "startDate": "01/01/2018",
+//    "endDate": "04/01/2018",
+//    "opens": "center",
+//    "drops": "up"
+//}, function(start, end, label) {
+//  console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+//});
+//});
+//
+//
+JS;
+$this->registerJs($script, View::POS_END, 'myOption3');
 
 $this->title = 'ห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
@@ -183,13 +210,53 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                             </div>
-                            // ใส่ ตรงนี้
+<!--                            // ใส่ ตรงนี้-->
+
+<!--                            <div class="col-sm-12">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input type="text" class="form-control" name="dates" placeholder="Right Nucleo Icon">-->
+<!--                                    <span class="input-group-addon">-->
+<!--                                        <i class="material-icons">today</i>-->
+<!--<!--                                        <i class="now-ui-icons users_single-02"></i>-->
+<!--                                    </span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <input type="text" id="demo" name="dates" class="form-control">-->
+
+                            <div class="col-12" style="display: flex;">
+                                <div class="col-5"><label for="kvdate3" style="font-size: large">ช่วงวันที่เข้าพัก</label></div>
+                                <div class="col-7">
+                                    <?php
+                                    echo '<div class="input-group">';
+                                    echo DateRangePicker::widget([
+                                            'name' => 'kvdate3',
+                                            'id' => 'kvdate',
+                                            'value' => date('d-m-Y').' - '.date('d-m-Y'),
+                                            'useWithAddon' => true,
+                                            'convertFormat' => true,
+                                            'language'=>'th',
+                                            'startAttribute' => 'from_date',
+                                            'endAttribute' => 'to_date',
+                                            'pluginOptions' => [
+                                                'locale' => ['format' => 'd-m-Y'],
+                                                'opens' => 'center',
+                                                'drops' => 'up',
+                                                'minDate' => date('d-m-Y'),
+                                            ]
+                                        ]) . $addon;
+                                    echo '</div>';
+                                    ?>
+                                </div>
+
+                            </div>
 
 
 
                             <div class="col-12" style="display: flex;font-size: x-large;">
                                 <div class="col-md-6">ยอดรวมสุทธิ</div>
-                                <div class="col-md-6" style="text-align: right;color: #FF281E;font-weight: 500;">฿232</div>
+                                <div class="col-md-6" style="text-align: right;color: #FF281E;font-weight: 500;">฿232
+                                </div>
 
                             </div>
                         </div>
@@ -208,51 +275,5 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="clearfix"></div>
     </div>
 
-    <?php
-    $form = ActiveForm::begin();
-
-
-    echo '<div class="input-group drp-container">';
-    echo DateRangePicker::widget([
-            'name'=>'date_range_4',
-            'value'=>'01/12/2015',
-            'useWithAddon'=>true,
-            'pluginOptions'=>[
-                'singleDatePicker'=>true,
-                'showDropdowns'=>true
-            ]
-        ]) . $addon;
-    echo '</div>';
-
-    echo '<div class="input-group drp-container">';
-    echo DateRangePicker::widget([
-            'name'=>'kvdate3',
-            'value' => '2018-10-04 - 2018-11-14',
-            'useWithAddon'=>true,
-            'convertFormat'=>true,
-            'startAttribute' => 'from_date',
-            'endAttribute' => 'to_date',
-            'pluginOptions'=>[
-                'locale'=>['format' => 'Y-m-d'],
-//                'showDropdowns'=>true
-            ]
-        ]).$addon;
-    echo '</div>';
-
-//    echo DateRangePicker::widget([
-//        'model'=>$model,
-//        'attribute'=>'datetime_range',
-//        'convertFormat'=>true,
-//        'pluginOptions'=>[
-//            'timePicker'=>true,
-//            'timePickerIncrement'=>30,
-//            'locale'=>[
-//                'format'=>'Y-m-d h:i A'
-//            ]
-//        ]
-//    ]);
-
-    ActiveForm::end();
-    ?>
 
 </div>
