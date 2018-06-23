@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Optotal:ntext',
             'Pid',
 
+
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

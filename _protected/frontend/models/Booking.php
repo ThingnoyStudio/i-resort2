@@ -19,6 +19,7 @@ use Yii;
  * @property string $datebetween ช่วงเวลา
 * @property string $Btotal ราคาสุทธิ
 
+
  */
 class Booking extends \yii\db\ActiveRecord
 {
@@ -57,6 +58,7 @@ class Booking extends \yii\db\ActiveRecord
             'Bdateout' => 'วันที่เช็คเอ้า',
             'PMid' => 'การชำระเงิน',
             'Btotal' => 'ราคาสุทธิ',
+
             'datebetween' => 'ช่วงเวลา',
             'room.Rname' => 'ชื่อห้อง',
         ];

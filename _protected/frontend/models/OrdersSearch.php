@@ -19,7 +19,7 @@ class OrdersSearch extends Orders
     {
         return [
             [['Oid', 'Pid'], 'integer'],
-            [['Odate', 'Optotal'], 'safe'],
+            [['Odate', 'Optotal','Bid'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class OrdersSearch extends Orders
         ]);
 
         $query->andFilterWhere(['like', 'Odate', $this->Odate])
-            ->andFilterWhere(['like', 'Optotal', $this->Optotal]);
+            ->andFilterWhere(['like', 'Optotal', $this->Optotal])
+            ->andFilterWhere(['like', 'Bid', $this->Bid]);
 
         return $dataProvider;
     }

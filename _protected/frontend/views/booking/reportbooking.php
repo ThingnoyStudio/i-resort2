@@ -16,7 +16,6 @@ $this->title = 'Bookings';
     <h1>รายงานการเข้าพัก</h1>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-
         'columns' => [
             'Bid',
             'Bdate:ntext',

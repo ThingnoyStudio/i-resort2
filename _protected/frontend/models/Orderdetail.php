@@ -42,4 +42,12 @@ class Orderdetail extends \yii\db\ActiveRecord
             'Oid' => 'รหัสออเดอร์',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFood()
+    {
+        return $this->hasOne(Food::className(), ['Fid' => 'Fid']);
+    }
 }

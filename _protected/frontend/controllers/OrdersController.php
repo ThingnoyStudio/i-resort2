@@ -2,9 +2,11 @@
 
 namespace frontend\controllers;
 
+use Mpdf\Tag\Q;
 use Yii;
 use frontend\models\Orders;
 use frontend\models\OrdersSearch;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -49,6 +51,7 @@ class OrdersController extends Controller
     {
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
 
         return $this->render('index2', [
             'searchModel' => $searchModel,
