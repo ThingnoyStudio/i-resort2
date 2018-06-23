@@ -49,7 +49,7 @@ class Booking extends \yii\db\ActiveRecord
         return [
             'Bid' => 'รหัส',
             'Bdate' => 'วันที่จอง',
-            'Rid' => 'หมายเลขห้อง',
+            'Rid' => 'เลขห้อง',
             'Uid' => 'ผู้ใช้งาน',
             'ADid' => 'ที่อยู่',
             'Bnday' => 'จำนวนวัน',
