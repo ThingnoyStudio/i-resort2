@@ -10,43 +10,42 @@ use yii\grid\GridView;
 $this->title = 'Bookings';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-<p>
-    <?= Html::a('Print', ['mpdfdemo1'], ['class' => 'btn btn-success']) ?>
-</p>
+
 <div class="booking-index" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:height="http://www.w3.org/1999/xhtml">
 
+    <table>
+        <tr>
+            <td>
+                <?=Html::img(Yii::getAlias('@HeaderIcon'), ['width' => 120])?>
+            </td>
+            <td>
+                <h4>I-Resort</h4>
+                <strong><i> มหาวิทยาลัยราชภัฎอุดระานี</i></strong><br />
+                <small>Email : systemudon@gmail.com Tel : 0123456789</small>
+                <h3>รายงานการเข้าพัก</h3>
+            </td>
+        </tr>
+    </table>
 
 
-    <h1>รายงานการเข้าพัก</h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+   
 
-    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-//        'filterModel' => $searchModel,
         'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
-
-            'Bid',
             'Bdate:ntext',
             'Rid:ntext',
             'room.Rname',
-//            'Uid',
             'users.Ufname:ntext',
             'users.Ulname:ntext',
-//            'ADid:ntext',
             'Bnday:ntext',
             'Bdatein:ntext',
             'Bdateout:ntext',
-//            'PMid:ntext',
             'payment.PMname',
             'Btotal',
-
         ],
     ]); ?>
-
-
 
 
 

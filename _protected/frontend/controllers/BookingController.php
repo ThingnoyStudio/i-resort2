@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use frontend\models\Room;
+use kartik\mpdf\Pdf;
 use Yii;
 use frontend\models\Booking;
 use frontend\models\BookingSearch;
@@ -51,19 +52,45 @@ class BookingController extends Controller
         $searchModel = new BookingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-//        $query = new Query();
-//        $query->select('*')->from('booking')
-//            ->join('INNER JOIN','room','booking.Rid = room.Rid')
-//            ->join('INNER JOIN','roomstatus','room.RSid = roomstatus.RSid')->all()
-//            ;
-//
-//        $com =$query->createCommand();
-//        $dataProvider = $com->queryAll();
-
         return $this->render('reportbooking', [
 //            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionMpdfdemo1()
+    {
+        $searchModel = new BookingSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $content = $this->renderPartial('reportbooking2', [
+//            'model' => $model,
+//            'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            // etc...
+        ]);
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            'content' => $content,
+            'filename' => 'your_filename.pdf',
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            'format' => Pdf::FORMAT_A4,
+//            'format' => [100, 236],
+            'cssFile' => '@frontend/pdf.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'options' => [
+                'title' => 'Factuur',
+
+            ],
+            'methods' => [
+
+            ]
+        ]);
+
+        return $pdf->render();
     }
 
 
