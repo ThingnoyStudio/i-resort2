@@ -20,7 +20,7 @@ $this->title = 'Bookings';
             </td>
             <td>
                 <h4>I-Resort</h4>
-                <strong><i> มหาวิทยาลัยราชภัฎอุดระานี</i></strong><br />
+                <strong><i> มหาวิทยาลัยราชภัฎอุดรธานี</i></strong><br />
                 <small>Email : systemudon@gmail.com Tel : 0123456789</small>
                 <h3>รายงานการเข้าพัก</h3>
             </td>

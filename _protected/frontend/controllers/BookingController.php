@@ -140,11 +140,12 @@ class BookingController extends Controller
             $model->Rimg = $model->upload($model,'Rimg');
             $model->save();
 
-//            $searchModel = new BookingSearch();
-//            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $searchModel = new BookingSearch();
+            $dataProvider = $searchModel->search($id2);
 
             $content = $this->renderPartial('bilout', [
-                'model' => $this->findModel3($id2),
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
             ]);
 
             $pdf = new Pdf([
@@ -153,8 +154,8 @@ class BookingController extends Controller
                 'filename' => 'your_filename.pdf',
                 'orientation' => Pdf::ORIENT_PORTRAIT,
                 'destination' => Pdf::DEST_BROWSER,
-                'format' => Pdf::FORMAT_A4,
-//            'format' => [100, 236],
+//                'format' => Pdf::FORMAT_A4,
+            'format' => [100, 236],
                 'cssFile' => '@frontend/pdf.css',
                 'cssInline' => '.kv-heading-1{font-size:18px}',
                 'options' => [
@@ -282,9 +283,10 @@ class BookingController extends Controller
 
     protected function findModel3($id)
     {
-        $model2 = Booking::find()
-            ->join('INNER JOIN','room','room.Rid = booking.Rid')
-            ->where('booking.Bid ='.$id)->all();
-            return $model2;
+        if (($model = Booking::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

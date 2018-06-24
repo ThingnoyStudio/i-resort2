@@ -53,8 +53,6 @@ class OrdersController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $content = $this->renderPartial('index3', [
-//            'model' => $model,
-//            'model' => $this->findModel($id),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             // etc...
