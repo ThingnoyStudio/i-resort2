@@ -97,6 +97,7 @@ class RoomController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'p' => $p,
+
         ]);
     }
 
@@ -122,7 +123,9 @@ class RoomController extends Controller
     {
         $model = new Room();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->Rimg = $model->upload($model,'Rimg');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->Rid]);
         }
 
@@ -142,7 +145,9 @@ class RoomController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->Rimg = $model->upload($model,'Rimg');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->Rid]);
         }
 

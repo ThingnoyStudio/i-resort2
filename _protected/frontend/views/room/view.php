@@ -32,7 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'Rname:ntext',
             'Rnumber:ntext',
             'Rdes:ntext',
-            'Rimg:ntext',
+//            'Rimg:ntext',
+            [
+                'format' => 'raw',
+                'attribute' => 'Rimg',
+                'value' => Html::img(Yii::getAlias('@ShowR')  . $model->Rimg , ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+            ],
             'RSid',
         ],
     ]) ?>
