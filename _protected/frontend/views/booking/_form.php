@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Bdateout')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'Pid')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'PMid')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

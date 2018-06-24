@@ -229,6 +229,18 @@ class BookingController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionUpdate2($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->Bid]);
+        }
+
+        return $this->render('update2', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Deletes an existing Booking model.

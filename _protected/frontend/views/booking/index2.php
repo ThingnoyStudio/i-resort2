@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header' => "การทำงาน",
                 'headerOptions' => ['class' => 'text-center'],
-                'template' => '<div class="btn-group btn-group-sm" role="group" aria-label="..."> {view2} </div>',
+                'template' => '<div class="btn-group btn-group-sm" role="group" aria-label="..."> {view2} {update2} </div>',
                 'buttons' => [
                     'view2' => function ($url, $model, $key) {
                         return Html::a('<i class="fa fa-eye"></i>', $url,
@@ -45,6 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'idA' => 'ADid',
+                                'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
+                    },
+                    'update2' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-pencil"></i>', $url,
+                            ['title' => 'Edit user',
+                                'class' => 'btn btn-success',
+                                'id' => 'actioncol',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     }
                 ]
