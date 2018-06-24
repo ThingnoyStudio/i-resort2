@@ -258,7 +258,7 @@ use yii\helpers\Html;
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="รายงานค่าอาหาร" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/orders/index4']) ?>"
+                               href="<?= yii\helpers\Url::to(['/orders/index2']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
                                 <p class="d-lg-none d-xl-none">รายงานค่าอาหาร</p>
