@@ -67,6 +67,12 @@ class FoodController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    public function actionView2($id)
+    {
+        return $this->render('view2', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
     /**
      * Creates a new Food model.

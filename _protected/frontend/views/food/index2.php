@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <a href="#" class="thumb-cover"></a>
                         <b class="actions">
-                            <a href="<?= yii\helpers\Url::to(['/food/view','id' =>$model['Fid']]) ?>" class="btn btn-neutral btn-round btn-fill" rel="tooltip"
+                            <a href="<?= yii\helpers\Url::to(['/food/view2','id' =>$model['Fid']]) ?>" class="btn btn-neutral btn-round btn-fill" rel="tooltip"
                                title=""
                                data-original-title="รายละเอียด">
                                 <i class="material-icons">
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                         </a>
-                       
+
                     </div>
                 </div>
 
