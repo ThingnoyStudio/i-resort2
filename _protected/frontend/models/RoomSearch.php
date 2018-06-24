@@ -85,4 +85,37 @@ class RoomSearch extends Room
 
         return $dataProvider;
     }
+
+    public function search2($params)
+    {
+        $query = Room::find()->where('Rid ='.$params);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+//            'p' => $p
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'Rid' => $this->Rid,
+            'RSid' => $this->RSid,
+            'RTid' => $this->RTid,
+        ]);
+
+        $query->andFilterWhere(['like', 'Rname', $this->Rname])
+            ->andFilterWhere(['like', 'Rnumber', $this->Rnumber])
+            ->andFilterWhere(['like', 'Rdes', $this->Rdes])
+            ->andFilterWhere(['like', 'Rimg', $this->Rimg]);
+
+
+        return $dataProvider;
+    }
 }

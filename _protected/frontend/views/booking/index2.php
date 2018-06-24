@@ -15,45 +15,42 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Booking', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+//            ['class' => 'yii\grid\SerialColumn'],
 
-            'Bid',
+//            'Bid',
             'Bdate:ntext',
-            'Rid:ntext',
-            'Uid:ntext',
-            'ADid:ntext',
-            //'Bnday:ntext',
-            //'Bdatein:ntext',
-            //'Bdateout:ntext',
-            //'Pid:ntext',
+            'room.Rnumber',
+            'room.Rname',
+            'users.Ufname',
+            'users.Ulname',
+            'Bnday:ntext',
+            'Bdatein:ntext',
+            'Bdateout:ntext',
+            'payment.PMname',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => "การทำงาน",
+                'headerOptions' => ['class' => 'text-center'],
+                'template' => '<div class="btn-group btn-group-sm" role="group" aria-label="..."> {view2} </div>',
+                'buttons' => [
+                    'view2' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-eye"></i>', $url,
+                            ['title' => 'View user',
+                                'class' => 'btn btn-success',
+                                'id' => 'actioncol',
+                                'idA' => 'ADid',
+                                'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
+                    }
+                ]
+            ],// ActionColumn
         ],
     ]); ?>
 
 
-    <div class="col-md-4">
-        <div class="card card-chart">
-            <div class="card-header card-header-danger">
-
-            </div>
-            <div class="card-body">
-                <h4 class="card-title">Completed Tasks</h4>
-                <p class="card-category">Last Campaign Performance</p>
-            </div>
-            <div class="card-footer">
-                <div class="stats">
-                    <i class="material-icons">access_time</i> campaign sent 2 days ago
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

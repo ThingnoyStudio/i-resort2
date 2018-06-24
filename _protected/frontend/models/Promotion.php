@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "promotion".
@@ -13,6 +14,7 @@ use Yii;
  * @property string $Pdateend วันที่สิ้นสุด
  * @property string $Pdistant ส่วนลด
  * @property string $Pimg รูปภาพ
+ * @property string $kvdate1 ช่วงวันที่
  */
 class Promotion extends \yii\db\ActiveRecord
 {
@@ -30,7 +32,7 @@ class Promotion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'Pimg'], 'string'],
+            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'Pimg','kvdate1'], 'string'],
         ];
     }
 
@@ -46,6 +48,23 @@ class Promotion extends \yii\db\ActiveRecord
             'Pdateend' => 'วันที่สิ้นสุด',
             'Pdistant' => 'ส่วนลด',
             'Pimg' => 'รูปภาพ',
+            'kvdate1' => 'ช่วงวันที่',
         ];
+    }
+
+    public function upload($model,$attribute)
+    {
+        $photo  = UploadedFile::getInstance($model, $attribute);
+        //$path = 'C:/xampp/htdocs/udondeliveryu3/uploads/images/Restaurantimg/';
+        $path = Yii::getAlias('@UploadPromotion');
+        if ($this->validate() && $photo !== null) {
+
+            // $fileName = md5($photo->baseName.time()) . '.' . $photo->extension;
+            $fileName = $photo->baseName . '.' . $photo->extension;
+            if($photo->saveAs($path.'/'.$fileName)){
+                return $fileName;
+            }
+        }
+        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
     }
 }

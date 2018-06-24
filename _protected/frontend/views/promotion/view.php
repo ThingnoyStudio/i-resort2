@@ -33,7 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'Pdatestart:ntext',
             'Pdateend:ntext',
             'Pdistant:ntext',
-            'Ping:ntext',
+//            'Pimg:ntext',
+            [
+                'format' => 'raw',
+                'attribute' => 'Pimg',
+                'value' => Html::img(Yii::getAlias('@ShowP')  . $model->Pimg , ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+            ],
         ],
     ]) ?>
 

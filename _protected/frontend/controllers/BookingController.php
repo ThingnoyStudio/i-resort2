@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use frontend\models\Room;
+use frontend\models\RoomSearch;
 use kartik\mpdf\Pdf;
 use Yii;
 use frontend\models\Booking;
@@ -110,8 +111,8 @@ class BookingController extends Controller
     {
         $searchModel = new BookingSearch();
 
-        $dataProvider = Booking::find()->where('Uid = '.Yii::$app->request->queryParams)
-        ;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
 
         return $this->render('index2', [
             'searchModel' => $searchModel,
@@ -129,6 +130,65 @@ class BookingController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+        ]);
+    }
+    public function actionUpdatestatus($id,$id2)
+    {
+        $model = $this->findModel2($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->Rimg = $model->upload($model,'Rimg');
+            $model->save();
+
+//            $searchModel = new BookingSearch();
+//            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            $content = $this->renderPartial('bilout', [
+                'model' => $this->findModel3($id2),
+            ]);
+
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+                'content' => $content,
+                'filename' => 'your_filename.pdf',
+                'orientation' => Pdf::ORIENT_PORTRAIT,
+                'destination' => Pdf::DEST_BROWSER,
+                'format' => Pdf::FORMAT_A4,
+//            'format' => [100, 236],
+                'cssFile' => '@frontend/pdf.css',
+                'cssInline' => '.kv-heading-1{font-size:18px}',
+                'options' => [
+                    'title' => 'Factuur',
+
+                ],
+                'methods' => [
+
+                ]
+            ]);
+
+            return $pdf->render();
+
+//            return $this->redirect(['bilout']);
+        }
+
+        return $this->render('updatestatus', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionView2($id)
+    {
+        $model = Booking::findOne($id);
+        $searchModel = new RoomSearch();
+
+        $o = $model->Rid;
+        $dataProvider = $searchModel->search2($o);
+
+        return $this->render('view2', [
+            'model' => $this->findModel($id),
+            'model2' => $this->findModel2($o),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -198,5 +258,21 @@ class BookingController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    protected function findModel2($id)
+    {
+        if (($model2 = Room::findOne($id)) !== null) {
+            return $model2;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findModel3($id)
+    {
+        $model2 = Booking::find()
+            ->join('INNER JOIN','room','room.Rid = booking.Rid')
+            ->where('booking.Bid ='.$id)->all();
+            return $model2;
     }
 }

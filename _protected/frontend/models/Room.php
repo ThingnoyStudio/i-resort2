@@ -68,4 +68,12 @@ class Room extends \yii\db\ActiveRecord
         }
         return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRoomstatus()
+    {
+        return $this->hasOne(Roomstatus::className(), ['RSid' => 'RSid']);
+    }
+
 }

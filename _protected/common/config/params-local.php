@@ -12,7 +12,7 @@ Yii::setAlias('@ShowR','@appRoot3/uploads/images/room/');//โชว์ room
 Yii::setAlias('@UploadFood','@appRoot2/uploads/images/food/');//อัพ food
 Yii::setAlias('@ShowF','@appRoot3/uploads/images/food/');//โชว์ food
 
-Yii::setAlias('@UploadPromotion','@appRoot2/uploads/images/promption/');//อัพ food
+Yii::setAlias('@UploadPromotion','@appRoot2/uploads/images/promotion/');//อัพ food
 Yii::setAlias('@ShowP','@appRoot3/uploads/images/promotion/');//โชว์ food
 
 Yii::setAlias('@UploadNews','@appRoot2/uploads/images/news/'); // อัพ news

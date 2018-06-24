@@ -19,7 +19,7 @@ class PromotionSearch extends Promotion
     {
         return [
             [['Pid'], 'integer'],
-            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'Pimg'], 'safe'],
+            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'Pimg','kvdate1'], 'safe'],
         ];
     }
 
@@ -66,7 +66,8 @@ class PromotionSearch extends Promotion
             ->andFilterWhere(['like', 'Pdatestart', $this->Pdatestart])
             ->andFilterWhere(['like', 'Pdateend', $this->Pdateend])
             ->andFilterWhere(['like', 'Pdistant', $this->Pdistant])
-            ->andFilterWhere(['like', 'Pimg', $this->Pimg]);
+            ->andFilterWhere(['like', 'Pimg', $this->Pimg])
+        ->andFilterWhere(['like', 'kvdate1', $this->kvdate1]);
 
         return $dataProvider;
     }

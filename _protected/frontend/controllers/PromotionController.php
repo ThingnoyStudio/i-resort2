@@ -54,6 +54,16 @@ class PromotionController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionIndex3()
+    {
+        $searchModel = new PromotionSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index3', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Promotion model.
@@ -77,7 +87,9 @@ class PromotionController extends Controller
     {
         $model = new Promotion();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->Pimg = $model->upload($model,'Pimg');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->Pid]);
         }
 
@@ -97,7 +109,9 @@ class PromotionController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->Pimg = $model->upload($model,'Pimg');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->Pid]);
         }
 
