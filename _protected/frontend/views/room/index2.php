@@ -48,7 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             </a>
                         </b>
 
-
                     </div>
                     <div class="card-info">
 
