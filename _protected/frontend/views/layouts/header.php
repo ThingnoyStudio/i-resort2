@@ -238,10 +238,26 @@ use yii\helpers\Html;
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="จัดการห้องพัก" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/room/index']) ?>"
+                               href="<?= yii\helpers\Url::to(['/room/index2']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
                                 <p class="d-lg-none d-xl-none">จัดการห้องพัก</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" rel="tooltip" title="จัดการห้องพัก" data-placement="bottom"
+                               href="<?= yii\helpers\Url::to(['/promotion/index3']) ?>"
+                               target="">
+                                <i class="material-icons">assignment</i>
+                                <p class="d-lg-none d-xl-none">จัดการโปรโมชั่น</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" rel="tooltip" title="จัดการห้องพัก" data-placement="bottom"
+                               href="<?= yii\helpers\Url::to(['/order/index4']) ?>"
+                               target="">
+                                <i class="material-icons">assignment</i>
+                                <p class="d-lg-none d-xl-none">รายงานค่าอาหาร</p>
                             </a>
                         </li>
                         <?php
