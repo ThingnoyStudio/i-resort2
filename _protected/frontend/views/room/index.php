@@ -18,7 +18,22 @@ $addon = <<< HTML
 </span>
 HTML;
 
-//$script = <<< JS
+$script = <<< JS
+$('#kvdate').on('apply.daterangepicker', function(ev, picker) {
+  console.log(picker.startDate.format('YYYY-MM-DD'));
+  console.log(picker.endDate.format('YYYY-MM-DD'));
+});
+// $('.modal').on('hidden', function () {
+//   // write your code
+//  
+// });
+
+function con() {
+    console.log("sss");
+  $('.modal.in:visible').modal('hide');
+}
+
+// $('.modal').modal('hide')
 
 // $(#kvdate).change(function() {
 //   alert('kk');
@@ -43,7 +58,7 @@ HTML;
 //});
 //
 //
-//JS;
+JS;
 //$this->registerJs($script, View::POS_END, 'myOption3');
 
 $this->title = 'ห้องพัก';
@@ -96,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <img src="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>"
                              data-retina="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>" alt="No Image">
 
-                        <a href="#" class="thumb-cover"></a>
+                        <a href="#" class="thumb-cover" data-toggle="modal" data-target="#<?= $model['Rnumber'] ?>"></a>
 
                         <!--                        <div class="details">-->
                         <!--                            <span class="badge badge-primary">ไม่ว่าง</span>-->
@@ -128,7 +143,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="card-info">
 
-                        <a href="#">
+                        <a >
 
                             <h3><span class="badge badge-info"
                                       style="margin-right: 4px"><?= $model['Rnumber'] ?></span><?= $model['Rname'] ?>
@@ -212,24 +227,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                             </div>
-<!--                            // ใส่ ตรงนี้-->
+<!--                            // date picker -->
 
-<!--                            <div class="col-sm-12">-->
-<!--                                <div class="input-group">-->
-<!--                                    <input type="text" class="form-control" name="dates" placeholder="Right Nucleo Icon">-->
-<!--                                    <span class="input-group-addon">-->
-<!--                                        <i class="material-icons">today</i>-->
-<!--<!--                                        <i class="now-ui-icons users_single-02"></i>-->
-<!--                                    </span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            <input type="text" id="demo" name="dates" class="form-control">-->
-
-                            <div class="col-12" style="display: flex;">
-                                <div class="col-5"><label for="kvdate3" style="font-size: large">ช่วงวันที่เข้าพัก</label></div>
+                            <div class="col-12" style="display: flex; align-items: baseline;">
+                                <div style="padding-left: 15px"><label for="kvdate3" style="font-size: large">ช่วงวันที่เข้าพัก</label></div>
                                 <div class="col-7">
                                     <?php
+                                    $ss = $model['Rnumber'];
+                                    $price = $model['Rprice'] - $p;
+                                    $callback = new \yii\web\JsExpression(
+                                            "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; console.log('lday: '+lday); $('span[name=\"days".$ss."\"]').text(lday);}else{lday = days; console.log('lday: '+days); $('span[name=\"days".$ss."\"]').text(lday);}  $('input[name=\"kvdate".$ss."\"]').val(start_date.format('DD-MM-YYYY')+' - '+end_date.format('DD-MM-YYYY')); $('span[name=\"price".$ss."\"]').text(lday * ".$price."); }");
                                     echo '<div class="input-group">';
                                     echo DateRangePicker::widget([
                                             'name' => 'kvdate'.$model['Rnumber'],
@@ -240,41 +247,73 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'language'=>'th',
                                             'startAttribute' => 'from_date',
                                             'endAttribute' => 'to_date',
+//                                            'startInputOptions' => ['value' =>  date('d-m-Y')],
+//                                            'endInputOptions' => ['value' =>  date('d-m-Y')],
+                                            'callback' => $callback,
                                             'pluginOptions' => [
                                                 'locale' => ['format' => 'd-m-Y'],
                                                 'opens' => 'center',
                                                 'drops' => 'up',
                                                 'minDate' => date('d-m-Y'),
-                                            ]
+                                            ],
                                         ]) . $addon;
                                     echo '</div>';
                                     ?>
                                 </div>
-
+                                <div>
+                                    <span name="<?= 'days' . $model['Rnumber']?>" style="font-size: large"> 1 </span>
+                                    <span style="font-size: large">วัน</span>
+                                </div>
                             </div>
 
 
 
                             <div class="col-12" style="display: flex;font-size: x-large;">
                                 <div class="col-md-6">ยอดรวมสุทธิ</div>
-                                <div class="col-md-6" style="text-align: right;color: #FF281E;font-weight: 500;">฿232
+                                <div class="col-md-6"  style="text-align: right;color: #FF281E;font-weight: 500;">
+                                    <span>฿</span>
+                                    <span name="<?= 'price' . $model['Rnumber']?>">0</span>
                                 </div>
-
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-info " id="dd">Save</button>
+                            <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">ยกเลิก</button>
+                            <button type="button" class="btn btn-info " id="dd" data-toggle="modal" data-target="#boy">ชำระเงิน</button>
                         </div>
                     </div>
                 </div>
             </div>
+
             <?php
         }
         ?>
 
 
         <div class="clearfix"></div>
+    </div>
+
+    <!-- Modal Core -->
+    <div class="modal fade" id="boy" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            style="font-size: xx-large;">&times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">จองห้องพัก
+                        หมายเลข<?= ' ' . $model['Rnumber'] . ' ' . $model['Rname'] ?></h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info " id="dd" data-dismiss="modal" onclick="con()">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
