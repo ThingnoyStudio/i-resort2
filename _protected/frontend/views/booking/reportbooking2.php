@@ -26,9 +26,6 @@ $this->title = 'Bookings';
             </td>
         </tr>
     </table>
-
-
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [

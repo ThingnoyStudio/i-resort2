@@ -75,4 +75,41 @@ class BookingSearch extends Booking
 
         return $dataProvider;
     }
+    public function search2($params)
+    {
+        $query = Booking::find()
+        ;
+//        $query = Booking::findOne($params);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'Bid' => $this->Bid,
+        ]);
+
+        $query->andFilterWhere(['like', 'Bdate', $this->Bdate])
+            ->andFilterWhere(['like', 'Rid', $this->Rid])
+            ->andFilterWhere(['like', 'Uid', $this->Uid])
+            ->andFilterWhere(['like', 'ADid', $this->ADid])
+            ->andFilterWhere(['like', 'Bnday', $this->Bnday])
+            ->andFilterWhere(['like', 'Bdatein', $this->Bdatein])
+            ->andFilterWhere(['like', 'Bdateout', $this->Bdateout])
+            ->andFilterWhere(['like', 'PMid', $this->PMid])
+            ->andFilterWhere(['like', 'Btotal', $this->Btotal]);
+
+        return $dataProvider;
+    }
 }

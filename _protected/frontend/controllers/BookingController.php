@@ -111,7 +111,7 @@ class BookingController extends Controller
     {
         $searchModel = new BookingSearch();
 
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search2(Yii::$app->request->queryParams);
 
 
         return $this->render('index2', [
