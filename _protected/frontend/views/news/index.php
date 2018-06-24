@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--            <div class="col-md-10 ml-auto mr-auto">-->
         <div class="col-xs-12 col-sm-6  col-md-6 col-lg-6 ">
             <div class="card" data-turbolinks="false">
-                <div class="thumbnail" style="max-height: 232.91px">
+                <div class="thumbnail" style="height: 232.91px">
                     <img src="<?= Yii::getAlias('@ShowN') . $myModel['Nimg'] ?>"
                          data-retina="<?= Yii::getAlias('@ShowN') . $myModel['Nimg']  ?>"
                          alt="No Image">
