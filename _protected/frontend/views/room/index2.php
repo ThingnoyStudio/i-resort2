@@ -41,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             <a class="btn btn-info btn-round btn-fill" rel="tooltip" title="" data-remote="true"
                                href="#" data-original-title="จัดการ" data-toggle="modal"
                                data-target="#<?= $model['Rnumber'] ?>">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="material-icons">
+                                    sort
+                                </i>
                             </a>
 
                         </b>
