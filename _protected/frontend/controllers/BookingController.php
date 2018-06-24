@@ -106,6 +106,18 @@ class BookingController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionIndex3()
+    {
+        $searchModel = new BookingSearch();
+
+        $dataProvider = Booking::find()->where('Uid = '.Yii::$app->request->queryParams)
+        ;
+
+        return $this->render('index2', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Booking model.
