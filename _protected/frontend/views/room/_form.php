@@ -29,12 +29,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'RSid')->dropDownList(
         ArrayHelper::map(\backend\models\Roomstatus::find()->all(),'RSid','RSname'),
-        ['promp'=>'เลือกประเภทตำแหน่ง']
+        ['promp'=>'เลือกประเภทสถานะ']
     ) ?>
 
     <?= $form->field($model, 'RTid')->dropDownList(
         ArrayHelper::map(Roomtype::find()->all(),'RTid','RTname'),
-        ['promp'=>'เลือกประเภทตำแหน่ง']
+        ['promp'=>'เลือกประเภทห้อง']
     ) ?>
 
     <div class="form-group">

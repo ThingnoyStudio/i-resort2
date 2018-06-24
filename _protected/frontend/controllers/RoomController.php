@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use kartik\mpdf\Pdf;
 use Yii;
 use frontend\models\Room;
 use frontend\models\RoomSearch;
@@ -152,6 +153,50 @@ class RoomController extends Controller
         }
 
         return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUpdatestatus($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->Rimg = $model->upload($model,'Rimg');
+            $model->save();
+
+//            $searchModel = new BookingSearch();
+//            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            $content = $this->renderPartial('bilout', [
+                'model' => $this->findModel($id),
+            ]);
+
+            $pdf = new Pdf([
+                'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+                'content' => $content,
+                'filename' => 'your_filename.pdf',
+                'orientation' => Pdf::ORIENT_PORTRAIT,
+                'destination' => Pdf::DEST_BROWSER,
+                'format' => Pdf::FORMAT_A4,
+//            'format' => [100, 236],
+                'cssFile' => '@frontend/pdf.css',
+                'cssInline' => '.kv-heading-1{font-size:18px}',
+                'options' => [
+                    'title' => 'Factuur',
+
+                ],
+                'methods' => [
+
+                ]
+            ]);
+
+            return $pdf->render();
+
+//            return $this->redirect(['bilout']);
+        }
+
+        return $this->render('updatestatus', [
             'model' => $model,
         ]);
     }

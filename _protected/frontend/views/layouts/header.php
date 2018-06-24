@@ -238,7 +238,7 @@ use yii\helpers\Html;
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="จัดการห้องพัก" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/room/index2']) ?>"
+                               href="<?= yii\helpers\Url::to(['booking/index2']) ?>"
                                target="">
                                 <i class="material-icons">
                                     business
