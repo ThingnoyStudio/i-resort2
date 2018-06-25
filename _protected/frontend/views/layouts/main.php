@@ -5,6 +5,7 @@ use frontend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+use yii\widgets\Pjax;
 
 // use yii\bootstrap\Nav;
 // use yii\bootstrap\NavBar;
@@ -61,11 +62,12 @@ AppAsset::register($this);
 
 
     <!--     content & footer -->
+    <?php Pjax::begin(); ?>
     <?= $this->render(
         'content.php',
         ['content' => $content]
     ) ?>
-
+    <?php Pjax::end(); ?>
 
 </div>
 

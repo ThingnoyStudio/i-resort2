@@ -48,7 +48,15 @@ class PaypalController extends Controller
 
     public function actionError()
     {
-        return $this->render('error');
+        Yii::$app->getSession()->setFlash('Oops', [
+            'body' => 'การทำงานผิดพลาด',
+            'type' => 'warning',
+//                        'options'=>['class'=>'alert-warning']
+        ]);
+//        return $this->render('room/index');
+        return $this->redirect(['room/index']);
+//        return $this->refresh();
+
     }
 
     public function actionIndex()
@@ -157,8 +165,7 @@ class PaypalController extends Controller
         } catch (PayPalConnectionException $ex) {
             $this->redirect('error');
         }
-        if (is_array($payment->getLinks()) || is_object($payment->getLinks()))
-        {
+        if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
             foreach ($payment->getLinks() as $link) {
                 if ($link->getRel() == 'approval_url') {
                     $redirectUrl = $link->getHref();
@@ -166,7 +173,6 @@ class PaypalController extends Controller
             }
             $this->redirect($redirectUrl);
         }
-
 
 
         var_dump($payment->getLinks());

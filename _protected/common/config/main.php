@@ -20,6 +20,12 @@ return [
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [], // do not use yii default one
                 ],
+                'yii2mod\alert\AlertAsset' => [
+                    'css' => [
+                        'dist/sweetalert.css',
+                        'themes/twitter/twitter.css',
+                    ]
+                ],
 
 
 //                'yii\web\JqueryAsset' => [

@@ -1,11 +1,12 @@
 <?php
+
 use yii\widgets\Breadcrumbs;
 use dmstr\widgets\Alert;
 
 ?>
-<div class="section" >
+<div class="section">
     <div class="container">
-        <section class="content-header" >
+        <section class="content-header">
             <?php if (isset($this->blocks['content-header'])) { ?>
                 <h1 style="display: none;"><?= $this->blocks['content-header'] ?></h1>
             <?php } else { ?>
@@ -37,6 +38,29 @@ use dmstr\widgets\Alert;
 
 </div>
 
+<?php if (Yii::$app->session->hasFlash('Oops')): ?>
+    <!--                    <= \yii\bootstrap\Alert::widget([-->
+    <!--                        'body'=>ArrayHelper::getValue(Yii::$app->session->getFlash('alert'), 'body'),-->
+    <!--                        'options'=>ArrayHelper::getValue(Yii::$app->session->getFlash('alert'), 'options'),-->
+    <!--                    ])?>-->
+    <?= \yii2mod\alert\Alert::widget([
+        'useSessionFlash' => false,
+        'options' => [
+//                                'icon' => "warning",
+            'timer' => null,
+            'type' => \yii\helpers\ArrayHelper::getValue(Yii::$app->session->getFlash('Oops'), 'type'),
+//                            'type' => \yii2mod\alert\Alert::TYPE_INPUT,
+            'title' => "แจ้งเตือน!",
+            'text' => \yii\helpers\ArrayHelper::getValue(Yii::$app->session->getFlash('Oops'), 'body'),
+            'confirmButtonText' => "ตกลง",
+            'closeOnConfirm' => true,
+//                            'showCancelButton' => true,
+            'animation' => "slide-from-top",
+//                            'inputPlaceholder' => "Write something"
+        ],]) ?>
+<?php endif; ?>
+
+
 <footer class="footer footer-default">
     <div class="container">
         <nav>
@@ -67,7 +91,8 @@ use dmstr\widgets\Alert;
             &copy;
             <script>
                 document.write(new Date().getFullYear())
-            </script>, Designed by
+            </script>
+            , Designed by
             <a href="#" target="">I-Resort Team</a>
             <!--                <a href="#" target="_blank">Creative Tim</a>.-->
         </div>
