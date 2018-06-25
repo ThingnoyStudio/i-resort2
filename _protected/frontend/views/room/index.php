@@ -235,8 +235,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?php
                                     $ss = $model['Rnumber'];
                                     $price = $model['Rprice'] - $p;
+                                    $total_price =0;
                                     $callback = new \yii\web\JsExpression(
-                                            "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; console.log('lday: '+lday); $('span[name=\"days".$ss."\"]').text(lday);}else{lday = days; console.log('lday: '+days); $('span[name=\"days".$ss."\"]').text(lday);}  $('input[name=\"kvdate".$ss."\"]').val(start_date.format('DD-MM-YYYY')+' - '+end_date.format('DD-MM-YYYY')); $('span[name=\"price".$ss."\"]').text(lday * ".$price."); }");
+                                            "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; console.log('lday: '+lday); $('span[name=\"days".$ss."\"]').text(lday);}else{lday = days; console.log('lday: '+days); $('span[name=\"days".$ss."\"]').text(lday);}  $('input[name=\"kvdate".$ss."\"]').val(start_date.format('DD-MM-YYYY')+' - '+end_date.format('DD-MM-YYYY')); $('span[name=\"price".$ss."\"]').text(lday * ".$price."); $('a[name=\"pay".$ss."\"]').text('ชำระเงินทันที ฿' + lday * ".$price.");  }");
                                     echo '<div class="input-group">';
                                     echo DateRangePicker::widget([
                                             'name' => 'kvdate'.$model['Rnumber'],
@@ -277,8 +278,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">ยกเลิก</button>
-                            <button type="button" class="btn btn-info " id="dd" data-toggle="modal" data-target="#boy">ชำระเงิน</button>
+
+                            <button type="button" class="btn btn-default " data-dismiss="modal">ยกเลิก</button>
+<!--                            <button type="button" class="btn btn-info " id="dd" data-toggle="modal" data-target="#boy">ชำระเงิน</button>-->
+                            <?= Html::a('ชำระเงินทันที ฿<span id="price">' . $total_price."</span>",
+                                ['/paypal/paypal', 'roomId' => $model['Rnumber'],'price'=>333,'amount'=>3],
+                                ['class' => 'btn btn-success btn-lg btn-block btn-capital',
+                                    'name' => 'pay'. $model['Rnumber'],
+                                ])?>
                         </div>
                     </div>
                 </div>
