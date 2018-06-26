@@ -230,7 +230,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $price = $model['Rprice'] - $p;
                                     $total_price = 0;
                                     $callback = new \yii\web\JsExpression(
-                                        "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; $('span[name=\"days" . $ss . "\"]').text(lday);}else{lday = days; $('span[name=\"days" . $ss . "\"]').text(lday);}  $('input[name=\"kvdate" . $ss . "\"]').val(start_date.format('DD-MM-YYYY')+' - '+end_date.format('DD-MM-YYYY')); $('span[name=\"price" . $ss . "\"]').text(lday * " . $price . "); $('a[name=\"pay" . $ss . "\"]').text('ชำระเงินทันที ฿' + lday * " . $price . ");  }");
+                                        "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; $('span[name=\"days" . $ss . "\"]').text(lday);}else{lday = days; $('span[name=\"days" . $ss . "\"]').text(lday);}  $('input[name=\"kvdate" . $ss . "\"]').val(start_date.format('DD-MM-YYYY')+' - '+end_date.format('DD-MM-YYYY')); $('span[name=\"price" . $ss . "\"]').text(lday * " . $price . "); $('span[name=\"pay" . $ss . "\"]').text('' + lday * " . $price . ");  }");
                                     echo '<div class="input-group">';
                                     echo DateRangePicker::widget([
                                             'name' => 'kvdate' . $model['Rnumber'],
@@ -271,7 +271,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="modal-footer">
 
-                            <button type="button" class="btn btn-default " data-dismiss="modal">ยกเลิก</button>
+                            <button type="button" class="btn btn-default " data-dismiss="modal" style="    margin-right: .25rem;
+    padding-right: 30px;
+    padding-left: 30px;">ยกเลิก</button>
                             <!--                            <a class="btn btn-info btn-lg btn-block btn-capital" id="dd" name="pay-->
                             <?//= $model['Rnumber'] ?><!--" >-->
                             <!--                                <i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿-->
@@ -279,10 +281,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php //$total_price ?><!--</span>-->
                             <!--                            </a>-->
                             <button class="btn btn-info btn-lg btn-block btn-capital" name="pay<?= $model['Rnumber'] ?>"
-                                    onclick="ff(<?= $model['Rnumber'].','. ($model['Rprice'] - $p) ?>)">
+                                    onclick="ff(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - $p) ?>)" style="    margin: 10px 1px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100%;">
                                 <i class="fab fa-paypal"
                                    style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿
-                                <span id="price">0</span>
+                                <span name="pay<?= $model['Rnumber'] ?>">0</span>
                             </button>
 
                             <!--                            <= Html::a('<i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿<span id="price">' . $total_price."</span>",-->

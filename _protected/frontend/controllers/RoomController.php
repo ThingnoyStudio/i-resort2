@@ -34,6 +34,7 @@ class RoomController extends Controller
     /**
      * Lists all Room models.
      * @return mixed
+     * @throws \yii\db\Exception
      */
     public function actionIndex()
     {
