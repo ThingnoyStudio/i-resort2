@@ -43,7 +43,14 @@ class PaypalController extends Controller
 
     public function actionCancel()
     {
-        return $this->render('cancel');
+//        Yii::$app->getSession()->setFlash('Oops', [
+//            'body' => 'การทำงานผิดพลาด',
+//            'type' => 'warning',
+////                        'options'=>['class'=>'alert-warning']
+//        ]);
+
+        return $this->redirect(['room/index']);
+//        return $this->render('cancel');
     }
 
     public function actionError()
@@ -53,9 +60,8 @@ class PaypalController extends Controller
             'type' => 'warning',
 //                        'options'=>['class'=>'alert-warning']
         ]);
-//        return $this->render('room/index');
+
         return $this->redirect(['room/index']);
-//        return $this->refresh();
 
     }
 
@@ -68,9 +74,9 @@ class PaypalController extends Controller
     {
         if ($approved === 'true') {
             $transactionPayment = TransactionPaypal::findOne(['hash' => Yii::$app->session['paypal_hash']]);
-            //var_dump($transactionPayment);
-            // Get the Paypal payment
+//            var_dump($transactionPayment);
 
+            // Get the Paypal payment
             $payment = Payment::get($transactionPayment->payment_id, Yii::$app->paypal->getApiContext());
             //var_dump($payment);
 
@@ -107,10 +113,17 @@ class PaypalController extends Controller
 
     public function actionSuccess()
     {
-        return $this->render('success');
+        Yii::$app->getSession()->setFlash('Oops', [
+            'body' => 'ชำระเงินเสร็จเรียบร้อย',
+            'type' => 'success',
+//                        'options'=>['class'=>'alert-warning']
+        ]);
+
+        return $this->redirect(['room/index']);
+//        return $this->render('success');
     }
 
-    public function actionPaypal($roomId = null, $price = null, $amt = null)
+    public function actionPaypal($roomId, $price, $amt)
     {
         $product = Room::findOne(['Rid' => $roomId]);
 
@@ -128,9 +141,9 @@ class PaypalController extends Controller
         //Details
         $details->setShipping('0.00')
             ->setTax('0.00')
-            ->setSubtotal($price);
+            ->setSubtotal($total_price);
         //Amount
-        $amount->setCurrency('BTH')
+        $amount->setCurrency('THB')
             ->setTotal($total_price)
             ->setDetails($details);
         //Transaction
@@ -163,7 +176,9 @@ class PaypalController extends Controller
             $transactionPaypal->save();
 
         } catch (PayPalConnectionException $ex) {
-            $this->redirect('error');
+//            echo ($ex);
+            print("<pre>".print_r($ex,true)."</pre>");
+//            $this->redirect('error');
         }
         if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
             foreach ($payment->getLinks() as $link) {

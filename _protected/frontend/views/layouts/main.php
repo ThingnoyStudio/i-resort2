@@ -62,7 +62,7 @@ AppAsset::register($this);
 
 
     <!--     content & footer -->
-    <?php Pjax::begin(); ?>
+    <?php Pjax::begin(['id'=>'content']); ?>
     <?= $this->render(
         'content.php',
         ['content' => $content]
