@@ -125,73 +125,78 @@ class PaypalController extends Controller
 
     public function actionPaypal($roomId, $price, $amt)
     {
-        $product = Room::findOne(['Rid' => $roomId]);
+        if ($roomId && $price && $amt != 0) {
+            $product = Room::findOne(['Rid' => $roomId]);
 
-        $total_price = $price * $amt;
-        $payer = new Payer();
-        $details = new Details();
-        $amount = new Amount();
-        $transaction = new Transaction();
-        $payment = new Payment();
-        $redirectUrls = new RedirectUrls();
+            $total_price = $price * $amt;
+            $payer = new Payer();
+            $details = new Details();
+            $amount = new Amount();
+            $transaction = new Transaction();
+            $payment = new Payment();
+            $redirectUrls = new RedirectUrls();
 
-        //Payer
-        $payer->setPaymentMethod('paypal');
+            //Payer
+            $payer->setPaymentMethod('paypal');
 
-        //Details
-        $details->setShipping('0.00')
-            ->setTax('0.00')
-            ->setSubtotal($total_price);
-        //Amount
-        $amount->setCurrency('THB')
-            ->setTotal($total_price)
-            ->setDetails($details);
-        //Transaction
-        $transaction->setAmount($amount)
-            ->setDescription($product->Rname);
+            //Details
+            $details->setShipping('0.00')
+                ->setTax('0.00')
+                ->setSubtotal($total_price);
+            //Amount
+            $amount->setCurrency('THB')
+                ->setTotal($total_price)
+                ->setDetails($details);
+            //Transaction
+            $transaction->setAmount($amount)
+                ->setDescription($product->Rname);
 
-        //Payment
-        $payment->setIntent('sale')
-            ->setPayer($payer)
-            ->setTransactions([$transaction]);
+            //Payment
+            $payment->setIntent('sale')
+                ->setPayer($payer)
+                ->setTransactions([$transaction]);
 
-        //Redirect URLs
-        $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/pay/?approved=true')
-            ->setCancelUrl('http://localhost/i-resort2/paypal/cancel/?approved=false');
-        $payment->setRedirectUrls($redirectUrls);
-        try {
-            $payment->create(Yii::$app->paypal->getApiContext());
+            //Redirect URLs
+            $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/pay/?approved=true')
+                ->setCancelUrl('http://localhost/i-resort2/paypal/cancel/?approved=false');
+            $payment->setRedirectUrls($redirectUrls);
+            try {
+                $payment->create(Yii::$app->paypal->getApiContext());
 
-            $hash = md5($payment->getId());
-            Yii::$app->session['paypal_hash'] = $hash;
+                $hash = md5($payment->getId());
+                Yii::$app->session['paypal_hash'] = $hash;
 
-            $transactionPaypal = new TransactionPaypal;
-            $transactionPaypal->user_id = Yii::$app->user->getId();
-            $transactionPaypal->payment_id = $payment->getId();
-            $transactionPaypal->product_id = $product->Rid;
-            $transactionPaypal->create_time = '-';
-            $transactionPaypal->update_time = '-';
-            $transactionPaypal->hash = $hash;
+                $transactionPaypal = new TransactionPaypal;
+                $transactionPaypal->user_id = Yii::$app->user->getId();
+                $transactionPaypal->payment_id = $payment->getId();
+                $transactionPaypal->product_id = $product->Rid;
+                $transactionPaypal->create_time = '-';
+                $transactionPaypal->update_time = '-';
+                $transactionPaypal->hash = $hash;
 
-            $transactionPaypal->save();
+                $transactionPaypal->save();
 
-        } catch (PayPalConnectionException $ex) {
+            } catch (PayPalConnectionException $ex) {
 //            echo ($ex);
-            print("<pre>".print_r($ex,true)."</pre>");
+                print("<pre>" . print_r($ex, true) . "</pre>");
 //            $this->redirect('error');
-        }
-        if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
-            foreach ($payment->getLinks() as $link) {
-                if ($link->getRel() == 'approval_url') {
-                    $redirectUrl = $link->getHref();
-                }
             }
-            $this->redirect($redirectUrl);
+            if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
+                foreach ($payment->getLinks() as $link) {
+                    if ($link->getRel() == 'approval_url') {
+                        $redirectUrl = $link->getHref();
+                    }
+                }
+                $this->redirect($redirectUrl);
+            }
+
+
+            var_dump($payment->getLinks());
+            print_r(Yii::$app->paypal);
+//            return $this->redirect(['error']);
+        } else {
+            return $this->redirect(['error']);
         }
 
-
-        var_dump($payment->getLinks());
-        print_r(Yii::$app->paypal);
-//        return $this->render('room/index');
     }
 }

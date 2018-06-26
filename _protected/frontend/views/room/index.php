@@ -19,76 +19,34 @@ $addon = <<< HTML
 </span>
 HTML;
 
-$this->registerJs(" function ff() {
+$this->registerJs(" function ff(id,price) {
   // alert('ll');
-  console.log('ff worked!');
-  var roomId= 1;
-  var price = 2;
-  var amount = 3;
-  $.pjax.reload({
-            url:\" ".\yii\helpers\Url::to(['paypal/paypal'])."?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount ,
-            // url: \"'./index'.'?BlogSearch[group]=\"+$(this).val(),
-            // index?BlogSearch%5Bgroup%5D=&BlogSearch%5Balphabet%5D=&BlogSearch%5Broot%5D=
+  console.log('ff worked! -> '+id);
+  var roomId= id;
+  var price = price;
+  var amount = $(\"span[name=days\"+id+\"]\").text();
+  console.log('price: '+price);
+  console.log('amount: '+amount);
+  
+  if(amount > 0 ){
+      $.pjax.reload({
+            url:\" " . \yii\helpers\Url::to(['paypal/paypal']) . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount ,
             container: \"#content\",
-            timeout: 50
+            timeout: 500000
   });
+  }else{
+  alert('กรุณาเลือกช่วงเวลาที่เข้าพัก')
+  }
+  
+
+
 } ", View::POS_END, 'my-options');
 
 $script = <<< JS
-var encodedOpt;
-// function ff() {
-//   // alert('ll');
-//   console.log('ff worked!');
-//   var roomId= 1;
-//   var price = 2;
-//   var amount = 3;
-//   $.pjax.reload({
-//             url:".\yii\helpers\Url::to(['notes'])."   ,
-//             // url: "'./index'.'?BlogSearch[group]="+$(this).val(),
-//             // index?BlogSearch%5Bgroup%5D=&BlogSearch%5Balphabet%5D=&BlogSearch%5Broot%5D=
-//             container: "#content",
-//             timeout: 50
-//   });
-// }
-// $('#kvdate').on('apply.daterangepicker', function(ev, picker) {
-//   console.log(picker.startDate.format('YYYY-MM-DD'));
-//   console.log(picker.endDate.format('YYYY-MM-DD'));
-// });
-// $('.modal').on('hidden', function () {
-//   // write your code
-//  
-// });
-
 function con() {
     console.log("sss");
   $('.modal.in:visible').modal('hide');
 }
-
-// $('.modal').modal('hide')
-
-// $(#kvdate).change(function() {
-//   alert('kk');
-// });
-
-// $('#kvdate').on('input', function() { 
-//     console.log("sss");
-//     $(this).val() // get the current value of the input field.
-// });
-
-//$(function() {
-//    // $('input[name="dates"]').dat/erangepicker();
-//
-//    $('input[name="dates"]').daterangepicker({
-//    "startDate": "01/01/2018",
-//    "endDate": "04/01/2018",
-//    "opens": "center",
-//    "drops": "up"
-//}, function(start, end, label) {
-//  console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
-//});
-//});
-//
-//
 JS;
 $this->registerJs($script, View::POS_END, 'myOption3');
 
@@ -175,7 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="card-info">
 
-                        <a >
+                        <a>
 
                             <h3><span class="badge badge-info"
                                       style="margin-right: 4px"><?= $model['Rnumber'] ?></span><?= $model['Rname'] ?>
@@ -236,17 +194,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="card-info">
 
                                         <a>
-
-                                            <h3><span class="badge badge-info"
-                                                      style="margin-right: 4px"><?= $model['Rnumber'] ?></span><?= $model['Rname'] ?>
+                                            <h3>
+                                                <span class="badge badge-info" id="roomId"
+                                                      style="margin-right: 4px"><?= $model['Rnumber'] ?>
+                                                </span>
+                                                <?= $model['Rname'] ?>
                                                 <div class="time pull-right  premium-product ">
-                                    <span class="line-through "
-                                          style="text-decoration: line-through;font-size: 18px;color: #777777;">
-                                        ฿<?= $model['Rprice'] ?>
-                                    </span>
+                                                    <span class="line-through "
+                                                          style="text-decoration: line-through;font-size: 18px;color: #777777;">
+                                                        ฿<?= $model['Rprice'] ?>
+                                                    </span>
                                                     <span class="line-through " style="color: #FF281E;">
-                                        ฿<?= ($model['Rprice'] - $p) ?>
-                                    </span>
+                                                        ฿<?= ($model['Rprice'] - $p) ?>
+                                                    </span>
                                                 </div>
                                             </h3>
 
@@ -259,25 +219,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                             </div>
-<!--                            // date picker -->
+                            <!--                            // date picker -->
 
                             <div class="col-12" style="display: flex; align-items: baseline;">
-                                <div style="padding-left: 15px"><label for="kvdate3" style="font-size: large">ช่วงวันที่เข้าพัก</label></div>
+                                <div style="padding-left: 15px"><label for="kvdate3" style="font-size: large">ช่วงวันที่เข้าพัก</label>
+                                </div>
                                 <div class="col-7">
                                     <?php
                                     $ss = $model['Rnumber'];
                                     $price = $model['Rprice'] - $p;
-                                    $total_price =0;
+                                    $total_price = 0;
                                     $callback = new \yii\web\JsExpression(
-                                            "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; console.log('lday: '+lday); $('span[name=\"days".$ss."\"]').text(lday);}else{lday = days; console.log('lday: '+days); $('span[name=\"days".$ss."\"]').text(lday);}  $('input[name=\"kvdate".$ss."\"]').val(start_date.format('DD-MM-YYYY')+' - '+end_date.format('DD-MM-YYYY')); $('span[name=\"price".$ss."\"]').text(lday * ".$price."); $('a[name=\"pay".$ss."\"]').text('ชำระเงินทันที ฿' + lday * ".$price."); var encodedOpt = JSON.stringify( lday ); }");
+                                        "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; $('span[name=\"days" . $ss . "\"]').text(lday);}else{lday = days; $('span[name=\"days" . $ss . "\"]').text(lday);}  $('input[name=\"kvdate" . $ss . "\"]').val(start_date.format('DD-MM-YYYY')+' - '+end_date.format('DD-MM-YYYY')); $('span[name=\"price" . $ss . "\"]').text(lday * " . $price . "); $('a[name=\"pay" . $ss . "\"]').text('ชำระเงินทันที ฿' + lday * " . $price . ");  }");
                                     echo '<div class="input-group">';
                                     echo DateRangePicker::widget([
-                                            'name' => 'kvdate'.$model['Rnumber'],
-                                            'id' => 'kvdate'.$model['Rnumber'],
-                                            'value' => date('d-m-Y').' - '.date('d-m-Y'),
+                                            'name' => 'kvdate' . $model['Rnumber'],
+                                            'id' => 'kvdate' . $model['Rnumber'],
+                                            'value' => date('d-m-Y') . ' - ' . date('d-m-Y'),
                                             'useWithAddon' => true,
                                             'convertFormat' => true,
-                                            'language'=>'th',
+                                            'language' => 'th',
                                             'startAttribute' => 'from_date',
                                             'endAttribute' => 'to_date',
 //                                            'startInputOptions' => ['value' =>  date('d-m-Y')],
@@ -294,39 +255,42 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ?>
                                 </div>
                                 <div>
-                                    <span name="<?= 'days' . $model['Rnumber']?>" style="font-size: large"> 1 </span>
+                                    <span name="<?= 'days' . $model['Rnumber'] ?>" style="font-size: large">0</span>
                                     <span style="font-size: large">วัน</span>
                                 </div>
                             </div>
 
 
-
                             <div class="col-12" style="display: flex;font-size: x-large;">
                                 <div class="col-md-6">ยอดรวมสุทธิ</div>
-                                <div class="col-md-6"  style="text-align: right;color: #FF281E;font-weight: 500;">
+                                <div class="col-md-6" style="text-align: right;color: #FF281E;font-weight: 500;">
                                     <span>฿</span>
-                                    <span name="<?= 'price' . $model['Rnumber']?>">0</span>
+                                    <span name="<?= 'price' . $model['Rnumber'] ?>">0</span>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
 
                             <button type="button" class="btn btn-default " data-dismiss="modal">ยกเลิก</button>
-<!--                            <a class="btn btn-info btn-lg btn-block btn-capital" id="dd" name="pay--><?//= $model['Rnumber'] ?><!--" >-->
-<!--                                <i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿-->
-<!--                                <span id="price">--><?php //$total_price ?><!--</span>-->
-<!--                            </a>-->
-                            <button class="btn btn-info btn-lg btn-block btn-capital" name="pay<?= $model['Rnumber'] ?>"  onclick="ff()">
-                                <i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿
+                            <!--                            <a class="btn btn-info btn-lg btn-block btn-capital" id="dd" name="pay-->
+                            <?//= $model['Rnumber'] ?><!--" >-->
+                            <!--                                <i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿-->
+                            <!--                                <span id="price">-->
+                            <?php //$total_price ?><!--</span>-->
+                            <!--                            </a>-->
+                            <button class="btn btn-info btn-lg btn-block btn-capital" name="pay<?= $model['Rnumber'] ?>"
+                                    onclick="ff(<?= $model['Rnumber'].','. ($model['Rprice'] - $p) ?>)">
+                                <i class="fab fa-paypal"
+                                   style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿
                                 <span id="price">0</span>
                             </button>
 
-                            <?= Html::a('<i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿<span id="price">' . $total_price."</span>",
-                                ['/paypal/paypal', 'roomId' => $model['Rnumber'],'price'=>$price,'amt'=>44],
-                                ['class' => 'btn btn-info btn-lg btn-block btn-capital',
-                                    'name' => 'pay'. $model['Rnumber'],
-                                    'onclick' => 'ff()',
-                                ])?>
+                            <!--                            <= Html::a('<i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿<span id="price">' . $total_price."</span>",-->
+                            <!--                                ['/paypal/paypal', 'roomId' => $model['Rnumber'],'price'=>$price,'amt'=>44],-->
+                            <!--                                ['class' => 'btn btn-info btn-lg btn-block btn-capital',-->
+                            <!--                                    'name' => 'pay'. $model['Rnumber'],-->
+                            <!--                                    'onclick' => 'ff()',-->
+                            <!--                                ])?>-->
 
                         </div>
                     </div>
@@ -359,7 +323,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-info " id="dd" data-dismiss="modal" onclick="con()">Save</button>
+                    <button type="button" class="btn btn-info " id="dd" data-dismiss="modal" onclick="con()">Save
+                    </button>
                 </div>
             </div>
         </div>
