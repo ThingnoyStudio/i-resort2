@@ -31,7 +31,7 @@ return [
             ],
         ],
         'session' => [
-            'name' => 'BACKENDSESSION'//ชื่อ Session
+            'name' => 'IRESORTBACKENDSESSION'//ชื่อ Session
         ],
         'user' => [
             'identityClass' => 'common\models\UserIdentity',

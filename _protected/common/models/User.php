@@ -19,6 +19,9 @@ class User extends UserIdentity
     const STATUS_ACTIVE = 10;
 
     public $password;
+    public $currentPassword;
+    public $newPassword;
+    public $newPasswordConfirm;
 
     /**
      * @var \common\rbac\models\Role
@@ -90,13 +93,13 @@ class User extends UserIdentity
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
-            'password' => Yii::t('app', 'Password'),
-            'email' => Yii::t('app', 'Email'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'item_name' => Yii::t('app', 'Role'),
+            'username' => Yii::t('app', 'ชื่อผู้ใช้'),
+            'password' => Yii::t('app', 'รหัสผ่าน'),
+            'email' => Yii::t('app', 'อีเมล์'),
+            'status' => Yii::t('app', 'สถานะ'),
+            'created_at' => Yii::t('app', 'สร้างเมื่อ'),
+            'updated_at' => Yii::t('app', 'แก้ไขเมื่อ'),
+            'item_name' => Yii::t('app', 'สิทธิ์'),
         ];
     }
 

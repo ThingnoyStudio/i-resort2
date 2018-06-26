@@ -62,12 +62,13 @@ AppAsset::register($this);
 
 
     <!--     content & footer -->
-    <?php Pjax::begin(['id'=>'content']); ?>
+<!--    <php Pjax::begin(['id'=>'content','enablePushState' => false,]); ?>-->
+
     <?= $this->render(
         'content.php',
         ['content' => $content]
     ) ?>
-    <?php Pjax::end(); ?>
+<!--    <php Pjax::end(); ?>-->
 
 </div>
 

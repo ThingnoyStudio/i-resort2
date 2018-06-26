@@ -25,7 +25,7 @@ return [
             ],
         ],
         'session' => [
-            'name' => 'FRONTENDSESSION'//ชื่อ Session
+            'name' => 'IRESORTFRONTENDSESSION'//ชื่อ Session
         ],
         'user' => [
             'identityClass' => 'common\models\UserIdentity',

@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use frontend\models\Users;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
@@ -48,6 +49,11 @@ class UserIdentity extends ActiveRecord implements IdentityInterface
     public static function findIdentity($id)
     {
         return static::findOne(['id' => $id, 'status' => User::STATUS_ACTIVE]);
+    }
+
+    public function getUsers()
+    {
+        return $this->hasOne(Users::className(), ['Uid' => 'id']);
     }
 
     /**

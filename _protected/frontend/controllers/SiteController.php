@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use common\models\User;
 use common\models\LoginForm;
 use frontend\models\AccountActivation;
+use frontend\models\PasswordForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -398,4 +399,47 @@ class SiteController extends Controller
 
         return $this->redirect('login');
     }
+
+    public function actionChangepassword(){
+        $model = new PasswordForm;
+        $modeluser = User::find()->where([
+            'username'=>Yii::$app->user->identity->username
+        ])->one();
+
+        if($model->load(Yii::$app->request->post())){
+            if($model->validate()){
+                try{
+                    $modeluser->setPassword($_POST['PasswordForm']['newpass']);
+                    // $modeluser->password = $_POST['PasswordForm']['newpass'];
+                    if($modeluser->save()){
+                        Yii::$app->getSession()->setFlash(
+                            'success','Password changed'
+                        );
+                        return $this->redirect(['index']);
+                    }else{
+                        Yii::$app->getSession()->setFlash(
+                            'error','Password not changed'
+                        );
+                        return $this->redirect(['index']);
+                    }
+                }catch(Exception $e){
+                    Yii::$app->getSession()->setFlash(
+                        'error',"{$e->getMessage()}"
+                    );
+                    return $this->render('changepassword',[
+                        'model'=>$model
+                    ]);
+                }
+            }else{
+                return $this->render('changepassword',[
+                    'model'=>$model
+                ]);
+            }
+        }else{
+            return $this->render('changepassword',[
+                'model'=>$model
+            ]);
+        }
+    }
+
 }

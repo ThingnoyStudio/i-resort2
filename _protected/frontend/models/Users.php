@@ -2,7 +2,9 @@
 
 namespace frontend\models;
 
+use common\models\User;
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "users".
@@ -33,7 +35,13 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Ufname', 'Ulname', 'Uemail', 'Uphone', 'Uimg'], 'string'],
+            [['Ufname', 'Ulname', 'Uemail'], 'string'],
+            [
+                ['Uimg'],'file',
+                'skipOnEmpty' => true,
+                'extensions' => 'png,jpg'
+            ],
+            [['Uphone'], 'string', 'max' => 10],
             [['ADid', 'USid', 'iduser'], 'integer'],
         ];
     }
@@ -55,4 +63,39 @@ class Users extends \yii\db\ActiveRecord
             'iduser' => 'Iduser',
         ];
     }
+
+    public function upload($model,$attribute)
+    {
+        $photo  = UploadedFile::getInstance($model, $attribute);
+        $path = Yii::getAlias('@UploadUser');
+        if ($this->validate() && $photo !== null) {
+
+            // $fileName = md5($photo->baseName.time()) . '.' . $photo->extension;
+            $fileName = $photo->baseName . '.' . $photo->extension;
+            if($photo->saveAs($path.'/'.$fileName)){
+                return $fileName;
+            }
+        }
+        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
+    }
+
+//    public function getUploadPath(){
+//        return Yii::getAlias('@appRoot2').'/uploads/images/profileimg/';
+//        // return 'C:/xampp/htdocs/yii2site/SignLanguageDict/uploads/'.$this->upload_foler.'/';
+//    }
+
+//    public function getUploadUrl(){
+//        return Yii::getAlias('@uploadUrl').'/'.'profileimg/';
+//    }
+
+    public static function getUserid(){
+        $user = User::find()->asArray()->all();
+        return \yii\helpers\ArrayHelper::map($user,'id','username');
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id']);
+    }
+
 }

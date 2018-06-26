@@ -16,6 +16,8 @@
 * To view and modify this theme, visit http://jqueryui.com/themeroller/
 * Copyright 2015 jQuery Foundation and other contributors; Licensed MIT */
 
+@media (min-width: 992px){.col-lg-offset-3{margin-left: 25%;}}
+
 
 
 
