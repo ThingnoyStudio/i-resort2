@@ -72,6 +72,14 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'cacheFrontend' => [ //directly for frontend web apps
+            'class' => \yii\caching\FileCache::class,
+            'cachePath' => Yii::getAlias('@frontend') . '/runtime/cache'
+        ],
+        'cacheBackend' => [ //directly for frontend web apps
+            'class' => \yii\caching\FileCache::class,
+            'cachePath' => Yii::getAlias('@backend') . '/runtime/cache'
+        ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,

@@ -123,12 +123,19 @@ class PaypalController extends Controller
 //        return $this->render('success');
     }
 
-    public function actionPaypal($roomId, $price, $amt)
+    public function actionPaypal($roomId, $price, $amt, $sdate, $edate)
     {
         if ($roomId && $price && $amt != 0) {
-            $product = Room::findOne(['Rid' => $roomId]);
+            $room = Room::findOne(['Rid' => $roomId]);
 
-            $total_price = $price * $amt;
+            $total_price = $price * $amt;// ราคาสุทธิ
+            $days = $amt;// จำนวนวัน
+            $RId = $roomId;// รหัสห้อง
+            $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
+            $s_date = $sdate;// วันที่เข้าพัก
+            $e_date = $edate;// วันที่ออก
+//            return var_dump('userid: ' . $s_date.'-'.$e_date);
+
             $payer = new Payer();
             $details = new Details();
             $amount = new Amount();
@@ -149,7 +156,7 @@ class PaypalController extends Controller
                 ->setDetails($details);
             //Transaction
             $transaction->setAmount($amount)
-                ->setDescription($product->Rname);
+                ->setDescription($room->Rname);
 
             //Payment
             $payment->setIntent('sale')
@@ -169,7 +176,7 @@ class PaypalController extends Controller
                 $transactionPaypal = new TransactionPaypal;
                 $transactionPaypal->user_id = Yii::$app->user->getId();
                 $transactionPaypal->payment_id = $payment->getId();
-                $transactionPaypal->product_id = $product->Rid;
+                $transactionPaypal->product_id = $room->Rid;
                 $transactionPaypal->create_time = '-';
                 $transactionPaypal->update_time = '-';
                 $transactionPaypal->hash = $hash;
@@ -191,8 +198,8 @@ class PaypalController extends Controller
             }
 
 
-            var_dump($payment->getLinks());
-            print_r(Yii::$app->paypal);
+//            var_dump($payment->getLinks());
+//            print_r(Yii::$app->paypal);
 //            return $this->redirect(['error']);
         } else {
             return $this->redirect(['error']);

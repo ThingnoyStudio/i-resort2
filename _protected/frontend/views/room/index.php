@@ -25,15 +25,23 @@ $this->registerJs(" function ff(id,price) {
   var roomId= id;
   var price = price;
   var amount = $(\"span[name=days\"+id+\"]\").text();
+  var date = $(\"input[name=kvdate\"+id+\"]\").val();
+  var s_date = date.split(' ')[0];
+  var e_date = date.split(' ')[2];
+//  var s_date = start_date.replace(/-|_/g,'');
+//  var e_date = end_date.replace(/-|_/g,'');
+  
   console.log('price: '+price);
   console.log('amount: '+amount);
-  
+  console.log('date: '+date);
+//  console.log('start_date: '+start_date);
+  console.log('s_date: '+s_date);
+//  console.log('end_date: '+end_date);
+  console.log('e_date: '+e_date);
+  console.log('url: '+window.location);
   if(amount > 0 ){
-      $.pjax.reload({
-            url:\" " . \yii\helpers\Url::to(['paypal/paypal']) . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount ,
-            container: \"#content\",
-            timeout: 500000
-  });
+      window.location.href = \" " . \yii\helpers\Url::to(['paypal/paypal']) . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount+\"&sdate=\"+s_date+\"&edate=\"+e_date;
+
   }else{
   alert('กรุณาเลือกช่วงเวลาที่เข้าพัก')
   }
@@ -53,7 +61,7 @@ $this->registerJs($script, View::POS_END, 'myOption3');
 $this->title = 'ห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<?php Pjax::begin(['id'=>'content']); ?>
 <div class="room-index">
 
     <!--    <h1><= Html::encode($this->title) ?></h1>-->
@@ -235,7 +243,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     echo DateRangePicker::widget([
                                             'name' => 'kvdate' . $model['Rnumber'],
                                             'id' => 'kvdate' . $model['Rnumber'],
-                                            'value' => date('d-m-Y') . ' - ' . date('d-m-Y'),
+//                                            'value' => date('d-m-Y') . ' - ' . date('d-m-Y'),
                                             'useWithAddon' => true,
                                             'convertFormat' => true,
                                             'language' => 'th',
@@ -337,3 +345,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+<?php Pjax::end(); ?>

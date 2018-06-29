@@ -845,16 +845,16 @@
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.9.8",
+            "version": "8.9.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "420621360d56499ac1b0e6293561ed8661017c6b"
+                "reference": "79a3ee64277b3c8f71dc379c7325155b945058d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/420621360d56499ac1b0e6293561ed8661017c6b",
-                "reference": "420621360d56499ac1b0e6293561ed8661017c6b",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/79a3ee64277b3c8f71dc379c7325155b945058d7",
+                "reference": "79a3ee64277b3c8f71dc379c7325155b945058d7",
                 "shasum": ""
             },
             "require": {
@@ -909,7 +909,7 @@
                 "phonenumber",
                 "validation"
             ],
-            "time": "2018-06-14T11:25:48+00:00"
+            "time": "2018-06-27T13:04:37+00:00"
         },
         {
             "name": "giggsey/locale",
@@ -2408,96 +2408,6 @@
     ],
     "packages-dev": [
         {
-            "name": "2amigos/yii2-date-picker-widget",
-            "version": "1.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/2amigos/yii2-date-picker-widget.git",
-                "reference": "d09c2444e8c2329e38528bba77002dd65186c1ff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/2amigos/yii2-date-picker-widget/zipball/d09c2444e8c2329e38528bba77002dd65186c1ff",
-                "reference": "d09c2444e8c2329e38528bba77002dd65186c1ff",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/bootstrap-datepicker": "1.7.0",
-                "yiisoft/yii2": ">=2.0.9",
-                "yiisoft/yii2-bootstrap": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                },
-                "asset-installer-paths": {
-                    "bower-asset-library": "vendor/bower"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "dosamigos\\datepicker\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "2amigOS! Consulting Group",
-                    "email": "hola@2amigos.us",
-                    "homepage": "http://2amigos.us",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Bootstrap DatePicker widget for Yii2.",
-            "homepage": "http://yiiwheels.com/extension/bootstrap-datepicker",
-            "keywords": [
-                "2amigos",
-                "datepicker",
-                "extension",
-                "widget",
-                "yii",
-                "yii 2",
-                "yii2"
-            ],
-            "time": "2017-07-05T05:52:03+00:00"
-        },
-        {
-            "name": "bower-asset/bootstrap-datepicker",
-            "version": "v1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/uxsolutions/bootstrap-datepicker.git",
-                "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/uxsolutions/bootstrap-datepicker/zipball/d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
-                "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.7.1,<4.0.0"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "dist/css/bootstrap-datepicker3.css",
-                    "dist/js/bootstrap-datepicker.js"
-                ],
-                "bower-asset-ignore": []
-            },
-            "license": [
-                "Apache-2.0"
-            ]
-        },
-        {
             "name": "bower-asset/typeahead.js",
             "version": "v0.11.1",
             "source": {
@@ -3312,16 +3222,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.2.4",
+            "version": "7.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "00bc0b93f0ff4f557e9ea766557fde96da9a03dd"
+                "reference": "400a3836ee549ae6f665323ac3f21e27eac7155f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/00bc0b93f0ff4f557e9ea766557fde96da9a03dd",
-                "reference": "00bc0b93f0ff4f557e9ea766557fde96da9a03dd",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/400a3836ee549ae6f665323ac3f21e27eac7155f",
+                "reference": "400a3836ee549ae6f665323ac3f21e27eac7155f",
                 "shasum": ""
             },
             "require": {
@@ -3337,7 +3247,7 @@
                 "php": "^7.1",
                 "phpspec/prophecy": "^1.7",
                 "phpunit/php-code-coverage": "^6.0.7",
-                "phpunit/php-file-iterator": "^2.0",
+                "phpunit/php-file-iterator": "^2.0.1",
                 "phpunit/php-text-template": "^1.2.1",
                 "phpunit/php-timer": "^2.0",
                 "sebastian/comparator": "^3.0",
@@ -3392,7 +3302,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-06-05T03:40:05+00:00"
+            "time": "2018-06-21T13:13:39+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
