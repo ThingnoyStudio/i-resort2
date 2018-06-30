@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Booking;
 use frontend\models\TransactionPaypal;
 use Yii;
 use frontend\models\Food;
@@ -90,6 +91,7 @@ class PaypalController extends Controller
             $transactionPayment->create_time = $payment->create_time;
             $transactionPayment->update_time = $payment->update_time;
             $transactionPayment->save();
+
 
             Yii::$app->session->remove('paypal_hash');
 
@@ -182,6 +184,18 @@ class PaypalController extends Controller
                 $transactionPaypal->hash = $hash;
 
                 $transactionPaypal->save();
+
+                //save booking
+                $dateNow = date('Y-m-d');
+                $booking = new  Booking();
+                    $booking->Bdate = $dateNow;
+                    $booking->Rid = $RId;
+                    $booking->Btotal = $total_price;
+                    $booking->Bnday=$days;
+                    $booking->Rid=$userId;
+                    $booking->Bdatein= $s_date;
+                    $booking->Bdateout = $e_date;
+                    $booking->save();
 
             } catch (PayPalConnectionException $ex) {
 //            echo ($ex);
