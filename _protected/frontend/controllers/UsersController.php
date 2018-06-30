@@ -2,9 +2,11 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Address;
 use Yii;
 use frontend\models\Users;
 use frontend\models\UsersSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,25 +37,21 @@ class UsersController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UsersSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider = new ActiveDataProvider([
+            'query' => Users::find()->where(['Uid' => Yii::$app->user->identity->id]),
+        ]);
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+//        $searchModel = new UsersSearch();
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//
+//        return $this->render('index', [
+//            'searchModel' => $searchModel,
+//            'dataProvider' => $dataProvider,
+//        ]);
     }
 
-    public function actionIndex2()
-    {
-        $searchModel = new UsersSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
     /**
      * Displays a single Users model.
      * @param integer $id
@@ -64,6 +62,7 @@ class UsersController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'model2' => $this->findAddressModel($id),
         ]);
     }
 
@@ -95,14 +94,57 @@ class UsersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model2 = $this->findAddressModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Uid]);
+//        return print("<pre>".print_r($model,true)."</pre>");
+//return var_dump($model2);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->Uimg = $model->upload($model, 'Uimg');
+            if ($model2 != null) {
+                if ($model2->load(Yii::$app->request->post()) && $model2->validate()) {
+                    try {
+//                        return print("<pre>" . print_r($model2, true) . "</pre>");
+//                        $model2->save();
+                        if ($model2->save()) {
+//                            $model->ADid = $model2->ADid;
+                            $model->save();
+                            return $this->redirect(['view', 'id' => $model->Uid]);
+                        } else {
+                            return print 'error1_In';
+                        }
+                    } catch (Exception $ex) {
+                        return print 'error: ' . $ex->getMessage();
+                    }
+
+                } else {
+                    return print 'error1_out';
+                }
+            } else {
+                $model2 = new Address();
+                if ($model2->load(Yii::$app->request->post()) && $model2->validate()) {
+                    $model2->Uid = $id;
+                    if ($model2->save()) {
+                        $model->ADid = $model2->ADid;
+                        $model->save();
+                        return $this->redirect(['view', 'id' => $model->Uid]);
+                    } else {
+                        return print 'error2_In';
+                    }
+                } else {
+                    return print 'error2_out';
+                }
+            }
+
+        } else {
+            if ($model2 == null) {
+                $model2 = new Address();
+            }
+            return $this->render('update', [
+                'model' => $model,
+                'model2' => $model2,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -111,6 +153,9 @@ class UsersController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -134,4 +179,18 @@ class UsersController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /**
+     * @param $id
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    protected function findAddressModel($id)
+    {
+        if (($model2 = Address::find()->where(['Uid' => $id])->one()) != null) {
+            return ($model2);
+        } else {
+            return null;
+        }
+    }
+
 }

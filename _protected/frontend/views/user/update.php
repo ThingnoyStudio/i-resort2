@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model common\models\User */
 
 $this->title = 'แก้ไขบัญชีผู้ใช้: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'บัญชี', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'แก้ไข';
+//$this->params['breadcrumbs'][] = ['label' => 'บัญชี', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'แก้ไขบัญชีผู้ใช้';
 ?>
 <div class="user-update">
 

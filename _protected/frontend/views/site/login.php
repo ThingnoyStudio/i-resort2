@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = Yii::t('app', 'Login');
+$this->title = Yii::t('app', 'เข้าสู่ระบบ');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <?= Html::submitButton(Yii::t('app', 'เข้าสู่ระบบ'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
