@@ -190,7 +190,7 @@ class PaypalController extends Controller
                 $booking = new  Booking();
                     $booking->Bdate = $dateNow;
                     $booking->Rid = $RId;
-                    $booking->Btotal = $total_price."";
+                    $booking->Btotal = $total_price;
                     $booking->Bnday=$days;
                     $booking->Rid=$userId;
                     $booking->Bdatein= $s_date;
