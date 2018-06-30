@@ -192,7 +192,7 @@ class PaypalController extends Controller
                     $booking->Rid = $RId;
                     $booking->Btotal = $total_price;
                     $booking->Bnday=$days;
-                    $booking->Rid=$userId;
+                    $booking->Uid=$userId;
                     $booking->Bdatein= $s_date;
                     $booking->Bdateout = $e_date;
                     $booking->save();
