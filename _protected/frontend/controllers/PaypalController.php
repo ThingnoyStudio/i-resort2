@@ -188,14 +188,22 @@ class PaypalController extends Controller
                 //save booking
                 $dateNow = date('Y-m-d');
                 $booking = new  Booking();
+                if ($booking->load(Yii::$app->request->post()) && $booking->validate()) {
                     $booking->Bdate = $dateNow;
                     $booking->Rid = $RId;
                     $booking->Btotal = $total_price;
-                    $booking->Bnday=$days;
-                    $booking->Uid=$userId;
-                    $booking->Bdatein= $s_date;
+                    $booking->Bnday = $days;
+                    $booking->Uid = $userId;
+                    $booking->Bdatein = $s_date;
                     $booking->Bdateout = $e_date;
                     $booking->save();
+                }
+                //แก้ไขสถานะห้อง
+                $room = new Room();
+                if ($room->load(Yii::$app->request->post()) && $room->validate()) {
+                    $room->RSid = 2;
+                    $room->save();
+                }
 
             } catch (PayPalConnectionException $ex) {
 //            echo ($ex);
