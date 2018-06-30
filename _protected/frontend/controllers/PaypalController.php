@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+
 use frontend\models\Booking;
 use frontend\models\TransactionPaypal;
 use Yii;
@@ -175,6 +176,9 @@ class PaypalController extends Controller
                 $hash = md5($payment->getId());
                 Yii::$app->session['paypal_hash'] = $hash;
 
+
+
+
                 $transactionPaypal = new TransactionPaypal;
                 $transactionPaypal->user_id = Yii::$app->user->getId();
                 $transactionPaypal->payment_id = $payment->getId();
@@ -182,28 +186,25 @@ class PaypalController extends Controller
                 $transactionPaypal->create_time = '-';
                 $transactionPaypal->update_time = '-';
                 $transactionPaypal->hash = $hash;
-
                 $transactionPaypal->save();
 
                 //save booking
                 $dateNow = date('Y-m-d');
                 $booking = new  Booking();
-                if ($booking->load(Yii::$app->request->post()) && $booking->validate()) {
-                    $booking->Bdate = $dateNow;
-                    $booking->Rid = $RId;
-                    $booking->Btotal = $total_price;
-                    $booking->Bnday = $days;
-                    $booking->Uid = $userId;
-                    $booking->Bdatein = $s_date;
-                    $booking->Bdateout = $e_date;
-                    $booking->save();
-                }
+                $booking->Bdate = "20-10-2018";
+                $booking->Rid = $RId."";
+                $booking->Btotal = $total_price."";
+                $booking->Bnday = $days."";
+                $booking->Uid = $userId."";
+                $booking->Bdatein = $s_date."";
+                $booking->Bdateout = $e_date."";
+                $booking->save();
+
                 //แก้ไขสถานะห้อง
-                $room = new Room();
-                if ($room->load(Yii::$app->request->post()) && $room->validate()) {
-                    $room->RSid = 2;
-                    $room->save();
-                }
+                $rooms = Room::findOne($RId);
+                $rooms->RSid = 2;
+                $rooms->save();
+
 
             } catch (PayPalConnectionException $ex) {
 //            echo ($ex);
