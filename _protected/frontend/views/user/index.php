@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'class' => 'btn btn-success']); ?>
                                 <?= Html::a('<i class="glyphicon glyphicon-pencil"> </i> ' . Yii::t('app', 'เปลี่ยนรหัสผ่าน'), ['site/changepassword'], ['title' => 'Edit user',
                                     'class' => 'btn btn-success-outline']); ?>
-                                <!-- <?= Html::a(Yii::t('app', 'ยกเลิก'), ['user/index'], ['class' => 'btn btn-primary-outline']) ?> -->
+
                             </div>
                         </div>
                     </div>

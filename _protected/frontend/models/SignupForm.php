@@ -80,9 +80,9 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => Yii::t('app', 'Username'),
-            'password' => Yii::t('app', 'Password'),
-            'email' => Yii::t('app', 'Email'),
+            'username' => Yii::t('app', 'ชื่อผู้ใช้'),
+            'password' => Yii::t('app', 'รหัสผ่าน'),
+            'email' => Yii::t('app', 'อีเมล'),
         ];
     }
 

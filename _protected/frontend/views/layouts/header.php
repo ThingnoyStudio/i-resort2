@@ -17,17 +17,17 @@ use yii\helpers\Html;
             <!--                <span class="button-bar"></span>-->
             <!--            </a>-->
             <a href="<?= yii\helpers\Url::to(['/site/index']) ?>" class="navbar-brand">
-                <div class="logo" style="    border-radius: 50%;
-    border: 1px solid #333;
-    display: block;
-    height: 46px;
-    width: 46px;
-    float: left;
-    overflow: hidden;
-    background: white;">
+                <div class="logo"
+                     style="border-radius: 50%;
+                    border: 1px solid #333;
+                    display: block;
+                    height: 46px;
+                    width: 46px;
+                    float: left;
+                    overflow: hidden;
+                    background: white;">
                     <img src="<?= Yii::getAlias('@HeaderIcon') ?>" width="60" height="60">
                 </div>
-                <!--                <p style="font-size: x-large">ระบบพยากรณ์ ผู้ป่วยมะเร็งและเนื้องอกในประเทศไทย</p>-->
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-header">Dropdown header</a>
@@ -52,11 +52,8 @@ use yii\helpers\Html;
                 <span class="navbar-toggler-bar bar3"></span>
             </button>
         </div>
-
         <ul class="collapse navbar-collapse justify-content-end" id="navigation"
-            data-nav-image="<?= Yii::getAlias('@UploadsImg') . '/blurred-image-1.jpg' ?>" style="    margin-top: 0;
-    margin-bottom: -1rem;">
-
+            data-nav-image="<?= Yii::getAlias('@UploadsImg') . '/blurred-image-1.jpg' ?>" style="margin-top: 0; margin-bottom: -1rem;">
             <ul class="navbar-nav">
 
                 <?php
@@ -105,8 +102,7 @@ use yii\helpers\Html;
                     <?php
                 } else {
                     $Usatatus = Users::findOne(Yii::$app->user->id);
-//                    echo print_r($Usatatus->Uemail);
-                    if ($Usatatus->USid == 1) {
+                    if ($Usatatus->USid == 1) {// สมาชิก
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="หน้าหลัก" data-placement="bottom"
@@ -158,7 +154,7 @@ use yii\helpers\Html;
                             </a>
                         </li>
                         <?php
-                    } else if ($Usatatus->USid == 2) {
+                    } else if ($Usatatus->USid == 2) { // ผู้บริหาร
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="รายงานการเข้าพัก" data-placement="bottom"
@@ -177,7 +173,7 @@ use yii\helpers\Html;
                             </a>
                         </li>
                         <?php
-                    } else if ($Usatatus->USid == 3) {
+                    } else if ($Usatatus->USid == 3) { // พนักงานต้อนรับ
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="ข้อมูลลูกค้า" data-placement="bottom"
@@ -204,7 +200,7 @@ use yii\helpers\Html;
                             </a>
                         </li>
                         <?php
-                    } else if ($Usatatus->USid == 4) {
+                    } else if ($Usatatus->USid == 4) { // แม่บ้าน
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="ห้องพัก" data-placement="bottom"
@@ -215,7 +211,7 @@ use yii\helpers\Html;
                             </a>
                         </li>
                         <?php
-                    } else if ($Usatatus->USid == 5) {
+                    } else if ($Usatatus->USid == 5) { // ฝ่ายโภชนาการ
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="จัดการข้อมูลอาหาร" data-placement="bottom"
@@ -234,7 +230,7 @@ use yii\helpers\Html;
                             </a>
                         </li>
                         <?php
-                    } else {
+                    } else { // ฝ่ายการเงิน
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="จัดการห้องพัก" data-placement="bottom"
@@ -271,20 +267,20 @@ use yii\helpers\Html;
                 } //else
                 ?>
 
+                <!------------- user dropdown -->
                 <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        style="font-size: small;padding: 0.5rem 0.7rem;display: block;">
-
                         <img src="<?= Yii::getAlias('@ShowUde') ?>" class="img" alt="User Image" style="    float: left;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-top: -2px;"/>
+                            width: 25px;
+                            height: 25px;
+                            border-radius: 50%;
+                            margin-right: 10px;
+                            margin-top: -2px;"/>
+
                         <?php
                         if (Yii::$app->user->isGuest) {
                             ?>
-
                             <span>กรุณาเข้าสู่ระบบ</span>
                             <?php
                         } else {
@@ -297,17 +293,13 @@ use yii\helpers\Html;
                         ?>
                     </a>
                     <ul class="dropdown-menu" style="width: 200px; padding: 4px 9px">
-
                         <li class="user-header">
                             <div class="card card-profile" style="box-shadow: unset;padding: 0px 12px;display: unset">
                                 <div class="card-avatar" style="max-width: 88px;">
                                     <a href="#pablo">
-                                        <img class="img" src="<?= Yii::getAlias('@ShowUde') ?>"
-                                             style="    border-radius: 50%;"/>
-
+                                        <img class="img" src="<?= Yii::getAlias('@ShowUde') ?>" style="border-radius: 50%;"/>
                                     </a>
                                 </div>
-
 
                                 <?php
                                 if (Yii::$app->user->isGuest) {
@@ -328,38 +320,50 @@ use yii\helpers\Html;
                                             <?= Html::a(
                                                 'เข้าสู่ระบบ',
                                                 ['/site/login'],
-                                                ['data-method' => 'post', 'class' => 'btn btn-primary btn-round', 'style' => 'padding: 9px 13px;']
+                                                ['data-method' => 'post', 'class' => 'btn btn-success btn-round', 'style' => 'padding: 9px 13px;']
                                             ) ?>
                                         </div>
                                     </div>
-                                    <!-- $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-                                    $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']]; -->
-
 
                                     <?php
                                 } else {
                                     ?>
 
-
                                     <div class="content">
                                         <h6 class="category text-gray">ยินดีต้อนรับ</h6>
                                         <h4 class="card-title"><?= Yii::$app->user->identity->username ?></h4>
 
-                                        <div class="pull-left">
+                                        <div class="pull-left0">
                                             <?= Html::a(
                                                 'โปรไฟล์',
-                                                ['/user/index'],
-                                                ['data-method' => 'post', 'class' => 'btn btn-primary btn-round', 'style' => 'padding: 9px 17px;']
+                                                ['users/view', 'id' => Yii::$app->user->identity->id],
+                                                ['data-method' => 'post', 'class' => 'btn btn-success btn-round', 'style' => 'padding: 9px 17px; width: 100%; margin: 5px 1px;']
                                             ) ?>
                                         </div>
+                                        <div class="pull-left0">
+                                            <?= Html::a(
+                                                'บัญชี',
+                                                ['user/update', 'id' => Yii::$app->user->identity->id],
+                                                ['data-method' => 'post', 'class' => 'btn btn-success btn-round', 'style' => 'padding: 9px 17px; width: 100%; margin: 1px 1px;']
+                                            ) ?>
+                                        </div>
+                                        <div class="pull-left0">
+                                            <?= Html::a(
+                                                'เปลี่ยนรหัสผ่าน',
+                                                ['site/changepassword'],
+                                                ['data-method' => 'post', 'class' => 'btn btn-success btn-round', 'style' => 'padding: 9px 17px; width: 100%; margin: 5px 1px;']
+                                            ) ?>
+                                        </div>
+
                                         <div class="pull-right">
                                             <?= Html::a(
                                                 'ออกจากระบบ',
                                                 ['/site/logout'],
-                                                ['data-method' => 'post', 'class' => 'btn btn-primary btn-round', 'style' => 'padding: 9px 11px;']
+                                                ['data-method' => 'post', 'class' => 'btn btn-default btn-round', 'style' => 'padding: 9px 11px;']
                                             ) ?>
                                         </div>
                                     </div>
+
                                     <?php
                                 } //else
                                 ?>
@@ -367,10 +371,8 @@ use yii\helpers\Html;
 
                             </div>
                         </li>
-
                     </ul>
                 </li>
-
 
             </ul>
     </div>

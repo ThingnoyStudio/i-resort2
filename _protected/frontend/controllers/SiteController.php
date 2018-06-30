@@ -412,20 +412,42 @@ class SiteController extends Controller
                     $modeluser->setPassword($_POST['PasswordForm']['newpass']);
                     // $modeluser->password = $_POST['PasswordForm']['newpass'];
                     if($modeluser->save()){
-                        Yii::$app->getSession()->setFlash(
-                            'success','Password changed'
-                        );
-                        return $this->redirect(['index']);
+                        Yii::$app->getSession()->setFlash('Oops', [
+                            'body' => 'เปลี่ยนรหัสผ่านสำเร็จ',
+                            'type' => 'success',
+//                        'options'=>['class'=>'alert-warning']
+                        ]);
+//                        Yii::$app->getSession()->setFlash(
+//                            'success','Password changed'
+//                        );
+                        $model = new PasswordForm;
+                        return $this->render('changepassword',[
+                            'model'=>$model
+                        ]);
+//                        return $this->redirect(['index']);
                     }else{
-                        Yii::$app->getSession()->setFlash(
-                            'error','Password not changed'
-                        );
-                        return $this->redirect(['index']);
+                        Yii::$app->getSession()->setFlash('Oops', [
+                            'body' => 'เปลี่ยนรหัสผ่านไม่สำเร็จ',
+                            'type' => 'success',
+//                        'options'=>['class'=>'alert-warning']
+                        ]);
+//                        Yii::$app->getSession()->setFlash(
+//                            'error','Password not changed'
+//                        );
+                        return $this->render('changepassword',[
+                            'model'=>$model
+                        ]);
+//                        return $this->redirect(['index']);
                     }
                 }catch(Exception $e){
-                    Yii::$app->getSession()->setFlash(
-                        'error',"{$e->getMessage()}"
-                    );
+                    Yii::$app->getSession()->setFlash('Oops', [
+                        'body' => 'เปลี่ยนรหัสผ่านไม่สำเร็จ: '.$e->getMessage(),
+                        'type' => 'error',
+//                        'options'=>['class'=>'alert-warning']
+                    ]);
+//                    Yii::$app->getSession()->setFlash(
+//                        'error',"{$e->getMessage()}"
+//                    );
                     return $this->render('changepassword',[
                         'model'=>$model
                     ]);

@@ -8,7 +8,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
 
-$this->title = Yii::t('app', 'Signup');
+$this->title = Yii::t('app', 'สมัครสมาชิก');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="col-lg-5 well bs-component">
 
-        <p><?= Yii::t('app', 'Please fill out the following fields to signup:') ?></p>
+        <p><?= Yii::t('app', 'กรุณากรอกข้อมูลให้ครบเพื่อสมัครสมาชิก:') ?></p>
 
         <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'password')->passwordInput() ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+            <?= Html::submitButton(Yii::t('app', 'ลงทะเบียน'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::submitButton('เปลี่ยนรหัสผ่าน', [
                         'class' => 'btn btn-primary'
                     ]) ?>
-                    <?= Html::a(Yii::t('app', 'ยกเลิก'), ['user/index'], ['class' => 'btn btn-default']) ?>
+<!--                    <?//= Html::a(Yii::t('app', 'ยกเลิก'), ['user/index'], ['class' => 'btn btn-default']) ?>-->
                 </div>
             </div>
             <?php ActiveForm::end(); ?>
