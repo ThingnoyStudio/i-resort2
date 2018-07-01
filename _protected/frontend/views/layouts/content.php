@@ -33,7 +33,7 @@ use yii2mod\alert\Alert;
         </section>
 
         <section class="mycontent">
-            <?= Alert::widget() ?>
+<!--            <= Alert::widget() ?>-->
             <?= $content ?>
         </section>
     </div>

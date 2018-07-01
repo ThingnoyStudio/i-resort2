@@ -8,6 +8,7 @@ use frontend\models\TransactionPaypal;
 use Yii;
 use frontend\models\Food;
 use frontend\models\FoodSearch;
+use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -137,12 +138,29 @@ class PaypalController extends Controller
 //        return $this->render('success');
     }
 
-    public function actionPaypal($roomId, $price, $amt, $sdate, $edate)
+    /**
+     * @param null $roomId
+     * @param null $price
+     * @param null $amt
+     * @param null $sdate
+     * @param null $edate
+     * @return \yii\web\Response
+     * @throws Exception
+     */
+    public function actionPaypal($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null)
     {
         date_default_timezone_set('asia/bangkok');
-        if (Yii::$app->user->isGuest){
+        if (Yii::$app->user->isGuest) {
 //            $this->setReturnUrl(Yii::$app->request->getUrl());
             return $this->redirect(['site/login']);
+        }
+        if ($this->findDdate($sdate,$edate)){
+            Yii::$app->getSession()->setFlash('Oops', [
+                'body' => 'ช่วงเวลานี้ มีการจองแล้วกรุณาเลือกช่วงเวลาใหม่: ',
+                'type' => 'warning',
+//                        'options'=>['class'=>'alert-warning']
+            ]);
+            return $this->redirect(['room/index']);
         }
         if ($roomId && $price && $amt != 0) {
             $room = Room::findOne(['Rid' => $roomId]);
@@ -204,10 +222,10 @@ class PaypalController extends Controller
                 //save booking
                 $booking = new  Booking();
                 $booking->Bdate = date('Y-m-d H:i:s') . "";
-                $booking->Rid = $RId."";
-                $booking->Btotal = $total_price."";
-                $booking->Bnday = $days."";
-                $booking->Uid = $userId."";
+                $booking->Rid = $RId . "";
+                $booking->Btotal = $total_price . "";
+                $booking->Bnday = $days . "";
+                $booking->Uid = $userId . "";
                 $booking->Bdatein = $s_date;
                 $booking->Bdateout = $e_date;
                 $booking->PMid = '1';
@@ -221,7 +239,7 @@ class PaypalController extends Controller
 
             } catch (PayPalConnectionException $ex) {
                 Yii::$app->getSession()->setFlash('Oops', [
-                    'body' => 'เกิดข้อผิดพลาดระหว่างชำระเงิน: '.$ex->getMessage(),
+                    'body' => 'เกิดข้อผิดพลาดระหว่างชำระเงิน: ' . $ex->getMessage(),
                     'type' => 'error',
 //                        'options'=>['class'=>'alert-warning']
                 ]);
@@ -246,5 +264,36 @@ class PaypalController extends Controller
             return $this->redirect(['error']);
         }
 
+    }
+
+    /**
+     * @param null $sdate
+     * @param null $edate
+     * @return array
+     * @throws Exception
+     */
+    public function findDdate($sdate, $edate)
+    {
+       return $check_date = Yii::$app->db->createCommand('select * from booking where \'' . $sdate . '\' between Bdatein and Bdatein or \'' . $edate . '\' between Bdateout and Bdateout')->queryAll();
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function actionChkdate(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $stDate= explode(":", $data['sDate'])[0];
+            $enDate= explode(":", $data['eDate'])[0];
+            $booking = $this->findDdate($stDate,$enDate); // your logic;
+                \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return [
+                's_date' => $stDate,
+                'ed' => $enDate,
+                'booking' => $booking,
+                'code' => 100,
+            ];
+        }
     }
 }

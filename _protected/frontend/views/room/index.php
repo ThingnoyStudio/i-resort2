@@ -50,10 +50,31 @@ $this->registerJs(" function ff(id,price) {
 
 } ", View::POS_END, 'my-options');
 
+//$this->registerJs(" function checkDate(id) {
+//  var date = $(\"input[name=kvdate\"+id+\"]\").val();
+//  var s_date = date.split(' ')[0];
+//  var e_date = date.split(' ')[2];
+//      $.ajax({
+//       url: '".  Yii::$app->request->baseUrl ."'/paypal/chkdate',
+//       type: 'post',
+//       data: {
+//                 sDate:s_date ,
+//                 eDate:e_date ,
+//                 _csrf : '". Yii::$app->request->getCsrfToken() ."'
+//             },
+//       success: function (data) {
+//          console.log(data.booking);
+//       }
+//      });
+//
+//
+//} ", View::POS_LOAD, 'my-options2');
+
 $script = <<< JS
 function con() {
     console.log("sss");
   $('.modal.in:visible').modal('hide');
+  
 }
 JS;
 $this->registerJs($script, View::POS_END, 'myOption3');
@@ -63,31 +84,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <!--<php Pjax::begin(['id'=>'content']); ?>-->
 <div class="room-index">
-
-    <!--    <h1><= Html::encode($this->title) ?></h1>-->
-    <!--    <php  echo $this->render('_search', ['model' => $searchModel]); ?>-->
-    <!---->
-    <!--    <p>-->
-    <!--        <=  Html::a('Create Room', ['create'], ['class' => 'btn btn-success']) ?>-->
-    <!--    </p>-->
-
-    <!--    <= GridView::widget([-->
-    <!--        'dataProvider' => $dataProvider,-->
-    <!--        'filterModel' => $searchModel,-->
-    <!--        'columns' => [-->
-    <!--            ['class' => 'yii\grid\SerialColumn'],-->
-    <!---->
-    <!--//            'Rid',-->
-    <!--            'Rname:ntext',-->
-    <!--            'Rnumber:ntext',-->
-    <!--            'Rdes:ntext',-->
-    <!--            'Rimg:ntext',-->
-    <!--            'RSname',-->
-    <!--            'RTname',-->
-    <!---->
-    <!--//            ['class' => 'yii\grid\ActionColumn'],-->
-    <!--        ],-->
-    <!--    ]); ?>-->
 
 
     <div class="row">
@@ -151,7 +147,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ฿<?= $model['Rprice'] ?>
                                     </span>
                                     <span class="line-through " style="color: #FF281E;">
-                                        ฿<?= $model['Rprice'] - (($model['Rprice'] * $p)/100) ?>
+                                        ฿<?= $model['Rprice'] - (($model['Rprice'] * $p) / 100) ?>
                                     </span>
                                 </div>
                             </h3>
@@ -180,27 +176,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 หมายเลข<?= ' ' . $model['Rnumber'] . ' ' . $model['Rname'] ?></h4>
                         </div>
                         <div class="modal-body">
+
+                            <!-- // order -->
                             <div class="col-xs-12 ">
                                 <div class="card" data-turbolinks="false" style="margin: 0px 0px 25px 0px;">
                                     <div class="thumbnail" style="max-height: 158.91px">
                                         <img src="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>"
                                              data-retina="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>"
                                              alt="No Image">
-
-                                        <!--                                        <a href="#" class="thumb-cover"></a>-->
-                                        <!--                                        <b class="actions">-->
-                                        <!--                                            <a class="btn btn-info btn-round btn-fill" rel="tooltip" title="" data-remote="true"-->
-                                        <!--                                               href="#" data-original-title="จองห้องพัก" data-toggle="modal"-->
-                                        <!--                                               data-target="#-->
-                                        <?//= $model['Rnumber'] ?><!--">-->
-                                        <!--                                                <i class="fa fa-shopping-cart"></i>-->
-                                        <!--                                            </a>-->
-
-                                        </b>
-
                                     </div>
                                     <div class="card-info">
-
                                         <a>
                                             <h3>
                                                 <span class="badge badge-info" id="roomId"
@@ -218,7 +203,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </div>
                                             </h3>
 
-                                            <p><?= $model['Rdes'] ?></p>
+                                            <p style="min-height: unset;"><?= $model['Rdes'] ?></p>
                                         </a>
                                         <i class="material-icons"
                                            style="top: 1px;font-size: unset;margin-right: 3px;position: relative;">local_offer</i><?= $model['RTname'] ?>
@@ -227,8 +212,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                             </div>
-                            <!--                            // date picker -->
-
+                            <!-- // date picker -->
                             <div class="col-12" style="display: flex; align-items: baseline;">
                                 <div style="padding-left: 15px"><label for="kvdate3" style="font-size: large">ช่วงวันที่เข้าพัก</label>
                                 </div>
@@ -238,20 +222,62 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $price = $model['Rprice'] - $p;
                                     $total_price = 0;
                                     $callback = new \yii\web\JsExpression(
-                                        "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; $('span[name=\"days" . $ss . "\"]').text(lday);}else{lday = days; $('span[name=\"days" . $ss . "\"]').text(lday);}  $('input[name=\"kvdate" . $ss . "\"]').val(start_date.format('YYYY-MM-DD')+' - '+end_date.format('YYYY-MM-DD')); $('span[name=\"price" . $ss . "\"]').text(lday * " . $price . "); $('span[name=\"pay" . $ss . "\"]').text('' + lday * " . $price . ");  }");
+                                        "function validate (start_date, end_date){ 
+                                        var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); 
+                                        var lday;  
+                                          if(days == 0){ lday = 1; $('span[name=\"days" . $ss . "\"]').text(lday);}else{lday = days; $('span[name=\"days" . $ss . "\"]').text(lday);}
+                                          $('input[name=\"kvdate" . $ss . "\"]').val(start_date.format('YYYY-MM-DD')+' - '+end_date.format('YYYY-MM-DD')); 
+                                          $('span[name=\"price" . $ss . "\"]').text(lday * " . $price . "); 
+                                          $('span[name=\"pay" . $ss . "\"]').text('' + lday * " . $price . ");  
+                                           
+                                           $.ajax({
+                                               url: '".  Yii::$app->request->baseUrl ."/paypal/chkdate',
+                                               type: 'post',
+                                               data: {
+                                                         sDate:start_date.format('YYYY-MM-DD') , 
+                                                         eDate:end_date.format('YYYY-MM-DD') , 
+                                                         _csrf : '". Yii::$app->request->getCsrfToken() ."'
+                                                     },
+                                               success: function (data) {
+                                                  console.log(data);
+                                                  if(data.booking.length != 0){
+                                                  $('span[name=\"days" . $ss . "\"]').text(0);
+                                                  $('input[name=\"kvdate" . $ss . "\"]').val(''); 
+                                                  $('span[name=\"price" . $ss . "\"]').text(0); 
+                                                  $('span[name=\"pay" . $ss . "\"]').text(0);
+                                                  alert('ช่วงเวลานี้ถูกจองไปแล้ว กรุณาเลือกใหม่!');
+                                                  }
+                                               }
+                                              });
+                                           
+                                        }");
                                     echo '<div class="input-group">';
                                     echo DateRangePicker::widget([
                                             'name' => 'kvdate' . $model['Rnumber'],
                                             'id' => 'kvdate' . $model['Rnumber'],
-//                                            'value' => date('d-m-Y') . ' - ' . date('d-m-Y'),
+                                            //                                            'value' => date('d-m-Y') . ' - ' . date('d-m-Y'),
                                             'useWithAddon' => true,
                                             'convertFormat' => true,
                                             'language' => 'th',
                                             'startAttribute' => 'from_date',
                                             'endAttribute' => 'to_date',
-//                                            'startInputOptions' => ['value' =>  date('d-m-Y')],
-//                                            'endInputOptions' => ['value' =>  date('d-m-Y')],
-                                            'callback' => $callback,
+                                            //                                            'startInputOptions' => ['value' =>  date('d-m-Y')],
+                                            //                                            'endInputOptions' => ['value' =>  date('d-m-Y')],
+                                            'pluginEvents' => [
+                                                "cancel.daterangepicker" => "function(ev, picker) { 
+                                                picker.element[0].children[1].textContent = '';
+                                                $(picker.element[0].nextElementSibling).val('').trigger('change'); 
+                                                
+                                                }",
+                                                'apply.daterangepicker' => "function(ev,picker) {
+                                                var start_date = picker.startDate;
+                                                var end_date = picker.endDate;
+                                                validate(start_date, end_date);
+                                                ".$callback."
+                                                }",
+
+                                            ],
+//                                            'callback' => $callback,
                                             'pluginOptions' => [
                                                 'locale' => ['format' => 'd-m-Y'],
                                                 'opens' => 'center',
@@ -267,8 +293,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <span style="font-size: large">วัน</span>
                                 </div>
                             </div>
-
-
                             <div class="col-12" style="display: flex;font-size: x-large;">
                                 <div class="col-md-6">ยอดรวมสุทธิ</div>
                                 <div class="col-md-6" style="text-align: right;color: #FF281E;font-weight: 500;">
@@ -281,7 +305,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <button type="button" class="btn btn-default " data-dismiss="modal" style="    margin-right: .25rem;
     padding-right: 30px;
-    padding-left: 30px;">ยกเลิก</button>
+    padding-left: 30px;">ยกเลิก
+                            </button>
                             <!--                            <a class="btn btn-info btn-lg btn-block btn-capital" id="dd" name="pay-->
                             <?//= $model['Rnumber'] ?><!--" >-->
                             <!--                                <i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿-->
