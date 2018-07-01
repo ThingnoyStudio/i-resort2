@@ -196,8 +196,8 @@ class PaypalController extends Controller
                 $booking->Btotal = $total_price."";
                 $booking->Bnday = $days."";
                 $booking->Uid = $userId."";
-                $booking->Bdatein = $s_date."";
-                $booking->Bdateout = $e_date."";
+                $booking->Bdatein = $s_date;
+                $booking->Bdateout = $e_date;
                 $booking->save();
 
                 //แก้ไขสถานะห้อง

@@ -147,7 +147,7 @@ use yii\helpers\Html;
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="ประวัติการทำรายการ" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/promotion/index']) ?>"
+                               href="<?= yii\helpers\Url::to(['/booking/index4']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
                                 <p class="d-lg-none d-xl-none">ประวัติการทำรายการ</p>
