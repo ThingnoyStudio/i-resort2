@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Promotion;
 use frontend\models\PromotionSearch;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -88,14 +89,36 @@ class PromotionController extends Controller
         $model = new Promotion();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+
             $range = $model->kvdate1;
             $model->Pdatestart = explode(' ',$range)[0];
             $model->Pdateend = explode(' ',$range)[2];;
-            $model->Pimg = $model->upload($model,'Pimg');
+            $p = new Query();
+            $p->select('*')->from('promotion');
+            $com = $p->createCommand();
+            $da = $com->queryAll();
+            foreach ($da as $item){
+                if(($model->Pdatestart >= $item['Pdatestart'] && $model->Pdatestart >= $item['Pdateend'])
+                    || ($model->Pdateend >= $item['Pdatestart'] && $model->Pdateend <=  $item['Pdateend'])){
+                    
+
+                    Yii::$app->getSession()->setFlash('Oops',[
+                        'body'=>'=ช่วงวันที่มีการซ้ำกัน กรุณาใส่วันที่ใหม่ ',
+                        'type' => 'error',
+//                        'options'=>['class'=>'alert-success']
+                    ]);
+
+                }else{
+
+                    $model->Pimg = $model->upload($model,'Pimg');
 //            return print("<pre>".print_r($model,true)."</pre>");
 
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->Pid]);
+                    $model->save();
+                    return $this->redirect(['view', 'id' => $model->Pid]);
+                }
+            }
+
         }
 
         return $this->render('create', [

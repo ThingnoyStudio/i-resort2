@@ -27,7 +27,7 @@ HTML;
     echo '<p><b>วันที่เริ่มต้น - สิ้นสุด</b></p>';
     $model->Pdatestart = date('Y-m-d');//ตัวแปลวันที่เริ่มต้น
     $model->Pdateend = date('Y-m-d');//ตัวแปลวันที่เข้าพัก
-    //    $form->field($model, 'kvdate1');
+//        $form->field($model, 'kvdate1');
     echo '<div class="input-group drp-container">';
     echo DateRangePicker::widget([
             'model'=>$model,
@@ -36,7 +36,7 @@ HTML;
             'convertFormat'=>true,
             'startAttribute' => 'Pdatestart',
             'endAttribute' => 'Pdateend',
-//        'language' => 'th',
+        'language' => 'th',
             'pluginOptions'=>[
                 'locale'=>['format' => 'Y-m-d'],
             ]
