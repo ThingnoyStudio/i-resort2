@@ -1,7 +1,9 @@
 <?php
 
 use yii\widgets\Breadcrumbs;
-use dmstr\widgets\Alert;
+use yii2mod\alert\Alert;
+
+//use dmstr\widgets\Alert;
 
 ?>
 <div class="section">

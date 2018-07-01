@@ -43,6 +43,17 @@ class PaypalController extends Controller
         ];
     }
 
+    /**
+     * @param $action
+     * @return bool
+     * @throws \yii\web\BadRequestHttpException
+     */
+    public function beforeAction($action)
+    {
+        Yii::$app->user->returnUrl = Yii::$app->request->referrer;
+        return parent::beforeAction($action);
+    }
+
     public function actionCancel()
     {
         Yii::$app->getSession()->setFlash('Oops', [
@@ -129,6 +140,10 @@ class PaypalController extends Controller
     public function actionPaypal($roomId, $price, $amt, $sdate, $edate)
     {
         date_default_timezone_set('asia/bangkok');
+        if (Yii::$app->user->isGuest){
+//            $this->setReturnUrl(Yii::$app->request->getUrl());
+            return $this->redirect(['site/login']);
+        }
         if ($roomId && $price && $amt != 0) {
             $room = Room::findOne(['Rid' => $roomId]);
 
