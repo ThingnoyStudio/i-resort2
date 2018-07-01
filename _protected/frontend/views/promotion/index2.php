@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </a>
 
                         <span class="line-through " style="color: #FF281E;">
-                                       ลด <?= ($myModel['Pdistant']) ?>
+                                       ลด <?= ($myModel['Pdistant']) ?>  %
                                     </span>
 
                     </div>

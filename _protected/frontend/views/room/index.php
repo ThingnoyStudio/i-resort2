@@ -151,7 +151,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ฿<?= $model['Rprice'] ?>
                                     </span>
                                     <span class="line-through " style="color: #FF281E;">
-                                        ฿<?= ($model['Rprice'] - $p) ?>
+                                        ฿<?= $model['Rprice'] - (($model['Rprice'] * $p)/100) ?>
                                     </span>
                                 </div>
                             </h3>
