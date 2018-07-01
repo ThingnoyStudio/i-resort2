@@ -45,11 +45,11 @@ class PaypalController extends Controller
 
     public function actionCancel()
     {
-//        Yii::$app->getSession()->setFlash('Oops', [
-//            'body' => 'การทำงานผิดพลาด',
-//            'type' => 'warning',
-////                        'options'=>['class'=>'alert-warning']
-//        ]);
+        Yii::$app->getSession()->setFlash('Oops', [
+            'body' => 'การชำระเงินถูกยกเลิก',
+            'type' => 'warning',
+//                        'options'=>['class'=>'alert-warning']
+        ]);
 
         return $this->redirect(['room/index']);
 //        return $this->render('cancel');
@@ -69,7 +69,7 @@ class PaypalController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->redirect(['room/index']);
     }
 
     public function actionPay($approved = null, $PayerID = null)
@@ -128,6 +128,7 @@ class PaypalController extends Controller
 
     public function actionPaypal($roomId, $price, $amt, $sdate, $edate)
     {
+        date_default_timezone_set('asia/bangkok');
         if ($roomId && $price && $amt != 0) {
             $room = Room::findOne(['Rid' => $roomId]);
 
@@ -176,9 +177,6 @@ class PaypalController extends Controller
                 $hash = md5($payment->getId());
                 Yii::$app->session['paypal_hash'] = $hash;
 
-
-
-
                 $transactionPaypal = new TransactionPaypal;
                 $transactionPaypal->user_id = Yii::$app->user->getId();
                 $transactionPaypal->payment_id = $payment->getId();
@@ -197,7 +195,7 @@ class PaypalController extends Controller
                 $booking->Uid = $userId."";
                 $booking->Bdatein = $s_date;
                 $booking->Bdateout = $e_date;
-                $booking->PMid = 1;
+                $booking->PMid = '1';
                 $booking->save();
 
                 //แก้ไขสถานะห้อง
@@ -207,9 +205,14 @@ class PaypalController extends Controller
 
 
             } catch (PayPalConnectionException $ex) {
-//            echo ($ex);
-                print("<pre>" . print_r($ex, true) . "</pre>");
-//            $this->redirect('error');
+                Yii::$app->getSession()->setFlash('Oops', [
+                    'body' => 'เกิดข้อผิดพลาดระหว่างชำระเงิน: '.$ex->getMessage(),
+                    'type' => 'error',
+//                        'options'=>['class'=>'alert-warning']
+                ]);
+
+                return $this->redirect(['room/index']);
+//                print("<pre>" . print_r($ex, true) . "</pre>");
             }
             if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
                 foreach ($payment->getLinks() as $link) {
