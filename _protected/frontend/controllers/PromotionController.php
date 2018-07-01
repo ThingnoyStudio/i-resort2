@@ -88,7 +88,12 @@ class PromotionController extends Controller
         $model = new Promotion();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $range = $model->kvdate1;
+            $model->Pdatestart = explode(' ',$range)[0];
+            $model->Pdateend = explode(' ',$range)[2];;
             $model->Pimg = $model->upload($model,'Pimg');
+//            return print("<pre>".print_r($model,true)."</pre>");
+
             $model->save();
             return $this->redirect(['view', 'id' => $model->Pid]);
         }
