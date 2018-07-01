@@ -122,9 +122,8 @@ class BookingController extends Controller
     public function actionIndex4()
     {
         $searchModel = new BookingSearch();
-
-        $dataProvider = $searchModel->search2(Yii::$app->request->queryParams);
-
+        $uid = Yii::$app->user->getId();
+        $dataProvider = $searchModel->search3($uid);
 
         return $this->render('index4', [
             'searchModel' => $searchModel,
@@ -144,6 +143,13 @@ class BookingController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    public function actionView3($id)
+    {
+        return $this->render('view3', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
     public function actionUpdatestatus($id,$id2)
     {
         $model = $this->findModel2($id);
