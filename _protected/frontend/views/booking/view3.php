@@ -15,7 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     $dateNow = date('Y-m-d');
-    if ($dateNow < $model->Bdatein) {
+    $NewDate=Date('y:m:d', strtotime("+3 days"));
+    if ($NewDate <= $model->Bdatein) {
 
         ?>
         <p>
