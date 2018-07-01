@@ -189,15 +189,15 @@ class PaypalController extends Controller
                 $transactionPaypal->save();
 
                 //save booking
-                $dateNow = date('Y-m-d');
                 $booking = new  Booking();
-                $booking->Bdate = $dateNow;
+                $booking->Bdate = date('Y-m-d H:i:s') . "";
                 $booking->Rid = $RId."";
                 $booking->Btotal = $total_price."";
                 $booking->Bnday = $days."";
                 $booking->Uid = $userId."";
                 $booking->Bdatein = $s_date;
                 $booking->Bdateout = $e_date;
+                $booking->PMid = 1;
                 $booking->save();
 
                 //แก้ไขสถานะห้อง

@@ -61,7 +61,7 @@ $this->registerJs($script, View::POS_END, 'myOption3');
 $this->title = 'ห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php Pjax::begin(['id'=>'content']); ?>
+<!--<php Pjax::begin(['id'=>'content']); ?>-->
 <div class="room-index">
 
     <!--    <h1><= Html::encode($this->title) ?></h1>-->
@@ -238,7 +238,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $price = $model['Rprice'] - $p;
                                     $total_price = 0;
                                     $callback = new \yii\web\JsExpression(
-                                        "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; $('span[name=\"days" . $ss . "\"]').text(lday);}else{lday = days; $('span[name=\"days" . $ss . "\"]').text(lday);}  $('input[name=\"kvdate" . $ss . "\"]').val(start_date.format('DD-MM-YYYY')+' - '+end_date.format('DD-MM-YYYY')); $('span[name=\"price" . $ss . "\"]').text(lday * " . $price . "); $('span[name=\"pay" . $ss . "\"]').text('' + lday * " . $price . ");  }");
+                                        "function(start_date, end_date){ var days = Math.floor((end_date - start_date) / (1000 * 60 * 60 * 24)); var lday;  if(days == 0){ lday = 1; $('span[name=\"days" . $ss . "\"]').text(lday);}else{lday = days; $('span[name=\"days" . $ss . "\"]').text(lday);}  $('input[name=\"kvdate" . $ss . "\"]').val(start_date.format('YYYY-MM-DD')+' - '+end_date.format('YYYY-MM-DD')); $('span[name=\"price" . $ss . "\"]').text(lday * " . $price . "); $('span[name=\"pay" . $ss . "\"]').text('' + lday * " . $price . ");  }");
                                     echo '<div class="input-group">';
                                     echo DateRangePicker::widget([
                                             'name' => 'kvdate' . $model['Rnumber'],
@@ -345,4 +345,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
-<?php Pjax::end(); ?>
+<!--<php Pjax::end(); ?>-->
