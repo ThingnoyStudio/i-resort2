@@ -72,18 +72,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </div>
                 <div class="card-info">
-
                     <a>
-                        <h3><?=
-                            $myModel['Ntopic']
-                            ?>
-                        </h3>
-
-                        <p style="min-height: unset"><?=
-                            $myModel['Ndes']
-                            ?> </p>
+                        <h3><?=$myModel['Ntopic'] ?> </h3>
+                        <p style="min-height: unset"><?= $myModel['Ndes'] ?> </p>
                     </a>
-
                 </div>
             </div>
         </div>
