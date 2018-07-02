@@ -7,12 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\NewsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'News';
+$this->title = 'ข่าวสาร';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 style="margin-bottom: unset"><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -49,13 +49,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="thumbnail" style="height: 232.91px">
                     <img src="<?= Yii::getAlias('@ShowN') . $myModel['Nimg'] ?>"
                          data-retina="<?= Yii::getAlias('@ShowN') . $myModel['Nimg']  ?>"
-                         alt="No Image">
+                         alt="No Image" style="height: fit-content;
+                            width: 100%;
+                            background-position: center center;
+                            background-repeat: no-repeat;
+                            overflow: hidden;
+                            min-width: 100%;
+                            object-fit: cover;
+                            min-height: -webkit-fill-available;
+                            left: 50%;
+                            position: relative;
+                            transform: translateX(-50%);">
 
-                    <a href="#" class="thumb-cover"></a>
+                    <a href="<?= yii\helpers\Url::to(['/news/view2','id' =>$myModel['Nid']]) ?>" class="thumb-cover"></a>
                     <b class="actions">
                         <a href="<?= yii\helpers\Url::to(['/news/view2','id' =>$myModel['Nid']]) ?>" class="btn btn-neutral btn-round btn-fill" rel="tooltip"
                            title=""
-                           data-original-title="รายละเอียด">
+                           data-original-title="อ่านข่าว">
                             <i class="fa fa-align-left"></i>
                         </a>
                        </b>
@@ -63,13 +73,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="card-info">
 
-                    <a href="<?= yii\helpers\Url::to(['/news/view2','id' =>$myModel['Nid']]) ?>">
+                    <a>
                         <h3><?=
                             $myModel['Ntopic']
                             ?>
                         </h3>
 
-                        <p><?=
+                        <p style="min-height: unset"><?=
                             $myModel['Ndes']
                             ?> </p>
                     </a>
@@ -82,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     ?>
 
-
+        <div class="clearfix"></div>
     </div>
 
 </div>
