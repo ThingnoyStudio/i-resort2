@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('เช็คเอ้า', ['updatestatus', 'id' => $model->Rid,'id2' => $model->Bid], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('เช็คเอ้า', ['updatestatus', 'id' => $model->Rid, 'id2' => $model->Bid], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Bnday:ntext',
             'Bdatein:ntext',
             'Bdateout:ntext',
+            'Btotal',
 //            'payment.PMname',
         ],
     ]) ?>
@@ -45,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'format' => 'raw',
                 'attribute' => 'Rimg',
-                'value' => Html::img(Yii::getAlias('@ShowR')  . $model2->Rimg , ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+                'value' => Html::img(Yii::getAlias('@ShowR') . $model2->Rimg, ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
             ],
             'roomstatus.RSname',
         ],

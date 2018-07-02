@@ -177,7 +177,7 @@ use yii\helpers\Html;
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="ข้อมูลลูกค้า" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/users/index']) ?>"
+                               href="<?= yii\helpers\Url::to(['/users/index2']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
                                 <p class="d-lg-none d-xl-none">ข้อมูลลูกค้า</p>
@@ -185,7 +185,7 @@ use yii\helpers\Html;
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="ข้อมูลการเข้าพัก" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/booking/index']) ?>"
+                               href="<?= yii\helpers\Url::to(['/booking/index5']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
                                 <p class="d-lg-none d-xl-none">ข้อมูลการเข้าพัก</p>
@@ -193,7 +193,7 @@ use yii\helpers\Html;
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="ห้องพัก" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/room/index']) ?>"
+                               href="<?= yii\helpers\Url::to(['/room/index2']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
                                 <p class="d-lg-none d-xl-none">ห้องพัก</p>

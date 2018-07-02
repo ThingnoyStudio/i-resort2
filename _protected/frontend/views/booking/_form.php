@@ -1,5 +1,6 @@
 <?php
 
+use kartik\daterange\DateRangePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -7,26 +8,48 @@ use yii\widgets\ActiveForm;
 /* @var $model frontend\models\Booking */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php
+$addon = <<< HTML
+<span class="input-group-addon">
+    <!--<i class="glyphicon glyphicon-calendar"></i>-->
+    <i class = "material-icons" > date_range </i>
+</span>
+HTML;
+?>
 
 <div class="booking-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Bdate')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'Rid')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'Uid')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'Rid')->textInput(['type' => 'number'])?>
 
-    <?= $form->field($model, 'ADid')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'Bnday')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'Bdatein')->textarea(['rows' => 6]) ?>
+    <?php
 
-    <?= $form->field($model, 'Bdateout')->textarea(['rows' => 6]) ?>
+    echo '<p><b>วันที่เช็คอิน - วันที่เช็คเอ้า</b></p>';
+    $model->Bdatein = date('Y-m-d');//ตัวแปลวันที่เริ่มต้น
+    $model->Bdateout = date('Y-m-d');//ตัวแปลวันที่เข้าพัก
+    //        $form->field($model, 'kvdate1');
+    echo '<div class="input-group drp-container">';
+    echo DateRangePicker::widget([
+            'model'=>$model,
+            'attribute' => 'datebetween',
+            'useWithAddon'=>true,
+            'convertFormat'=>true,
+            'startAttribute' => 'Bdatein',
+            'endAttribute' => 'Bdateout',
+            'language' => 'th',
+            'pluginOptions'=>[
+                'locale'=>['format' => 'Y-m-d'],
+            ]
+        ]).$addon;
 
-    <?= $form->field($model, 'PMid')->textarea(['rows' => 6]) ?>
+    echo '</div>';
+    ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

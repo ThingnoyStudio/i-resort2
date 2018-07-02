@@ -28,15 +28,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'Bid',
+//            'Bid',
             'Bdate:ntext',
-            'Rid:ntext',
-            'Uid:ntext',
-            'ADid:ntext',
+            [
+                'format' => 'raw',
+                'attribute' => 'room.Rimg',
+                'value' => Html::img(Yii::getAlias('@ShowR') . $model->room->Rimg, ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+            ],
+            'room.Rname',
+            'room.Rnumber',
+
+//            'Rid:ntext',
+//            'Uid:ntext',
+            'users.Ufname',
+            'users.Ulname',
+//            'ADid:ntext',
             'Bnday:ntext',
             'Bdatein:ntext',
             'Bdateout:ntext',
-            'PMid:ntext',
+            'Btotal',
+//            'PMid:ntext',
         ],
     ]) ?>
 

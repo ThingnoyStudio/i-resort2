@@ -74,31 +74,13 @@ class RoomController extends Controller
     public function actionIndex2()
     {
         $searchModel = new RoomSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search3(Yii::$app->request->queryParams);
 
-        $dateNow = date('Y-m-d');
-        $query2 = new Query();
-        $query2->select('Pdistant')
-            ->from('promotion')
-            ->andFilterWhere(['<=', 'Pdatestart', $dateNow])
-            ->andFilterWhere(['>=', 'Pdateend', $dateNow])
-
-        ;
-        $command = $query2->createCommand();
-        $data = $command->queryAll();
-        if(count($data)==0){
-            $p =0;
-        }else{
-            foreach ($data as $item1){
-                $p = $item1['Pdistant'];
-            }
-//            $p =50;
-        }
 
         return $this->render('index2', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'p' => $p,
+//            'p' => $p,
 
         ]);
     }
