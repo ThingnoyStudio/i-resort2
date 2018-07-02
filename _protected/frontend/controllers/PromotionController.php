@@ -148,7 +148,7 @@ class PromotionController extends Controller
                 ]);
                 return $this->redirect(['promotion/index']);
             }
-            
+
             $model->Pimg = $model->upload($model, 'Pimg');
             $model->save();
             return $this->redirect(['view', 'id' => $model->Pid]);

@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     $dateNow = date('Y-m-d');
-    $NewDate=Date('y:m:d', strtotime("+3 days"));
+    $NewDate = Date('y:m:d', strtotime("+3 days"));
     if ($NewDate <= $model->Bdatein) {
 
         ?>
@@ -35,24 +35,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
 //            'Bid',
+            'users.Ufname',
+            'users.Ulname',
+            'users.Uemail',
+            'users.Uphone',
             'Bdate:ntext',
             [
                 'format' => 'raw',
                 'attribute' => 'room.Rimg',
-                'value' => Html::img(Yii::getAlias('@ShowR')  . $model->room->Rimg , ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+                'value' => Html::img(Yii::getAlias('@ShowR') . $model->room->Rimg, ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
             ],
             'room.Rnumber:ntext',
+            'room.Rname',
+            'room.Rdes',
 //            'Uid:ntext',
 //            'ADid:ntext',
             'Bnday:ntext',
             'Bdatein:ntext',
             'Bdateout:ntext',
+            'Btotal',
+            'payment.PMname',
 //            'PMid:ntext',
         ],
     ]) ?>
+
+    <?= Html::a(Yii::t('app', 'กลับ'), ['booking/index4'], ['class' => 'btn btn-danger']) ?>
 
 </div>

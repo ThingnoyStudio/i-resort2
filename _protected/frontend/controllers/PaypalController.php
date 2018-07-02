@@ -228,7 +228,7 @@ class PaypalController extends Controller
                 $booking->Uid = $userId . "";
                 $booking->Bdatein = $s_date;
                 $booking->Bdateout = $e_date;
-                $booking->PMid = '1';
+                $booking->PMid = '2';
                 $booking->save();
 
                 //แก้ไขสถานะห้อง

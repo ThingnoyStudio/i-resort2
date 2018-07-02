@@ -25,16 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'Bid',
             'Bdate:ntext',
+            'users.Ufname',
+            'users.Ulname',
 //            'Rid:ntext',
             [
-                'options'=>['style'=>'width:150px;'],
-                'format'=>'raw',
-                'attribute'=>'room.Rimg',
-                'value'=>function($model){
-                    return Html::tag('div','',[
-                        'style'=>'width:100px;height:100px;
+                'options' => ['style' => 'width:150px;'],
+                'format' => 'raw',
+                'attribute' => 'room.Rimg',
+                'value' => function ($model) {
+                    return Html::tag('div', '', [
+                        'style' => 'width:100px;height:100px;
                               border-top: 10px solid rgba(255, 255, 255, .46);
-                              background-image:url('.Yii::getAlias('@ShowR').$model->room->Rimg.');
+                              background-image:url(' . Yii::getAlias('@ShowR') . $model->room->Rimg . ');
                               background-size: cover;
                               background-position:center center;
                               background-repeat:no-repeat;
@@ -43,12 +45,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'room.Rnumber',
+            'room.Rname',
+//            'room.Rdes',
 
 //            'Uid:ntext',
 //            'ADid:ntext',
             'Bnday:ntext',
             'Bdatein:ntext',
             'Bdateout:ntext',
+            'Btotal',
             //'Pid:ntext',
 
             [
