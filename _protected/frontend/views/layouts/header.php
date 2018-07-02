@@ -203,11 +203,27 @@ use yii\helpers\Html;
                     } else if ($Usatatus->USid == 4) { // แม่บ้าน
                         ?>
                         <li class="nav-item">
-                            <a class="nav-link" rel="tooltip" title="ห้องพัก" data-placement="bottom"
+                            <a class="nav-link" rel="tooltip" title="จัดการสถานะห้องพัก" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/room/index']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
-                                <p class="d-lg-none d-xl-none">ห้องพัก</p>
+                                <p class="d-lg-none d-xl-none">จัดการสถานะห้องพัก</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" rel="tooltip" title="รายงานห้องที่เตรียมเข้าพัก" data-placement="bottom"
+                               href="<?= yii\helpers\Url::to(['/room/index']) ?>"
+                               target="">
+                                <i class="material-icons">assignment</i>
+                                <p class="d-lg-none d-xl-none">รายงานห้องที่เตรียมเข้าพัก</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" rel="tooltip" title="รายงานห้องหักที่มีลูกค้าพักอยู่" data-placement="bottom"
+                               href="<?= yii\helpers\Url::to(['/room/index']) ?>"
+                               target="">
+                                <i class="material-icons">assignment</i>
+                                <p class="d-lg-none d-xl-none">รายงานห้องหักที่มีลูกค้าพักอยู่</p>
                             </a>
                         </li>
                         <?php

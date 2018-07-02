@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 
 use frontend\models\Booking;
+use frontend\models\Orderdetail;
+use frontend\models\Orders;
 use frontend\models\TransactionPaypal;
 use Yii;
 use frontend\models\Food;
@@ -363,6 +365,18 @@ class PaypalController extends Controller
                 $transactionPaypal->update_time = '-';
                 $transactionPaypal->hash = $hash;
                 $transactionPaypal->save();
+
+                $orders = new Orders();
+                $orders->Odate = date('Y-m-d H:i:s') . "";
+                $orders->Optotal = $total_price."";
+                $orders->Pid = '2';
+                $orders->save();
+
+                $od = new Orderdetail();
+                $od->Fid = $FId;
+                $od->ODnum = $amts;
+                $od->Oid = $orders->Oid;
+                $od->save();
 
 
             } catch (PayPalConnectionException $ex) {
