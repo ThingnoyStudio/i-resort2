@@ -79,9 +79,14 @@ class UsersController extends Controller
      */
     public function actionView($id)
     {
+        $address = $this->findAddressModel($id);
+        if (!$address) {
+            $address = new Address();
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'model2' => $this->findAddressModel($id),
+            'model2' => $address,
         ]);
     }
 

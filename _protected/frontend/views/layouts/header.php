@@ -285,35 +285,77 @@ use yii\helpers\Html;
 
                 <!------------- user dropdown -->
                 <li class="nav-item dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       style="font-size: small;padding: 0.5rem 0.7rem;display: block;">
-                        <img src="<?= Yii::getAlias('@ShowUde') ?>" class="img" alt="User Image" style="    float: left;
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size: small;padding: 0.5rem 0.7rem;display: block;">
+                        <?php
+                        if (Yii::$app->user->isGuest) {
+                            ?>
+
+                            <img src="<?= Yii::getAlias('@ShowUde') ?>" class="img" alt="User Image" style="    float: left;
                             width: 25px;
                             height: 25px;
                             border-radius: 50%;
                             margin-right: 10px;
                             margin-top: -2px;"/>
-
-                        <?php
-                        if (Yii::$app->user->isGuest) {
-                            ?>
                             <span>กรุณาเข้าสู่ระบบ</span>
+
                             <?php
-                        } else {
+                        } else if(Yii::$app->user->identity->users->Uimg) {
                             ?>
 
+                            <img src="<?= Yii::getAlias('@ShowU').'/'.Yii::$app->user->identity->users->Uimg ?>" class="img" alt="User Image" style="    float: left;
+                            width: 25px;
+                            height: 25px;
+                            border-radius: 50%;
+                            margin-right: 10px;
+                            margin-top: -2px;"/>
                             <span><?= Yii::$app->user->identity->username ?></span>
 
                             <?php
-                        } //else
+                        }else{
+                            ?>
+
+                            <img src="<?= Yii::getAlias('@ShowU').'/man.png' ?>" class="img" alt="User Image" style="    float: left;
+                            width: 25px;
+                            height: 25px;
+                            border-radius: 50%;
+                            margin-right: 10px;
+                            margin-top: -2px;"/>
+                            <span><?= Yii::$app->user->identity->username ?></span>
+
+                        <?php
+                        }
                         ?>
                     </a>
                     <ul class="dropdown-menu" style="width: 200px; padding: 4px 9px">
                         <li class="user-header">
                             <div class="card card-profile" style="box-shadow: unset;padding: 0px 12px;display: unset">
-                                <div class="card-avatar" style="max-width: 88px;">
+                                <div class="card-avatar">
                                     <a href="#pablo">
-                                        <img class="img" src="<?= Yii::getAlias('@ShowUde') ?>" style="border-radius: 50%;"/>
+                                        <?php
+                                        if (Yii::$app->user->isGuest){
+                                            ?>
+
+                                            <img src="<?= Yii::getAlias('@ShowUde') ?>" style="height: -webkit-fill-available;"/>
+
+                                        <?php
+                                        }else if(Yii::$app->user->identity->users->Uimg){
+                                            ?>
+
+                                            <div class="photo-container">
+                                                <img  src="<?= Yii::getAlias('@ShowU').'/'.Yii::$app->user->identity->users->Uimg ?>" style="height: -webkit-fill-available;"/>
+                                            </div>
+
+                                        <?php
+                                        }else{
+                                            ?>
+
+                                            <div class="photo-container">
+                                                <img  src="<?= Yii::getAlias('@ShowU').'/man.png' ?>" style="height: -webkit-fill-available;"/>
+                                            </div>
+
+                                        <?php
+                                        }
+                                        ?>
                                     </a>
                                 </div>
 
@@ -347,7 +389,7 @@ use yii\helpers\Html;
 
                                     <div class="content">
                                         <h6 class="category text-gray">ยินดีต้อนรับ</h6>
-                                        <h4 class="card-title"><?= Yii::$app->user->identity->username ?></h4>
+                                        <h4 class="card-title" style="margin-top: unset;"><?= Yii::$app->user->identity->username ?></h4>
 
                                         <div class="pull-left0">
                                             <?= Html::a(

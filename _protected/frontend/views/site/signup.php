@@ -13,9 +13,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="col-lg-5 well bs-component">
+
+    <div class="col-lg-6 col-lg-offset-3">
+        <h1><?= Html::encode($this->title) ?></h1>
 
         <p><?= Yii::t('app', 'กรุณากรอกข้อมูลให้ครบเพื่อสมัครสมาชิก:') ?></p>
 

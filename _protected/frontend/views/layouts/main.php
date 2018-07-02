@@ -53,7 +53,7 @@ AppAsset::register($this);
         <div class="container">
             <div class="content-center">
 
-                <h3 class="title">อัย-รีสอร์ท</h3>
+                <h1 class="title">อัย-รีสอร์ท</h1>
                 <p class="category" style="color: rgba(255, 255, 255, 0.9);">บริการจองห้องพัก และ ภัตตาคาร ด้วยรางวัลการันตีระดับ 5 ดาว</p>
 
             </div>
