@@ -55,6 +55,7 @@ class PromotionController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     public function actionIndex3()
     {
         $searchModel = new PromotionSearch();
@@ -79,6 +80,11 @@ class PromotionController extends Controller
         ]);
     }
 
+    public function findDdate($sdate, $edate)
+    {
+        return $check_date = Yii::$app->db->createCommand('select * from promotion where \'' . $sdate . '\' between Pdatestart and Pdatestart or \'' . $edate . '\' between Pdateend and Pdateend')->queryAll();
+    }
+
     /**
      * Creates a new Promotion model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -92,32 +98,24 @@ class PromotionController extends Controller
 
 
             $range = $model->kvdate1;
-            $model->Pdatestart = explode(' ',$range)[0];
-            $model->Pdateend = explode(' ',$range)[2];;
-            $p = new Query();
-            $p->select('*')->from('promotion');
-            $com = $p->createCommand();
-            $da = $com->queryAll();
-            foreach ($da as $item){
-                if(($model->Pdatestart >= $item['Pdatestart'] && $model->Pdatestart >= $item['Pdateend'])
-                    || ($model->Pdateend >= $item['Pdatestart'] && $model->Pdateend <=  $item['Pdateend'])){
-                    
-
-                    Yii::$app->getSession()->setFlash('Oops',[
-                        'body'=>'=ช่วงวันที่มีการซ้ำกัน กรุณาใส่วันที่ใหม่ ',
-                        'type' => 'error',
-//                        'options'=>['class'=>'alert-success']
-                    ]);
-
-                }else{
-
-                    $model->Pimg = $model->upload($model,'Pimg');
-//            return print("<pre>".print_r($model,true)."</pre>");
-
-                    $model->save();
-                    return $this->redirect(['view', 'id' => $model->Pid]);
-                }
+            $model->Pdatestart = explode(' ', $range)[0];
+            $model->Pdateend = explode(' ', $range)[2];;
+            if ($this->findDdate($model->Pdatestart,$model->Pdateend)){
+                Yii::$app->getSession()->setFlash('Oops', [
+                    'body' => 'ช่วงเวลานี้ มีในโปรโมชั่นแล้ว: ',
+                    'type' => 'warning',
+//                        'options'=>['class'=>'alert-warning']
+                ]);
+                return $this->redirect(['promotion/index']);
             }
+
+
+
+
+            $model->Pimg = $model->upload($model, 'Pimg');
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->Pid]);
+
 
         }
 
@@ -138,7 +136,20 @@ class PromotionController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->Pimg = $model->upload($model,'Pimg');
+
+            $range = $model->kvdate1;
+            $model->Pdatestart = explode(' ', $range)[0];
+            $model->Pdateend = explode(' ', $range)[2];;
+            if ($this->findDdate($model->Pdatestart,$model->Pdateend)){
+                Yii::$app->getSession()->setFlash('Oops', [
+                    'body' => 'ช่วงเวลานี้ มีในโปรโมชั่นแล้ว: ',
+                    'type' => 'warning',
+//                        'options'=>['class'=>'alert-warning']
+                ]);
+                return $this->redirect(['promotion/index']);
+            }
+            
+            $model->Pimg = $model->upload($model, 'Pimg');
             $model->save();
             return $this->redirect(['view', 'id' => $model->Pid]);
         }
