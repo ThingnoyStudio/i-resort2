@@ -55,6 +55,18 @@ class FoodController extends Controller
         ]);
     }
 
+    public function actionIndex3()
+    {
+        $searchModel = new FoodSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index3', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
     /**
      * Displays a single Food model.
      * @param integer $id

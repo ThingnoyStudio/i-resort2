@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'ODid',
             'Fid',
             'Oid',
+            'ODnum',
         ],
     ]) ?>
 

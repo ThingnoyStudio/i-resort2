@@ -15,6 +15,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'Fid')->textInput() ?>
 
     <?= $form->field($model, 'Oid')->textInput() ?>
+    <?= $form->field($model, 'ODnum')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

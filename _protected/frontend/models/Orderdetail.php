@@ -10,6 +10,7 @@ use Yii;
  * @property int $ODid รหัส
  * @property int $Fid รหัสอาหาร
  * @property int $Oid รหัสออเดอร์
+ * @property int $ODnum จำนวน
  */
 class Orderdetail extends \yii\db\ActiveRecord
 {
@@ -27,7 +28,8 @@ class Orderdetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Fid', 'Oid'], 'integer'],
+            [['Fid', 'Oid','ODnum'], 'integer'],
+
         ];
     }
 
@@ -40,6 +42,7 @@ class Orderdetail extends \yii\db\ActiveRecord
             'ODid' => 'รหัส',
             'Fid' => 'รหัสอาหาร',
             'Oid' => 'รหัสออเดอร์',
+            'ODnum' => 'จำนวน',
         ];
     }
 
