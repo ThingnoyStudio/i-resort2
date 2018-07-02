@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Roomtype */
 
 $this->title = $model->RTid;
-$this->params['breadcrumbs'][] = ['label' => 'Roomtypes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'ประเภทห้องพัก', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="roomtype-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->RTid], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->RTid], [
+        <?= Html::a('แก้ไข', ['update', 'id' => $model->RTid], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('ลบ', ['delete', 'id' => $model->RTid], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',

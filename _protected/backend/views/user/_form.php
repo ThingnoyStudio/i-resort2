@@ -39,8 +39,8 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="form-group">     
-        <?= Html::submitButton($user->isNewRecord ? Yii::t('app', 'Create') 
-            : Yii::t('app', 'Update'), ['class' => $user->isNewRecord 
+        <?= Html::submitButton($user->isNewRecord ? Yii::t('app', 'สร้าง')
+            : Yii::t('app', 'แก้ไข'), ['class' => $user->isNewRecord
             ? 'btn btn-success' : 'btn btn-primary']) ?>
 
         <?= Html::a(Yii::t('app', 'Cancel'), ['user/index'], ['class' => 'btn btn-default']) ?>

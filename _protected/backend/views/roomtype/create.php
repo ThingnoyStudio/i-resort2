@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Roomtype */
 
-$this->title = 'Create Roomtype';
-$this->params['breadcrumbs'][] = ['label' => 'Roomtypes', 'url' => ['index']];
+$this->title = 'สร้าง';
+$this->params['breadcrumbs'][] = ['label' => 'ประเภทห้องพัก', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="roomtype-create">

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\Users */
 
 $this->title = 'เพิ่มผุ้ใช้งาน';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'ผู้ใช้งาน', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="users-create">

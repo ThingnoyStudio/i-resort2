@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\RoomtypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Roomtypes';
+$this->title = 'ประเภทห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="roomtype-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Roomtype', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('สร้าง', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

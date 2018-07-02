@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\News */
 
-$this->title = 'Update News: ' . $model->Nid;
-$this->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['index']];
+$this->title = 'แก้ไข: ' . $model->Nid;
+$this->params['breadcrumbs'][] = ['label' => 'ข่าวสาร', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->Nid, 'url' => ['view', 'id' => $model->Nid]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'แก้ไข';
 ?>
 <div class="news-update">
 

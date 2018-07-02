@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $user common\models\User */
 /* @var $role common\rbac\models\Role; */
 
-$this->title = Yii::t('app', 'Update User') . ': ' . $user->username;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
+$this->title = Yii::t('app', 'แก้ไข') . ': ' . $user->username;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'ผู้ใช้'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $user->username, 'url' => ['view', 'id' => $user->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('app', 'แก้ไข');
 ?>
 <div class="user-update">
 

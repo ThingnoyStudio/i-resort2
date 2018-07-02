@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Roomtype */
 
-$this->title = 'Update Roomtype: ' . $model->RTid;
-$this->params['breadcrumbs'][] = ['label' => 'Roomtypes', 'url' => ['index']];
+$this->title = 'แก้ไข: ' . $model->RTid;
+$this->params['breadcrumbs'][] = ['label' => 'ประเภทห้องพัก', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->RTid, 'url' => ['view', 'id' => $model->RTid]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'แก้ไข';
 ?>
 <div class="roomtype-update">
 
