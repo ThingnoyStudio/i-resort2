@@ -77,7 +77,7 @@ use yii\helpers\Html;
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" rel="tooltip" title="สั่งอาหาร" data-placement="bottom"
-                           href="<?= yii\helpers\Url::to(['/food/index2']) ?>"
+                           href="<?= yii\helpers\Url::to(['/food/index3']) ?>"
                            target="">
                             <i class="material-icons">room_service</i>
                             <p class="d-lg-none d-xl-none">อาหาร</p>

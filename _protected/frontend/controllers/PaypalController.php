@@ -302,7 +302,7 @@ class PaypalController extends Controller
 
 
 
-    public function actionPaypalfood($foodId = null, $price = null, $amt = null)
+    public function actionPaypalfood($foodId = null, $price = null, $amt = null, $roomId = null)
     {
         date_default_timezone_set('asia/bangkok');
         if (Yii::$app->user->isGuest) {
@@ -317,6 +317,7 @@ class PaypalController extends Controller
             $amts = $amt;// จำนวน
             $FId = $foodId;// รหัสอาหาร
             $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
+            $Rid = $roomId; // รหัสห้อง ถ้าเป็น 0 คือซื้อกลับบ้าน ไม่ให้ไปส่งที่ห้อง
 
 //            return var_dump('userid: ' . $s_date.'-'.$e_date);
 

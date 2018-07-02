@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 
 /**
@@ -74,6 +75,13 @@ class Room extends \yii\db\ActiveRecord
     public function getRoomstatus()
     {
         return $this->hasOne(Roomstatus::className(), ['RSid' => 'RSid']);
+    }
+
+    public function getAll()
+    {
+        $get = Room::find()->all();
+        $result = ArrayHelper::map($get, 'Rid', 'Rid');
+        return $result;
     }
 
 }
