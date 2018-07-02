@@ -150,7 +150,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                             </div>
-                            <input type="text" value="" placeholder="Regular" class="form-control">
+
+                            <div class="col-12" style="display: flex; align-items: baseline;">
+                                <div style="padding-left: 15px"><label for="kvdate3" style="font-size: large">จำนวน</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" value="" placeholder="" class="form-control">
+                                </div>
+                                <div>
+                                    <span name="<?= 'days' . $model['Fname'] ?>" style="font-size: large"></span>
+                                    <span style="font-size: large">รายการ</span>
+                                </div>
+                            </div>
+
 
                             <div class="col-12" style="display: flex;font-size: x-large;">
                                 <div class="col-md-6">ยอดรวมสุทธิ</div>
