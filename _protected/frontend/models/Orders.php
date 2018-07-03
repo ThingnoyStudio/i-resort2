@@ -11,7 +11,7 @@ use Yii;
  * @property string $Odate วันที่
  * @property string $Optotal ราคารวม
  * @property int $Pid การชำระเงิน
- * @property int $Bid การจอง
+ * @property int $Bid ห้องที่
  */
 class Orders extends \yii\db\ActiveRecord
 {
@@ -44,7 +44,7 @@ class Orders extends \yii\db\ActiveRecord
             'Odate' => 'วันที่',
             'Optotal' => 'ราคารวม',
             'Pid' => 'การชำระเงิน',
-            'Bid' => 'การจอง',
+            'Bid' => 'ห้องที่',
         ];
     }
 

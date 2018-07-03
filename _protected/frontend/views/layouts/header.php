@@ -204,7 +204,7 @@ use yii\helpers\Html;
                         ?>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="จัดการสถานะห้องพัก" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/room/index']) ?>"
+                               href="<?= yii\helpers\Url::to(['/room/index3']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
                                 <p class="d-lg-none d-xl-none">จัดการสถานะห้องพัก</p>

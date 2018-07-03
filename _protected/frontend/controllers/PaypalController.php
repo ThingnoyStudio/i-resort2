@@ -371,12 +371,14 @@ class PaypalController extends Controller
                 $orders->Odate = date('Y-m-d H:i:s') . "";
                 $orders->Optotal = $total_price."";
                 $orders->Pid = '2';
+                $orders->Bid = $Rid;
                 $orders->save();
 
                 $od = new Orderdetail();
                 $od->Fid = $FId;
                 $od->ODnum = $amts;
                 $od->Oid = $orders->Oid;
+
                 $od->save();
 
 

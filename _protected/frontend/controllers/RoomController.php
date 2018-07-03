@@ -6,6 +6,7 @@ use kartik\mpdf\Pdf;
 use Yii;
 use frontend\models\Room;
 use frontend\models\RoomSearch;
+use yii\data\ActiveDataProvider;
 use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -84,6 +85,24 @@ class RoomController extends Controller
 
         ]);
     }
+    public function actionIndex3()
+    {
+        $searchModel = new RoomSearch();
+//        $dataProvider = $searchModel->search3(Yii::$app->request->queryParams);
+        $query = Room::find()->where('RSid = 6');
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+
+
+
+        return $this->render('index3', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+//            'p' => $p,
+
+        ]);
+    }
 
     /**
      * Displays a single Room model.
@@ -94,6 +113,12 @@ class RoomController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+    public function actionView2($id)
+    {
+        return $this->render('view2', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -138,6 +163,22 @@ class RoomController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionUpdate2($id)
+    {
+        $model = $this->findModel($id);
+
+//        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+//            $model->Rimg = $model->upload($model,'Rimg');
+            $model->RSid = 5 ;
+            $model->save();
+            return $this->redirect(['index3']);
+//        }
+
+//        return $this->render('update', [
+//            'model' => $model,
+//        ]);
     }
 
     public function actionUpdatestatus($id)
