@@ -1,7 +1,8 @@
 <?php
 
 
-use kartik\widgets\DateTimePicker;
+use kartik\daterange\DateRangePicker;
+use kartik\datetime\DateTimePicker;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -9,35 +10,35 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Orders */
 /* @var $form yii\widgets\ActiveForm */
+
+$addon = <<< HTML
+<span class="input-group-addon" style="padding: 10px 18px 10px 0;">
+    <i class="material-icons">today</i>
+</span>
+HTML;
+
+
 ?>
 
 <div class="orders-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Odate')->widget(kartik\datetime\DateTimePicker::className(),[
-        'options' => ['placeholder' => 'Select operating time ...'],
-        'convertFormat' => true,
-        'pluginOptions' => [
-            'format' => 'Y-m-d g:i',
-            'startDate' => '01-Mar-2014 12:00 AM',
-            'todayHighlight' => true
-        ]
-    ])
-
-    ?>
     <?php
     echo '<label>วันที่จอง</label>';
-    echo DateTimePicker::widget([
-        'name' => 'Odate',
-        'options' => ['placeholder' => 'Select operating time ...'],
-        'convertFormat' => true,
-        'pluginOptions' => [
-            'format' => 'Y-m-d g:i',
-            'startDate' => '01-Mar-2014 12:00 AM',
-            'todayHighlight' => true
-        ]
-    ]);
+    echo '<div class="input-group drp-container">';
+    echo DateRangePicker::widget([
+//            'name'=>'date_range_4',
+            'model'=>$model,
+            'attribute'=>'Odate',
+            'value'=>date('Y-m-d'),
+            'useWithAddon'=>true,
+            'pluginOptions'=>[
+                'singleDatePicker'=>true,
+                'showDropdowns'=>true,
+            ]
+        ]) . $addon;
+    echo '</div>';
     ?>
 
     <?= $form->field($model, 'Optotal')->textInput(['type' => 'number']) ?>
