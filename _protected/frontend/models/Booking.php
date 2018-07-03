@@ -39,7 +39,12 @@ class Booking extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween','Btotal','Bbil'], 'string'],
+            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween','Btotal'], 'string'],
+            [
+                ['Bbil'],'file',
+                'skipOnEmpty' => true,
+                'extensions' => 'png,jpg'
+            ],
             [['Bdatein', 'Bdateout'], 'safe'],
         ];
     }

@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('ยกเลิกการจอง', ['delete2', 'id' => $model->Bid], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
+                    'confirm' => 'ต้องการยกเลิกการจองรายการนี้หรือไม่?',
                     'method' => 'post',
                 ],
             ]) ?>
@@ -52,9 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     ?>
 <div class="booking-view">
-
-
-
 
     <?= DetailView::widget([
         'model' => $model,
