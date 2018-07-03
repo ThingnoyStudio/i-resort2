@@ -15,7 +15,7 @@ use yii\helpers\Html;
     <div style="border: solid 1px rgb(236, 236, 236);border-radius: 5px;padding: 20px;">
         <?= $content ?>
     </div>
-    <p style="text-align:right;margin-top:5px;"> ระบบจัดส่งอาหารในเขตเทศบาลอุดรธานี <small ><i>โทร 082-1034148</i></small></p>
+    <p style="text-align:right;margin-top:5px;"> I Resort <small ><i>โทร 082-0214148</i></small></p>
 
     <?php $this->endBody() ?>
     </body>

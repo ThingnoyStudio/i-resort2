@@ -252,9 +252,8 @@ class PaypalController extends Controller
                     'Rimg' => $room->Rimg,
                     'Rname' => $room->Rname,
                     'total' => $total_price,
-
                 ])
-                    ->setFrom(['systemudon@gmail.com' => 'การจองห้อง'])
+                    ->setFrom(['systemudon@gmail.com' => 'I-Resort'])
                     ->setTo($users->Uemail)
                     ->setSubject('การจองห้อง ')
                     ->send();
@@ -411,7 +410,7 @@ class PaypalController extends Controller
                 $od->save();
 
 
-                
+
 
 
             } catch (PayPalConnectionException $ex) {
