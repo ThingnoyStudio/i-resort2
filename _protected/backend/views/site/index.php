@@ -1,42 +1,78 @@
 <?php
 
 /* @var $this yii\web\View */
-$this->title = Yii::t('app', Yii::$app->name);
+$this->title = 'I-Resort';
+
+$this->registerCss("
+h1{display:none;}
+.btext{
+    color: #f9f3f4;
+    position: absolute;
+    text-align: center;
+    padding:0px 12px 0px 12px;
+    top: 40%;
+    width: 100%;
+    line-height: 0.4em;
+}
+
+h1{
+    font-size: 50px;
+}
+
+#btnlogo{
+    color: #fff;
+    text-decoration: none;
+    border: #ccc 1px solid;
+    padding: 15px 24px 3px 24px;
+    border-radius: 8px;
+    line-height: 4em;
+}
+
+#btnlogo:hover{
+    color: #b19295;
+    border: #fff 1px solid;
+}
+.main-footer{background:unset;border-top:unset;}
+.content-wrapper{background-color:unset}
+.content-header{ padding:unset;} 
+.content{padding:unset; margin:unset;}");
+
 ?>
 <div class="site-index">
 
 
+    <!--    <div class="jumbotron">-->
+    <!--        <h1>Congratulations!</h1>-->
+    <!---->
+    <!--        <p class="lead">You have successfully created your Yii-powered application.</p>-->
+    <!---->
+    <!--        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>-->
+    <!--    </div>-->
+
     <div class="body-content">
 
-        <div class="row">
-            <div class="col-md-8 ml-auto mr-auto text-center">
-                <h2 class="title">ทำไมต้องจองกับ อัย-รีสอร์ท?</h2>
-                <h5 class="description">ราคาถูกที่สุดของแต่ละวัน, ช่องทางชำระที่หลากหลาย ชำระเงินได้ง่ายๆ หลากหลายช่องทาง ไม่ว่าจะ Paypal โอนผ่านธนาคาร บัตรเครดิต ตู้ ATM หรืออินเตอร์เน็ตแบงก์กิ้ง โดยไม่มีค่าธรรมเนียมใดๆ, รับส่วนลดพิเศษสำหรับการจองโรงแรมเมื่อจองตั๋วเครื่องบิน สมัครรับข่าวสาร หรือสมัครสมาชิก อัย-รีสอร์ท, รับประกันราคาถูก แถมประหยัดเพิ่มเมื่อจองที่พักกับเรา.</h5>
+
+        <div id="particles-js" style="height: 123vh; background-color: currentColor; ">
+            <!--            <p align="center" style="    position: absolute;-->
+            <!--    align-items: center;-->
+            <!--    font-weight: 900;-->
+            <!--    color: aliceblue;-->
+            <!--    text-align: center;-->
+            <!--    margin-top: 222px;-->
+            <!--    font-size: -webkit-xxx-large;">ระบบการพยากรณ์จำนวนผู้ป่วย<br/>ด้วยโรคมะเร็งและเนื้องอก<br/>ในประเทศไทยออนไลน์</p>-->
+            <div class="btext">
+                <h2 style="font-size: xx-large;">I-Resort</h2>
+                <!--                <h3>ในประเทศไทย</h3>-->
+                <a href="#" class="btn" id="btnlogo"><i class="fa fa-bed" style="font-size: -webkit-xxx-large;"></i> </a>
             </div>
         </div>
 
-        <div class="section-story-overview">
-            <div class="row">
 
-                <div class="col-md-5">
-                    <!-- First image on the right side, above the article -->
-                    <div class="image-container image-right" style="background-image: url('<?= Yii::getAlias('@UploadsImg').'/show3.jpg' ?>')"></div>
-                    <h3>ห้องพักที่หลากหลายสไตล์ และอาหารที่การันตีจากผู้เข้าพัก</h3>
-                    <p>อัย-รีสอร์ท (i-Resort) เป็นหนึ่งในผู้ให้บริการจองที่พักออนไลน์ชั้นนำในภูมิภาคเอเชียตะวันออกเฉียงใต้ ที่ให้บริการห้องพักและอาหารคุณภาพระดับโลก เรามุ่งมั่นที่จะตอบสนองความต้องการของลูกค้าด้วยราคาห้องพักและอาหารที่ถูกที่สุดทุกวัน! </p>
-                    <p>
-                        กำลังมองหาห้องพักราคาประหยัดอยู่หรือเปล่า? จองห้องพักกับ อัย-รีสอร์ท ดูสิ เพราะเรามีห้องพักหลากหลายให้คุณได้เลือกสรรและจองได้โดยไม่มีค่าธรรมเนียมการจอง และเรารับประกันว่าราคาดังกล่าวเป็นราคาที่ดีที่สุด อีกทั้งยังมีโปรโมชั่นสุดคุ้มมากมาย ถ้ายังไม่แน่ใจว่าจะเลือกพักห้องพักไหน ลองพิมพ์ชื่อเมืองปลายทางที่จะไป และคุณจะเห็นรายชื่อโรงแรมที่อยู่ในเมืองนั้น คุณสามารถจำกัดการค้นหาได้ตามระดับดาว สิ่งอำนวยความสะดวก ราคา และความนิยม เพื่อให้ได้ห้องพักที่ถูกใจคุณที่สุด</p>
-                    <p>ฝ่ายลูกค้าสัมพันธ์ของเราพร้อมให้ความช่วยเหลือคุณทุกวันตลอด 24 ชั่วโมง กรุณาติดต่อหาเราได้ผ่านช่องทางต่อไปนี้:</p>
-                    <p>อีเมล์: ส่งข้อสงสัยของคุณมาที่ Aiyakarn@i-resort.com</p>
-                    <p>แชตออนไลน์ผ่านเดสก์ท็อป </p>
-                    <p>โทรศัพท์: 02-118-5400</p>
-                    <p>สำหรับข้อมูลเพิ่มเติม กรุณาเข้าไปที่หน้า ติดต่อเรา</p>
-
-                </div>
-            </div>
-        </div>
     </div>
-</div>
-
-
+    <!--    <script>-->
+    <!--        particlesJS.load('particles-js', 'C:\xampp\\htdocs\\forecasting03\\backend\\themes\\adminlte\\js\\particles.json', function() {-->
+    <!--            console.log('callback - particles.js config loaded');-->
+    <!--        });-->
+    <!--    </script>-->
 </div>
 

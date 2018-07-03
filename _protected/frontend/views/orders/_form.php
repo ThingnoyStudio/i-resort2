@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?= $form->field($model, 'Optotal')->textInput(['type' => 'number']) ?>
-    
+
     <?= $form->field($model, 'Pid')->dropDownList(
         ArrayHelper::map(\frontend\models\Payment::find()->all(),'PMid','PMname'),
         ['promp'=>'เลือกประเภทตำแหน่ง']
