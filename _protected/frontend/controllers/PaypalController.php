@@ -226,7 +226,7 @@ class PaypalController extends Controller
                 $booking = new  Booking();
                 $booking->Bdate = date('Y-m-d H:i:s') . "";
                 $booking->Rid = $RId . "";
-                $booking->Btotal = $total_price . "";
+                $booking->Btotal = $total_price ."";
                 $booking->Bnday = $days . "";
                 $booking->Uid = $userId . "";
                 $booking->Bdatein = $s_date;
@@ -241,18 +241,21 @@ class PaypalController extends Controller
 
 
                 //ส่งเมล์
-                $user = $this->findModel2($userId);
+                $users = $this->findModel2($userId);
                 \Yii::$app->mail->compose('@app/mail/layouts/register', [
-                    'fname' => $user->Ufname,
-                    'lname' => $user->Ulname,
+                    'fname' => $users->Ufname,
+                    'lname' => $users->Ulname,
                     'Rnumber' => $room->Rnumber,
                     'in' => $s_date,
                     'out' => $e_date,
                     'numday' => $days,
+                    'Rimg' => $room->Rimg,
+                    'Rname' => $room->Rname,
+                    'total' => $total_price,
 
                 ])
                     ->setFrom(['systemudon@gmail.com' => 'การจองห้อง'])
-                    ->setTo($user->email)
+                    ->setTo($users->Uemail)
                     ->setSubject('การจองห้อง ')
                     ->send();
 
@@ -406,6 +409,9 @@ class PaypalController extends Controller
                 $od->Oid = $orders->Oid;
 
                 $od->save();
+
+
+                
 
 
             } catch (PayPalConnectionException $ex) {
