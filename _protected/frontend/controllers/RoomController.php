@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use frontend\models\Booking;
+use frontend\models\Users;
 use kartik\mpdf\Pdf;
 use Yii;
 use frontend\models\Room;
@@ -294,6 +295,24 @@ class RoomController extends Controller
         $roomStatus = $rsname;
         $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
 
+        //ส่งเมล์
+        $users = $this->findModel2($userId);
+        \Yii::$app->mail->compose('@app/mail/layouts/register', [
+            'fname' => $users->Ufname,
+            'lname' => $users->Ulname,
+            'Rnumber' => $model->Rnumber,
+            'in' => $sdate,
+            'out' => $edate,
+            'numday' => $amt,
+            'Rimg' => $model->Rimg,
+            'Rname' => $model->Rname,
+            'total' => $total,
+        ])
+            ->setFrom(['systemudon@gmail.com' => 'I-Resort'])
+            ->setTo($users->Uemail)
+            ->setSubject('การจองห้อง ')
+            ->send();
+
 
 
         // get your HTML raw content without any layouts or scripts
@@ -345,5 +364,15 @@ class RoomController extends Controller
         // return the pdf output as per the destination setting
         return $pdf->render();
     }
+
+    protected function findModel2($id)
+    {
+        if (($model = Users::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
 
 }
