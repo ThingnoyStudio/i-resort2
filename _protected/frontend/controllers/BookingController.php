@@ -211,7 +211,11 @@ class BookingController extends Controller
     {
         $searchModel = new BookingSearch();
 
-        $dataProvider = $searchModel->search2(Yii::$app->request->queryParams);
+        $query = Booking::find()->where('PMid != 3 ')
+        ;
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
 
 
         return $this->render('index5', [
