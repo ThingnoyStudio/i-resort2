@@ -81,7 +81,7 @@ window.open(url, '_blank');
   
 
 
-} ", View::POS_END, 'my-options');
+} ", View::POS_END, 'my-options2');
 
 //$this->registerJs(" function checkDate(id) {
 //  var date = $(\"input[name=kvdate\"+id+\"]\").val();
