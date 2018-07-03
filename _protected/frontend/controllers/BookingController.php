@@ -95,6 +95,92 @@ class BookingController extends Controller
         return $pdf->render();
     }
 
+    public function actionMpdfdemo2()
+    {
+        $NewDate = Date('Y-m-d', strtotime("+1 days"));
+
+
+
+        $searchModel = new BookingSearch();
+
+        $query = Booking::find()->where(['Bdatein'=>$NewDate])
+        ;
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $content = $this->renderPartial('index6', [
+//            'model' => $model,
+//            'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            // etc...
+        ]);
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            'content' => $content,
+            'filename' => 'your_filename.pdf',
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            'format' => Pdf::FORMAT_A4,
+//            'format' => [100, 236],
+            'cssFile' => '@frontend/pdf.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'options' => [
+                'title' => 'Factuur',
+
+            ],
+            'methods' => [
+
+            ]
+        ]);
+
+        return $pdf->render();
+    }
+
+    public function actionMpdfdemo3()
+    {
+        $dateNow = date('Y-m-d');
+        $searchModel = new BookingSearch();
+
+        $query = Booking::find()->where(['Bdatein'=>$dateNow])
+        ;
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $content = $this->renderPartial('index7', [
+//            'model' => $model,
+//            'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            // etc...
+        ]);
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            'content' => $content,
+            'filename' => 'your_filename.pdf',
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            'format' => Pdf::FORMAT_A4,
+//            'format' => [100, 236],
+            'cssFile' => '@frontend/pdf.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'options' => [
+                'title' => 'Factuur',
+
+            ],
+            'methods' => [
+
+            ]
+        ]);
+
+        return $pdf->render();
+    }
+
+
 
     public function actionIndex2()
     {
