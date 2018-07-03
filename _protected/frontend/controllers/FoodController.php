@@ -117,7 +117,9 @@ class FoodController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->Fimg = $model->upload($model,'Fimg');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->Fid]);
         }
 

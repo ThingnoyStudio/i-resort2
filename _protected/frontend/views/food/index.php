@@ -25,12 +25,61 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'],
 
-            'Fid',
+//            'Fid',
+            [
+                'options' => ['style' => 'width:150px;'],
+                'format' => 'raw',
+                'attribute' => 'Fimg',
+                'value' => function ($model) {
+                    return Html::tag('div', '', [
+                        'style' => 'width:200px;height:200px;
+                              border-top: 10px solid rgba(255, 255, 255, .46);
+                              background-image:url(' . Yii::getAlias('@ShowF') . $model->Fimg . ');
+                              background-size: cover;
+                              background-position:center center;
+                              background-repeat:no-repeat;
+                              align-items: center;margin: auto;
+                              ']);
+                }
+            ],
             'Fname:ntext',
             'Fprice:ntext',
-            'Fimg:ntext',
+//            'Fimg:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => "การทำงาน",
+                'headerOptions' => ['class' => 'text-center'],
+                'template' => '<div class="btn-group btn-group-sm" role="group" aria-label="..."> {view} {update} {delete} </div>',
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-eye"></i>', $url,
+                            ['title' => 'View user',
+                                'class' => 'btn btn-success',
+                                'id' => 'actioncol',
+                                'idA' => 'ADid',
+                                'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
+                    },
+                    'update' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-pencil"></i>', $url,
+                            ['title' => 'Edit user',
+                                'class' => 'btn btn-success',
+                                'id' => 'actioncol',
+                                'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
+                    },
+                    'delete' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-trash"></i>', $url, [
+                            'title' => Yii::t('yii', 'Delete user'),
+                            'data-confirm' => Yii::t('yii', 'คุณต้องการลบรายการนี้หรือไม่?'),
+                            'data-method' => 'post',
+                            'data-pjax' => '0',
+                            'class' => 'btn btn-success',
+                            'id' => 'actioncol',
+                            'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;'
+                        ]);
+                    }
+                ]
+            ],// ActionColumn
         ],
     ]); ?>
 </div>

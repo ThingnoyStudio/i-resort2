@@ -30,8 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'Oid',
             'Odate:ntext',
+            [
+                'format' => 'raw',
+                'attribute' => 'orderDetail.food.Fimg',
+                'value' => Html::img(Yii::getAlias('@ShowF')  . $model->orderDetail->food->Fimg , ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+            ],
+            'orderDetail.food.Fname',
+            'orderDetail.ODnum',
             'Optotal:ntext',
-            'Pid',
+            'payment.PMname',
+            'Bid',
         ],
     ]) ?>
 

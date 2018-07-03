@@ -1,5 +1,8 @@
 <?php
 
+
+use kartik\widgets\DateTimePicker;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,11 +15,27 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Odate')->textarea(['rows' => 6]) ?>
+<!--    <= $form->field($model, 'Odate')->textarea(['rows' => 6]) ?>-->
+    <?php
+    echo '<label>วันที่จอง</label>';
+    echo DateTimePicker::widget([
+        'name' => 'Odate',
+        'options' => ['placeholder' => 'Select operating time ...'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'format' => 'Y-m-d g:i',
+            'startDate' => '01-Mar-2014 12:00 AM',
+            'todayHighlight' => true
+        ]
+    ]);
+    ?>
 
-    <?= $form->field($model, 'Optotal')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'Pid')->textInput() ?>
+    <?= $form->field($model, 'Optotal')->textInput(['type' => 'number']) ?>
+    
+    <?= $form->field($model, 'Pid')->dropDownList(
+        ArrayHelper::map(\frontend\models\Payment::find()->all(),'PMid','PMname'),
+        ['promp'=>'เลือกประเภทตำแหน่ง']
+    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
