@@ -15,7 +15,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-<!--    <= $form->field($model, 'Odate')->textarea(['rows' => 6]) ?>-->
+    <?= $form->field($model, 'Odate')->widget(kartik\datetime\DateTimePicker::className(),[
+        'options' => ['placeholder' => 'Select operating time ...'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'format' => 'Y-m-d g:i',
+            'startDate' => '01-Mar-2014 12:00 AM',
+            'todayHighlight' => true
+        ]
+    ])
+
+    ?>
     <?php
     echo '<label>วันที่จอง</label>';
     echo DateTimePicker::widget([
