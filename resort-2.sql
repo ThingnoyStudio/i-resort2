@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2018 at 03:05 AM
+-- Generation Time: Jul 03, 2018 at 10:00 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -192,19 +192,20 @@ CREATE TABLE `booking` (
   `Bdateout` date DEFAULT NULL COMMENT 'วันที่เช็คเอ้า',
   `PMid` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'การชำระเงิน',
   `datebetween` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ช่วงเวลาเข้าพัก',
-  `Btotal` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ราคาสุทธิ'
+  `Btotal` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ราคาสุทธิ',
+  `Bbil` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ใบเสร็จ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 --
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`Bid`, `Bdate`, `Rid`, `Uid`, `ADid`, `Bnday`, `Bdatein`, `Bdateout`, `PMid`, `datebetween`, `Btotal`) VALUES
-(2, '20-10-2018', '5', '6', NULL, '3', '0000-00-00', '0000-00-00', NULL, NULL, '8970'),
-(3, '20-10-2018', '1', '6', NULL, '7', '0000-00-00', '0000-00-00', NULL, NULL, '10430'),
-(4, '20-10-2018', '3', '7', NULL, '4', '0000-00-00', '0000-00-00', NULL, NULL, '5960'),
-(5, '2018-07-01', '5', '6', NULL, '3', '2018-07-05', '2018-07-06', NULL, NULL, '8970'),
-(6, '2018-07-01', '4', '6', NULL, '3', '0000-00-00', '0000-00-00', NULL, NULL, '7470');
+INSERT INTO `booking` (`Bid`, `Bdate`, `Rid`, `Uid`, `ADid`, `Bnday`, `Bdatein`, `Bdateout`, `PMid`, `datebetween`, `Btotal`, `Bbil`) VALUES
+(2, '2018-07-01', '5', '6', NULL, '3', '2018-07-04', '0000-00-00', NULL, NULL, '8970', NULL),
+(3, '2018-07-01', '1', '6', NULL, '7', '2018-07-06', '0000-00-00', NULL, NULL, '10430', NULL),
+(4, '2018-07-01', '3', '7', NULL, '4', '2018-07-25', '0000-00-00', NULL, NULL, '5960', NULL),
+(5, '2018-07-01', '5', '6', NULL, '3', '2018-07-04', '2018-07-06', NULL, NULL, '8970', NULL),
+(6, '2018-07-01', '4', '6', NULL, '3', '2018-07-03', '0000-00-00', NULL, NULL, '7470', NULL);
 
 -- --------------------------------------------------------
 
@@ -224,7 +225,7 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`Fid`, `Fname`, `Fprice`, `Fimg`) VALUES
-(1, 'ข้าวผัด', '30', 'download (1).jpg'),
+(1, 'ข้าวผัด', '30', '462cc737-ee9f-4457-ad06-3a826ab245b3.jpg'),
 (2, 'ส้มตำ', '34', 'DSC_8155.jpg');
 
 -- --------------------------------------------------------
@@ -333,7 +334,8 @@ CREATE TABLE `payment` (
 
 INSERT INTO `payment` (`PMid`, `PMname`) VALUES
 (1, 'บัตรเครดิต/เดรบิต'),
-(2, 'ชำระผ่าน paypal');
+(2, 'ชำระผ่าน paypal'),
+(3, 'รอการยืนยัน');
 
 -- --------------------------------------------------------
 
@@ -449,12 +451,8 @@ CREATE TABLE `session` (
 --
 
 INSERT INTO `session` (`id`, `expire`, `data`) VALUES
-('67j4r5p3vp3qntl9ppv748v9pu', 1530278985, 0x5f5f666c6173687c613a303a7b7d),
-('96nmnmruk665vchte97fv385ep', 1529828918, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a393b),
-('f64aq51si8ibsu0q2dkh27ebak', 1530366519, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a363b),
-('l4c52l0gav2eo981pno9csa9pq', 1530550980, 0x5f5f666c6173687c613a303a7b7d),
-('mt0kese8ruilffq6eaqpaumcer', 1529898195, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a363b),
-('orlhodd5g9o892fdo3qjveals7', 1530163391, 0x5f5f666c6173687c613a303a7b7d);
+('dcisfgmnffcvp3dfqk0p8g0f72', 1530605739, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a33373a22687474703a2f2f6c6f63616c686f73742f692d7265736f7274322f726f6f6d2f696e646578223b5f5f69647c693a363b),
+('tn85cf32jgqvcnp75qo83hg64p', 1530596538, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b);
 
 -- --------------------------------------------------------
 
@@ -567,7 +565,7 @@ INSERT INTO `users` (`Uid`, `Ufname`, `Ulname`, `Uemail`, `Uphone`, `Uimg`, `ADi
 (7, 'ใจดี', 'โคตรๆ', 'f@gmail.com', '0814586952', 'tim_80x80.png', 1, 4, 7),
 (8, 'po', 'po', 'po15@gmail.com', '02457787545', 'อูจิน1.jpg', 1, 2, 8),
 (9, 'การ', 'เงิน', 'dd@gmail.com', '0254875368', 'DSC_8155.jpg', 1, 6, 9),
-(10, 'ต้อน', 'รับ', 'ghfgh@gmail.com', '0254879652', 'DSC_8155.jpg', 1, 3, 10);
+(10, 'ต้อน', 'รับ', 'ghfgh@gmail.com', '0254879652', 'DSC_8155.jpg', 1, 5, 10);
 
 -- --------------------------------------------------------
 
@@ -779,7 +777,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `PMid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=3;
+  MODIFY `PMid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `promotion`
 --

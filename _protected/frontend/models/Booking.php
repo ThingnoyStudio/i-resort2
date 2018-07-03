@@ -18,6 +18,7 @@ use Yii;
  * @property string $PMid การชำระเงิน
  * @property string $datebetween ช่วงเวลา
 * @property string $Btotal ราคาสุทธิ
+ * @property string $Bbil ใบเสร็จ
 
 
  */
@@ -37,7 +38,7 @@ class Booking extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween','Btotal'], 'string'],
+            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween','Btotal','Bbil'], 'string'],
             [['Bdatein', 'Bdateout'], 'safe'],
         ];
     }
@@ -61,6 +62,7 @@ class Booking extends \yii\db\ActiveRecord
 
             'datebetween' => 'ช่วงเวลา',
             'room.Rname' => 'ชื่อห้อง',
+            'Bbil'=>'ใบเสร็จ',
         ];
     }
 
