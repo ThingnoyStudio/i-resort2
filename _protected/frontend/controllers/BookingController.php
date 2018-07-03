@@ -424,7 +424,7 @@ class BookingController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $model->Bbil = $model->upload2($model, 'Bbil');
+            $model->Bbil = $model->upload($model, 'Bbil');
 //            $model->PMid = "4";
             $model->save();
             return $this->redirect(['index4']);
@@ -457,6 +457,13 @@ class BookingController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDelete2($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index4']);
     }
 
     /**

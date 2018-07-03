@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Bdatein:ntext',
             'Bdateout:ntext',
             'Btotal',
+            'payment.PMname',
             //'Pid:ntext',
 
             [

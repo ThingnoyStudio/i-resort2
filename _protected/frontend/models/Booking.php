@@ -92,10 +92,9 @@ class Booking extends \yii\db\ActiveRecord
         return $this->hasOne(Payment::className(), ['PMid' => 'PMid']);
     }
 
-    public function upload2($model,$attribute)
+    public function upload($model,$attribute)
     {
         $photo  = UploadedFile::getInstance($model, $attribute);
-        //$path = 'C:/xampp/htdocs/udondeliveryu3/uploads/images/Restaurantimg/';
         $path = Yii::getAlias('@Uploadbil');
         if ($this->validate() && $photo !== null) {
 

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Booking;
 use kartik\mpdf\Pdf;
 use Yii;
 use frontend\models\Room;
@@ -291,6 +292,9 @@ class RoomController extends Controller
         $total = $price * $amt;
         $roomType = $rtname;
         $roomStatus = $rsname;
+        $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
+
+
 
         // get your HTML raw content without any layouts or scripts
         $content = $this->renderPartial('_preview', [
@@ -326,6 +330,17 @@ class RoomController extends Controller
                 //'SetFooter'=>['{PAGENO}'],
             ]
         ]);
+
+        $booking = new Booking();
+        $booking->Bdate = date('Y-m-d H:i:s') . "";
+        $booking->Rid = $roomId . "";
+        $booking->Btotal = $total . "";
+        $booking->Bnday = $amt . "";
+        $booking->Uid = $userId . "";
+        $booking->Bdatein = $sdate;
+        $booking->Bdateout = $edate;
+        $booking->PMid = "3";
+        $booking->save();
 
         // return the pdf output as per the destination setting
         return $pdf->render();

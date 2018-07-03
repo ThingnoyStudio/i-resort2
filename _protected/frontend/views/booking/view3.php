@@ -12,7 +12,7 @@ $this->title = $model->Bid;
 $this->params['breadcrumbs'][] = ['label' => 'Bookings', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="booking-view">
+
 
 
     <?php
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ?>
         <p>
-            <?= Html::a('ยกเลิกการจอง', ['delete', 'id' => $model->Bid], [
+            <?= Html::a('ยกเลิกการจอง', ['delete2', 'id' => $model->Bid], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => 'Are you sure you want to delete this item?',
@@ -38,18 +38,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     if($model->PMid == "3" ){
         ?>
+    <div class="booking-form">
 
     <?php $form = ActiveForm::begin(); ?>
     <?=  $form->field($model, 'Bbil')->fileInput()?>
 
-        <?= Html::a('อัพโหลด', ['upload2', 'id' => $model->Bid], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('อัพโหลด', ['upload2', 'id' => $model->Bid], ['class' => 'btn btn-primary']) ?>
 
     <?php ActiveForm::end(); ?>
-
+    </div>
     <?php
 
     }
     ?>
+<div class="booking-view">
 
 
 
