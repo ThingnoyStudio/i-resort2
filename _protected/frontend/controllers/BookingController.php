@@ -294,6 +294,7 @@ class BookingController extends Controller
         $model = $this->findModel2($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
             $model->Rimg = $model->upload($model,'Rimg');
             $model->save();
 
@@ -359,7 +360,10 @@ class BookingController extends Controller
     {
         $model = new Booking();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $model->Bbil = $model->upload2($model,'Bbil');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->Bid]);
         }
 
@@ -379,13 +383,29 @@ class BookingController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $model->Bbil = $model->upload2($model,'Bbil');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->Bid]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+    public function actionUpload2($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $model->Bbil = $model->upload2($model, 'Bbil');
+            $model->save();
+            return $this->redirect(['index4']);
+        }
+
+        return $this->redirect(['view3', 'id' => $model->Bid]);
     }
     public function actionUpdate2($id)
     {
@@ -446,4 +466,7 @@ class BookingController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+
 }

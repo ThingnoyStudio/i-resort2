@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "booking".
@@ -62,7 +63,7 @@ class Booking extends \yii\db\ActiveRecord
 
             'datebetween' => 'ช่วงเวลา',
             'room.Rname' => 'ชื่อห้อง',
-            'Bbil'=>'ใบเสร็จ',
+            'Bbil'=>'ใบเสร็จชำระเงิน',
         ];
     }
 
@@ -89,6 +90,22 @@ class Booking extends \yii\db\ActiveRecord
     public function getPayment()
     {
         return $this->hasOne(Payment::className(), ['PMid' => 'PMid']);
+    }
+
+    public function upload2($model,$attribute)
+    {
+        $photo  = UploadedFile::getInstance($model, $attribute);
+        //$path = 'C:/xampp/htdocs/udondeliveryu3/uploads/images/Restaurantimg/';
+        $path = Yii::getAlias('@Uploadbil');
+        if ($this->validate() && $photo !== null) {
+
+            // $fileName = md5($photo->baseName.time()) . '.' . $photo->extension;
+            $fileName = $photo->baseName . '.' . $photo->extension;
+            if($photo->saveAs($path.'/'.$fileName)){
+                return $fileName;
+            }
+        }
+        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
     }
 
 }

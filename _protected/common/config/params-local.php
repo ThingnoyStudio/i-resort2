@@ -23,5 +23,7 @@ Yii::setAlias('@favicon','@appRoot3/uploads/favicon.ico');//for show favicon
 Yii::setAlias('@HeaderIcon','@appRoot3/uploads/logo1.png');//for show header icon
 
 Yii::setAlias('@UploadsImg','@appRoot3/uploads/img');//for access img
+
+Yii::setAlias('@Uploadbil','@appRoot2/uploads/images/bil/');//อัพ ใบเสร็จ
 return [
 ];

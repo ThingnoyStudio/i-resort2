@@ -69,6 +69,8 @@ class Room extends \yii\db\ActiveRecord
         }
         return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
     }
+
+
     /**
      * @return \yii\db\ActiveQuery
      */

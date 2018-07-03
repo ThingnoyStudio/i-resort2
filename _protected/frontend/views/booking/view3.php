@@ -1,10 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Booking */
+/* @var $form yii\widgets\ActiveForm */
 
 $this->title = $model->Bid;
 $this->params['breadcrumbs'][] = ['label' => 'Bookings', 'url' => ['index']];
@@ -30,6 +32,22 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <?php
+    }
+    ?>
+
+    <?php
+    if($model->PMid == "3" ){
+        ?>
+
+    <?php $form = ActiveForm::begin(); ?>
+    <?=  $form->field($model, 'Bbil')->fileInput()?>
+
+        <?= Html::a('อัพโหลด', ['upload2', 'id' => $model->Bid], ['class' => 'btn btn-primary']) ?>
+
+    <?php ActiveForm::end(); ?>
+
+    <?php
+
     }
     ?>
 
