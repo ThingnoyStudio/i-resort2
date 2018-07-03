@@ -10,6 +10,11 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'modules' => [
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+        ]
+    ],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'cache' => [

@@ -8,6 +8,7 @@ use kartik\mpdf\Pdf;
 use Yii;
 use frontend\models\Booking;
 use frontend\models\BookingSearch;
+use yii\data\ActiveDataProvider;
 use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -128,6 +129,45 @@ class BookingController extends Controller
 
 
         return $this->render('index5', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndex6()
+    {
+//        $dateNow = date('Y-m-d');
+        $NewDate = Date('Y-m-d', strtotime("+1 days"));
+
+
+
+        $searchModel = new BookingSearch();
+
+        $query = Booking::find()->where(['Bdatein'=>$NewDate])
+        ;
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+
+        return $this->render('index6', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndex7()
+    {
+
+        $dateNow = date('Y-m-d');
+        $searchModel = new BookingSearch();
+
+        $query = Booking::find()->where(['Bdatein'=>$dateNow])
+        ;
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+
+        return $this->render('index7', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

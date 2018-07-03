@@ -212,7 +212,7 @@ use yii\helpers\Html;
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="รายงานห้องที่เตรียมเข้าพัก" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/room/index']) ?>"
+                               href="<?= yii\helpers\Url::to(['/booking/index6']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
                                 <p class="d-lg-none d-xl-none">รายงานห้องที่เตรียมเข้าพัก</p>
@@ -220,7 +220,7 @@ use yii\helpers\Html;
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" rel="tooltip" title="รายงานห้องหักที่มีลูกค้าพักอยู่" data-placement="bottom"
-                               href="<?= yii\helpers\Url::to(['/room/index']) ?>"
+                               href="<?= yii\helpers\Url::to(['/booking/index7']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
                                 <p class="d-lg-none d-xl-none">รายงานห้องหักที่มีลูกค้าพักอยู่</p>

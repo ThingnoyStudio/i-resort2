@@ -7,6 +7,7 @@ $config = [
             'cookieValidationKey' => 'B6Ol6HK1FwKPi7EmwJyYxApK-aAdzWH1',
         ],
     ],
+
 ];
 
 if (!YII_ENV_TEST) {
@@ -16,6 +17,7 @@ if (!YII_ENV_TEST) {
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';
+
 }
 
 return $config;
