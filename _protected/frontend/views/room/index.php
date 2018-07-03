@@ -49,6 +49,39 @@ $this->registerJs(" function ff(id,price) {
 
 
 } ", View::POS_END, 'my-options');
+$this->registerJs(" function exportPdf(id,price,rtname,rsname) {
+  // alert('ll');
+  console.log('ff worked! -> '+id);
+  var roomId= id;
+  var price = price;
+  var p = ".$p."
+  var roomType = rtname;
+  var roomStatus = rsname;
+  var amount = $(\"span[name=days\"+id+\"]\").text();
+  var date = $(\"input[name=kvdate\"+id+\"]\").val();
+  var s_date = date.split(' ')[0];
+  var e_date = date.split(' ')[2];
+  
+  console.log('price: '+price);
+  console.log('amount: '+amount);
+  console.log('date: '+date);
+  console.log('s_date: '+s_date);
+  console.log('e_date: '+e_date);
+  console.log('rtname: '+roomType);
+  
+  console.log('url: '+window.location);
+  if(amount > 0 ){
+      var url = \" " . \yii\helpers\Url::to(['room/pdf'])
+    . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount+\"&sdate=\"+s_date+\"&edate=\"+e_date+\"&p=\"+p+\"&rtname=\"+roomType+\"&rsname=\"+roomStatus;
+
+window.open(url, '_blank');
+  }else{
+  alert('กรุณาเลือกช่วงเวลาที่เข้าพัก')
+  }
+  
+
+
+} ", View::POS_END, 'my-options');
 
 //$this->registerJs(" function checkDate(id) {
 //  var date = $(\"input[name=kvdate\"+id+\"]\").val();
@@ -88,12 +121,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="clearfix"></div>
-        <!--        <div class="col-md-12">-->
-        <!--            <div class="landing-title" style="    margin-top: 40px; margin-bottom: 30px;">-->
-        <!--                <span class="title" style="    float: left;font-size: 26px;    font-weight: 200;margin: 7px 0;color: #555;">Latest products</span>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
 
         <?php
         foreach ($dataProvider->models as $model) {
@@ -231,12 +258,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                           $('span[name=\"pay" . $ss . "\"]').text('' + lday * " . $price . ");  
                                            
                                            $.ajax({
-                                               url: '".  Yii::$app->request->baseUrl ."/paypal/chkdate',
+                                               url: '" . Yii::$app->request->baseUrl . "/paypal/chkdate',
                                                type: 'post',
                                                data: {
                                                          sDate:start_date.format('YYYY-MM-DD') , 
                                                          eDate:end_date.format('YYYY-MM-DD') , 
-                                                         _csrf : '". Yii::$app->request->getCsrfToken() ."'
+                                                         _csrf : '" . Yii::$app->request->getCsrfToken() . "'
                                                      },
                                                success: function (data) {
                                                   console.log(data);
@@ -273,7 +300,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 var start_date = picker.startDate;
                                                 var end_date = picker.endDate;
                                                 validate(start_date, end_date);
-                                                ".$callback."
+                                                " . $callback . "
                                                 }",
 
                                             ],
@@ -303,32 +330,22 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="modal-footer">
 
-                            <button type="button" class="btn btn-default " data-dismiss="modal" style="    margin-right: .25rem;
-    padding-right: 30px;
-    padding-left: 30px;">ยกเลิก
-                            </button>
-                            <!--                            <a class="btn btn-info btn-lg btn-block btn-capital" id="dd" name="pay-->
-                            <?//= $model['Rnumber'] ?><!--" >-->
-                            <!--                                <i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿-->
-                            <!--                                <span id="price">-->
-                            <?php //$total_price ?><!--</span>-->
-                            <!--                            </a>-->
+                            <button type="button" class="btn btn-default " data-dismiss="modal" style="    margin-right: .25rem; padding-right: 30px; padding-left: 30px;">ยกเลิก</button>
                             <button class="btn btn-info btn-lg btn-block btn-capital" name="pay<?= $model['Rnumber'] ?>"
                                     onclick="ff(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - $p) ?>)" style="    margin: 10px 1px;
-    padding-left: 30px;
-    padding-right: 30px;
-    width: 100%;">
-                                <i class="fab fa-paypal"
-                                   style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿
+                                        padding-left: 30px;
+                                        width: 100%;">
+                                <i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -12%;"></i> ชำระเงินทันที ฿
                                 <span name="pay<?= $model['Rnumber'] ?>">0</span>
                             </button>
-
-                            <!--                            <= Html::a('<i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -7%;"></i> ชำระเงินทันที ฿<span id="price">' . $total_price."</span>",-->
-                            <!--                                ['/paypal/paypal', 'roomId' => $model['Rnumber'],'price'=>$price,'amt'=>44],-->
-                            <!--                                ['class' => 'btn btn-info btn-lg btn-block btn-capital',-->
-                            <!--                                    'name' => 'pay'. $model['Rnumber'],-->
-                            <!--                                    'onclick' => 'ff()',-->
-                            <!--                                ])?>-->
+                            <button class="btn btn-success btn-lg btn-block btn-capital" name="pay<?= $model['Rnumber'] ?>"
+                                    onclick="exportPdf(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - $p) . ',\'' . $model['RTname'] .'\'' . ',\'' . $model['RSname'] .'\''    ?>)" style="    margin: 10px 1px;
+                                    padding-left: 30px;
+                                    width: 100%;">
+                                <i class="fa fa-bank"
+                                   style="font-size: large; position: absolute; margin-left: -12%;"></i> ชำระเงินผ่านธนาคาร ฿
+                                <span name="pay<?= $model['Rnumber'] ?>">0</span>
+                            </button>
 
                         </div>
                     </div>
@@ -341,31 +358,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         <div class="clearfix"></div>
-    </div>
-
-    <!-- Modal Core -->
-    <div class="modal fade" id="boy" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                            style="font-size: xx-large;">&times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">จองห้องพัก
-                        หมายเลข<?= ' ' . $model['Rnumber'] . ' ' . $model['Rname'] ?></h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-info " id="dd" data-dismiss="modal" onclick="con()">Save
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 
 

@@ -33,6 +33,17 @@ class RoomController extends Controller
     }
 
     /**
+     * @param \yii\base\Action $action
+     * @return bool
+     * @throws \yii\web\BadRequestHttpException
+     */
+    public function beforeAction($action)
+    {
+        Yii::$app->user->returnUrl = Yii::$app->request->referrer;
+        return parent::beforeAction($action);
+    }
+
+    /**
      * Lists all Room models.
      * @return mixed
      * @throws \yii\db\Exception
@@ -254,4 +265,70 @@ class RoomController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /**
+     * @param null $roomId
+     * @param null $price
+     * @param null $amt
+     * @param null $sdate
+     * @param null $edate
+     * @param null $p
+     * @param null $RTname
+     * @return mixed
+     */
+    public function actionPdf($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null, $p = null, $rtname= null, $rsname = null)
+    {
+        date_default_timezone_set('asia/bangkok');
+        if (Yii::$app->user->isGuest) {
+//            $this->setReturnUrl(Yii::$app->request->getUrl());
+            return $this->redirect(['site/login']);
+        }
+//        $searchModel = new RoomSearch();
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$roomId);
+        $model = Room::findOne(['Rid' => $roomId]);
+        $date = $sdate.' - '.$edate;
+        $price_befor = $p;
+        $total = $price * $amt;
+        $roomType = $rtname;
+        $roomStatus = $rsname;
+
+        // get your HTML raw content without any layouts or scripts
+        $content = $this->renderPartial('_preview', [
+            'model' => $model,
+            'roomType' => $roomType,
+            'roomStatus' => $roomStatus,
+            'daterange' => $date,
+            'days' => $amt,
+            'p' => $price_befor,
+            'total' => $total,
+        ]);
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8,
+            // A4 paper format
+            'format' => [100,202],
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@frontend/pdf.css',
+            // any css to be embedded if required
+            'cssInline' => '.bd{border:1.5px solid; text-align: center;} .ar{text-align:right} .imgbd{border:1px solid}',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'Preview Report Case: '.$roomId],
+            // call mPDF methods on the fly
+            'methods' => [
+                //'SetHeader'=>[''],
+                //'SetFooter'=>['{PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+    }
+
 }
