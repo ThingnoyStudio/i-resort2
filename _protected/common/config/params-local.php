@@ -25,5 +25,6 @@ Yii::setAlias('@HeaderIcon','@appRoot3/uploads/logo1.png');//for show header ico
 Yii::setAlias('@UploadsImg','@appRoot3/uploads/img');//for access img
 
 Yii::setAlias('@Uploadbil','@appRoot2/uploads/images/bil/');//อัพ ใบเสร็จ
+Yii::setAlias('@ShowBil','@appRoot3/uploads/images/bil/');//โชว์ ใบเสร็จ
 return [
 ];

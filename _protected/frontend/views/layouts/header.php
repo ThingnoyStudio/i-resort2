@@ -276,6 +276,14 @@ use yii\helpers\Html;
                                 <p class="d-lg-none d-xl-none">รายงานค่าอาหาร</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" rel="tooltip" title="ตรวจสอบการชำระเงิน" data-placement="bottom"
+                               href="<?= yii\helpers\Url::to(['booking/chbooking']) ?>"
+                               target="">
+                                <i class="material-icons">assignment</i>
+                                <p class="d-lg-none d-xl-none">ตรวจสอบการชำระเงิน</p>
+                            </a>
+                        </li>
                         <?php
                     } //else
                     ?>

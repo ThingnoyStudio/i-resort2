@@ -270,6 +270,22 @@ class BookingController extends Controller
         ]);
     }
 
+    public function actionChbooking()
+    {
+        $searchModel = new BookingSearch();
+        $query = Booking::find()->where(['PMid'=> 3 ])
+        ;
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        return $this->render('chbooking', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
+
     /**
      * Displays a single Booking model.
      * @param integer $id
@@ -287,6 +303,14 @@ class BookingController extends Controller
         return $this->render('view3', [
             'model' => $this->findModel($id),
         ]);
+    }
+    public function actionsUpdatebil($id)
+    {
+        $model = $this->findModel($id);
+        $model->PMid = "4";
+        $model->save();
+        return $this->redirect(['chbooking']);
+
     }
 
     public function actionUpdatestatus($id,$id2)
@@ -401,6 +425,7 @@ class BookingController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $model->Bbil = $model->upload2($model, 'Bbil');
+//            $model->PMid = "4";
             $model->save();
             return $this->redirect(['index4']);
         }
