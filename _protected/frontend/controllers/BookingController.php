@@ -422,20 +422,26 @@ class BookingController extends Controller
             'model' => $model,
         ]);
     }
+
+    /**
+     * @param $id
+     * @return int|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionUpload2($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
             $model->Bbil = $model->upload($model, 'Bbil');
-//            $model->PMid = "4";
+            $model->PMid = "4";
             $model->save();
             return $this->redirect(['index4']);
         }
 
         return $this->redirect(['view3', 'id' => $model->Bid]);
     }
+
     public function actionUpdate2($id)
     {
         $model = $this->findModel($id);

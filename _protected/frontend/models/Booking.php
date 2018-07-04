@@ -43,7 +43,7 @@ class Booking extends \yii\db\ActiveRecord
             [
                 ['Bbil'],'file',
                 'skipOnEmpty' => true,
-                'extensions' => 'png,jpg'
+                'extensions' => 'jpg,png'
             ],
             [['Bdatein', 'Bdateout'], 'safe'],
         ];
@@ -100,7 +100,7 @@ class Booking extends \yii\db\ActiveRecord
     public function upload($model,$attribute)
     {
         $photo  = UploadedFile::getInstance($model, $attribute);
-        $path = Yii::getAlias('@Uploadbil');
+        $path = Yii::getAlias('@UploadsBil');
         if ($this->validate() && $photo !== null) {
 
             // $fileName = md5($photo->baseName.time()) . '.' . $photo->extension;
