@@ -12,6 +12,8 @@ $this->title = 'Bookings';
 <p>
     <?= Html::a('Print', ['mpdfdemo1'], ['class' => 'btn btn-success']) ?>
 </p>
+
+<?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 <div class="booking-index" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:height="http://www.w3.org/1999/xhtml">
     <h1>รายงานการเข้าพัก</h1>
     <?= GridView::widget([

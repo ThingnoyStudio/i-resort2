@@ -55,7 +55,7 @@ class BookingController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('reportbooking', [
-//            'searchModel' => $searchModel,
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -308,12 +308,12 @@ class BookingController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-    public function actionsUpdatebil($id)
+    public function actionUpdatebil($id)
     {
         $model = $this->findModel($id);
-        $model->PMid = "4";
-        $model->save();
-        return $this->redirect(['chbooking']);
+            $model->PMid = "4";
+            $model->save();
+            return $this->redirect(['chbooking']);
 
     }
 
@@ -434,7 +434,7 @@ class BookingController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->Bbil = $model->upload($model, 'Bbil');
-            $model->PMid = "4";
+//            $model->PMid = "4";
             $model->save();
             return $this->redirect(['index4']);
         }

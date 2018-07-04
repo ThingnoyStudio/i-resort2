@@ -66,13 +66,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '<div > {updatebil} </div>',
                 'buttons' => [
                     'updatebil' => function ($url, $model, $key) {
-                        return Html::a('<i class="material-icons">done_outline</i>', $url,
-                            ['title' => 'ยืนยันการชำระ',
-                                'class' => 'btn btn-success',
-                                'id' => 'actioncol',
-                                'idA' => 'ADid',
-                            ]);
-                    }
+                        return   Html::a('ยืนยัน', ['updatebil', 'id' => $model->Bid], ['class' => 'btn btn-primary', 'onclick' => 'this.parentNode.submit()', 'data-method' => 'post']);
+
+    }
                 ]
             ],// ActionColumn
         ],
