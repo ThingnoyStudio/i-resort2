@@ -118,7 +118,7 @@ class Booking extends \yii\db\ActiveRecord
 
 
     public function getYearsList() {
-        $currentYear = date('Y');
+        $currentYear = date('Y')+5;
         $yearFrom = 1995;
         $yearsRange = range($yearFrom, $currentYear);
         return array_combine($yearsRange, $yearsRange);

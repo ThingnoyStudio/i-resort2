@@ -19,17 +19,20 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'Bid') ?>
 
     <?= $form->field($model, 'month')->dropDownList(
-        ArrayHelper::map(\frontend\models\Month::find()->all(),'Mnum','Mname'),
-        ['promp'=>'เลือกเดือน']
+        ArrayHelper::map(\frontend\models\Month::find()->all(), 'Mnum', 'Mname'),
+        ['prompt' => '--เลือกเดือน--']
     ) ?>
 
-    <?=  $form->field($model, 'year')->dropDownList($model->getYearsList()) ?>
+    <?= $form->field($model, 'year')->dropDownList(
+            $model->getYearsList(),
+            ['prompt' => '--เลือกปี--']
+    ) ?>
 
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-<!--        <= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>-->
-        <?=  Html::a('Reset', ['reportbooking'], ['class' => 'btn btn-default']) ?>
+        <!--        <= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>-->
+        <?= Html::a('Reset', ['reportbooking'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
