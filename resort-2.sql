@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2018 at 10:00 AM
+-- Generation Time: Jul 05, 2018 at 02:07 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -193,19 +193,28 @@ CREATE TABLE `booking` (
   `PMid` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'การชำระเงิน',
   `datebetween` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ช่วงเวลาเข้าพัก',
   `Btotal` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ราคาสุทธิ',
-  `Bbil` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ใบเสร็จ'
+  `Bbil` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ใบเสร็จ',
+  `month` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'เดือน',
+  `year` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'ปี'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 --
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`Bid`, `Bdate`, `Rid`, `Uid`, `ADid`, `Bnday`, `Bdatein`, `Bdateout`, `PMid`, `datebetween`, `Btotal`, `Bbil`) VALUES
-(2, '2018-07-01', '5', '6', NULL, '3', '2018-07-04', '0000-00-00', NULL, NULL, '8970', NULL),
-(3, '2018-07-01', '1', '6', NULL, '7', '2018-07-06', '0000-00-00', NULL, NULL, '10430', NULL),
-(4, '2018-07-01', '3', '7', NULL, '4', '2018-07-25', '0000-00-00', NULL, NULL, '5960', NULL),
-(5, '2018-07-01', '5', '6', NULL, '3', '2018-07-04', '2018-07-06', NULL, NULL, '8970', NULL),
-(6, '2018-07-01', '4', '6', NULL, '3', '2018-07-03', '0000-00-00', NULL, NULL, '7470', NULL);
+INSERT INTO `booking` (`Bid`, `Bdate`, `Rid`, `Uid`, `ADid`, `Bnday`, `Bdatein`, `Bdateout`, `PMid`, `datebetween`, `Btotal`, `Bbil`, `month`, `year`) VALUES
+(2, '2018-07-01', '5', '6', NULL, '3', '2018-07-04', '0000-00-00', '4', NULL, '8970', 'DSC_8155.jpg', '07', '2018'),
+(3, '2018-07-01', '1', '6', NULL, '7', '2018-07-06', '0000-00-00', '2', NULL, '10430', NULL, '07', '2018'),
+(4, '2018-07-01', '3', '7', NULL, '4', '2018-07-25', '0000-00-00', '2', NULL, '5960', NULL, '07', '2018'),
+(5, '2018-07-01', '5', '6', NULL, '3', '2018-07-04', '2018-07-06', '2', NULL, '8970', NULL, '07', '2018'),
+(6, '2018-07-01', '4', '6', NULL, '3', '2018-07-03', '0000-00-00', '2', NULL, '7470', NULL, '07', '2018'),
+(11, '2018-07-03 22:19:51', '3', '6', NULL, '1', '2018-07-20', '2018-07-21', '3', NULL, '1490', NULL, '07', '2018'),
+(12, '2018-07-03 22:19:52', '3', '6', NULL, '1', '2018-07-20', '2018-07-21', '3', NULL, '1490', NULL, '07', '2018'),
+(13, '2018-07-03 22:25:15', '1', '6', NULL, '1', '2018-08-26', '2018-08-27', '3', NULL, '1490', NULL, '07', '2018'),
+(15, '2018-07-04 00:17:02', '3', '6', NULL, '1', '2018-08-12', '2018-08-13', '2', NULL, '1490', NULL, '07', '2018'),
+(16, '2018-07-04 00:21:30', '5', '6', NULL, '1', '2018-08-23', '2018-08-24', '2', NULL, '2990', NULL, '07', '2018'),
+(17, '2018-07-04 00:28:30', '5', '6', NULL, '1', '2018-08-24', '2018-08-25', '2', NULL, '2990', NULL, '07', '2018'),
+(18, '2018-08-04 00:29:54', '3', '6', NULL, '1', '2018-08-17', '2018-08-18', '2', NULL, '1490', NULL, '08', '2018');
 
 -- --------------------------------------------------------
 
@@ -250,6 +259,37 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m141022_115922_create_session_table', 1528887303),
 ('m150104_153617_create_article_table', 1528887304),
 ('m180624_102337_create_transction_paypal', 1529836328);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `month`
+--
+
+CREATE TABLE `month` (
+  `Mid` int(11) NOT NULL,
+  `Mname` text COLLATE utf8mb4_unicode_ci,
+  `Mnum` text COLLATE utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `month`
+--
+
+INSERT INTO `month` (`Mid`, `Mname`, `Mnum`) VALUES
+(1, 'มกราคม', '01'),
+(2, 'กุมภาพันธ์', '02'),
+(3, 'มีนาคม', '03'),
+(4, 'เมษายน', '04'),
+(5, 'พฤษภาคม', '05'),
+(6, 'มิถุนายน', '06'),
+(7, 'กรกฎาคม', '07'),
+(8, 'สิงหาคม', '08'),
+(9, 'กันยายน', '09'),
+(10, 'ตุลาคม', '10'),
+(11, 'พฤศจิกายน', '11'),
+(12, 'ธันวาคม', '12'),
+(13, 'ไม่เลือกเดือน', '00');
 
 -- --------------------------------------------------------
 
@@ -335,7 +375,8 @@ CREATE TABLE `payment` (
 INSERT INTO `payment` (`PMid`, `PMname`) VALUES
 (1, 'บัตรเครดิต/เดรบิต'),
 (2, 'ชำระผ่าน paypal'),
-(3, 'รอการยืนยัน');
+(3, 'รอการยืนยัน'),
+(4, 'ชำระผ่านธนาคาร');
 
 -- --------------------------------------------------------
 
@@ -387,7 +428,7 @@ CREATE TABLE `room` (
 INSERT INTO `room` (`Rid`, `Rname`, `Rnumber`, `Rprice`, `Rdes`, `Rimg`, `RSid`, `RTid`) VALUES
 (1, 'สวิท', '1', '1500', 'jghmhmnghnhg', 'ghnhgng.jpg', 5, 1),
 (2, 'ไม่สวิท', '2', '2000', 'เ้เ่เ้่เ้่เ้่ด้เ่tjhjfgjdjd', 'hgnghnghng.jpg', 5, 1),
-(3, 'ดอกไม้', '3', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 6, 2),
+(3, 'ดอกไม้', '3', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 2, 2),
 (4, 'ดอกไม้บาน', '4', '2500', 'เ้ท้่ทเ่้ท่้ท้่ทเ่ทเ่', 'hjh.jpg', 2, 2),
 (5, 'ดอกไม้บานมาก', '5', '3000', 'เืเืเ้ื้ื้พื้ดืbbnngfnjnhjmg', 'images.jpg', 2, 3);
 
@@ -451,8 +492,8 @@ CREATE TABLE `session` (
 --
 
 INSERT INTO `session` (`id`, `expire`, `data`) VALUES
-('dcisfgmnffcvp3dfqk0p8g0f72', 1530605739, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a33373a22687474703a2f2f6c6f63616c686f73742f692d7265736f7274322f726f6f6d2f696e646578223b5f5f69647c693a363b),
-('tn85cf32jgqvcnp75qo83hg64p', 1530596538, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b);
+('jo6ismu9je2m7rbkqi9n25ilvv', 1530793817, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a383b),
+('tn85cf32jgqvcnp75qo83hg64p', 1530791264, 0x5f5f666c6173687c613a303a7b7d);
 
 -- --------------------------------------------------------
 
@@ -505,7 +546,11 @@ INSERT INTO `transaction_paypal` (`id`, `user_id`, `payment_id`, `hash`, `comple
 (27, 6, 'PAY-8Y624591AV323554XLM4EHOA', '89364512d988d9101c612ae9d9200c06', 1, '2018-07-01T03:01:18Z', '2018-07-01T03:01:14Z', 5),
 (28, 6, 'PAY-4KT80269AP212780NLM4GX5Q', '8572633f4642edf6b673adcdeb01c6c9', 1, '2018-07-01T05:52:41Z', '2018-07-01T05:52:37Z', 4),
 (29, 6, 'PAY-37C14474S30342715LM5C24A', '79173fa1a643c60e7ae2f3d2e2edbbf5', 1, '2018-07-02T13:50:48Z', '2018-07-02T13:50:45Z', 2),
-(30, 6, 'PAY-6JK77387LV472551YLM5C6VA', '2b08ae61248fae258b05a9def4d67bf2', 1, '2018-07-02T13:58:26Z', '2018-07-02T13:58:22Z', 2);
+(30, 6, 'PAY-6JK77387LV472551YLM5C6VA', '2b08ae61248fae258b05a9def4d67bf2', 1, '2018-07-02T13:58:26Z', '2018-07-02T13:58:22Z', 2),
+(31, 6, 'PAY-96801417Y73228941LM527EA', 'a5903b86425051bee0d50ffb4de2b462', NULL, '-', '-', 3),
+(32, 6, 'PAY-53U37789WE736874MLM53BGY', '04ca3317dc0440883a81f05b07f121cf', NULL, '-', '-', 5),
+(33, 6, 'PAY-5YF5146938187591LLM53EQA', 'e82a4aa4352c49a7ffe27b82c6ec36a8', NULL, '-', '-', 5),
+(34, 6, 'PAY-1SE40535M4413754PLM53FEY', 'a258667a10cc96d9af3437f282dd9c02', 1, '2018-07-03T17:30:54Z', '2018-07-03T17:30:50Z', 3);
 
 -- --------------------------------------------------------
 
@@ -561,11 +606,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Uid`, `Ufname`, `Ulname`, `Uemail`, `Uphone`, `Uimg`, `ADid`, `USid`, `iduser`) VALUES
-(6, 'อัยการ', 'อัย', 'jfjfgj@gmail.com', '025785963', 'marc.jpg', 1, 1, 6),
+(6, 'อัยการ', 'อัย', 'noppakit15@gmail.com', '025785963', 'marc.jpg', 1, 1, 6),
 (7, 'ใจดี', 'โคตรๆ', 'f@gmail.com', '0814586952', 'tim_80x80.png', 1, 4, 7),
 (8, 'po', 'po', 'po15@gmail.com', '02457787545', 'อูจิน1.jpg', 1, 2, 8),
 (9, 'การ', 'เงิน', 'dd@gmail.com', '0254875368', 'DSC_8155.jpg', 1, 6, 9),
-(10, 'ต้อน', 'รับ', 'ghfgh@gmail.com', '0254879652', 'DSC_8155.jpg', 1, 5, 10);
+(10, 'ต้อน', 'รับ', 'ghfgh@gmail.com', '0254879652', 'DSC_8155.jpg', 1, 3, 10);
 
 -- --------------------------------------------------------
 
@@ -589,6 +634,17 @@ INSERT INTO `userstatus` (`USid`, `USname`) VALUES
 (4, 'แม่บ้าน'),
 (5, 'ฝ่ายโภชนาการ'),
 (6, 'ฝ่ายการเงิน');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `years`
+--
+
+CREATE TABLE `years` (
+  `Yid` int(11) NOT NULL,
+  `Yname` text COLLATE utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -651,6 +707,12 @@ ALTER TABLE `food`
 --
 ALTER TABLE `migration`
   ADD PRIMARY KEY (`version`);
+
+--
+-- Indexes for table `month`
+--
+ALTER TABLE `month`
+  ADD PRIMARY KEY (`Mid`);
 
 --
 -- Indexes for table `news`
@@ -735,6 +797,12 @@ ALTER TABLE `userstatus`
   ADD PRIMARY KEY (`USid`);
 
 --
+-- Indexes for table `years`
+--
+ALTER TABLE `years`
+  ADD PRIMARY KEY (`Yid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -752,12 +820,17 @@ ALTER TABLE `article`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `Bid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=7;
+  MODIFY `Bid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
   MODIFY `Fid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `month`
+--
+ALTER TABLE `month`
+  MODIFY `Mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `news`
 --
@@ -777,7 +850,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `PMid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=4;
+  MODIFY `PMid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `promotion`
 --
@@ -802,7 +875,7 @@ ALTER TABLE `roomtype`
 -- AUTO_INCREMENT for table `transaction_paypal`
 --
 ALTER TABLE `transaction_paypal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดี', AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดี', AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `user`
 --
@@ -818,6 +891,11 @@ ALTER TABLE `users`
 --
 ALTER TABLE `userstatus`
   MODIFY `USid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `years`
+--
+ALTER TABLE `years`
+  MODIFY `Yid` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --

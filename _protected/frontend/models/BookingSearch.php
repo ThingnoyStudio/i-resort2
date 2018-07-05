@@ -19,7 +19,7 @@ class BookingSearch extends Booking
     {
         return [
             [['Bid'], 'integer'],
-            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday', 'Bdatein', 'Bdateout', 'PMid','Btotal','Bbil'], 'safe'],
+            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday', 'Bdatein', 'Bdateout', 'PMid', 'Btotal', 'Bbil', 'month','year'], 'safe'],
         ];
     }
 
@@ -71,14 +71,18 @@ class BookingSearch extends Booking
             ->andFilterWhere(['like', 'Bdatein', $this->Bdatein])
             ->andFilterWhere(['like', 'Bdateout', $this->Bdateout])
             ->andFilterWhere(['like', 'PMid', $this->PMid])
-        ->andFilterWhere(['like', 'Btotal', $this->Btotal])
-            ->andFilterWhere(['like', 'Bbil', $this->Bbil]);
+            ->andFilterWhere(['like', 'Btotal', $this->Btotal])
+            ->andFilterWhere(['like', 'Bbil', $this->Bbil])
+            ->andFilterWhere(['like', 'month', $this->month])
+            ->andFilterWhere(['like', 'year', $this->year]);
+
 
         return $dataProvider;
     }
+
     public function search3($params)
     {
-        $query =  Booking::find()->where('Uid = '.$params);
+        $query = Booking::find()->where('Uid = ' . $params);
 //        $query = Booking::findOne($params);
 
         // add conditions that should always apply here
@@ -109,14 +113,16 @@ class BookingSearch extends Booking
             ->andFilterWhere(['like', 'Bdateout', $this->Bdateout])
             ->andFilterWhere(['like', 'PMid', $this->PMid])
             ->andFilterWhere(['like', 'Btotal', $this->Btotal])
-        ->andFilterWhere(['like', 'Bbil', $this->Bbil]);
+            ->andFilterWhere(['like', 'Bbil', $this->Bbil])
+            ->andFilterWhere(['like', 'month', $this->month])
+            ->andFilterWhere(['like', 'year', $this->year]);
 
         return $dataProvider;
     }
+
     public function search2($params)
     {
-        $query = Booking::find()
-        ;
+        $query = Booking::find();
 //        $query = Booking::findOne($params);
 
         // add conditions that should always apply here
@@ -146,7 +152,9 @@ class BookingSearch extends Booking
             ->andFilterWhere(['like', 'Bdatein', $this->Bdatein])
             ->andFilterWhere(['like', 'Bdateout', $this->Bdateout])
             ->andFilterWhere(['like', 'PMid', $this->PMid])
-            ->andFilterWhere(['like', 'Btotal', $this->Btotal]);
+            ->andFilterWhere(['like', 'Bbil', $this->Bbil])
+            ->andFilterWhere(['like', 'month', $this->month])
+            ->andFilterWhere(['like', 'year', $this->year]);
 
         return $dataProvider;
     }

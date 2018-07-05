@@ -20,6 +20,8 @@ use yii\web\UploadedFile;
  * @property string $datebetween ช่วงเวลา
 * @property string $Btotal ราคาสุทธิ
  * @property string $Bbil ใบเสร็จ
+ * @property string $month เดือน
+ * @property string $year ปี
 
 
  */
@@ -39,7 +41,7 @@ class Booking extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween','Btotal'], 'string'],
+            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween','Btotal','month','year'], 'string'],
             [
                 ['Bbil'],'file',
                 'skipOnEmpty' => true,
@@ -69,6 +71,8 @@ class Booking extends \yii\db\ActiveRecord
             'datebetween' => 'ช่วงเวลา',
             'room.Rname' => 'ชื่อห้อง',
             'Bbil'=>'ใบเสร็จชำระเงิน',
+            'month'=>'เดือน',
+            'year'=>'ปี',
         ];
     }
 
@@ -112,4 +116,11 @@ class Booking extends \yii\db\ActiveRecord
         return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
     }
 
+
+    public function getYearsList() {
+        $currentYear = date('Y');
+        $yearFrom = 1995;
+        $yearsRange = range($yearFrom, $currentYear);
+        return array_combine($yearsRange, $yearsRange);
+    }
 }

@@ -359,6 +359,8 @@ class RoomController extends Controller
         $booking->Bdatein = $sdate;
         $booking->Bdateout = $edate;
         $booking->PMid = "3";
+        $booking->month = date('m');
+        $booking->year = date('Y');
         $booking->save();
 
         // return the pdf output as per the destination setting

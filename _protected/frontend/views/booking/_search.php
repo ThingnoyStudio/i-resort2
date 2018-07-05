@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -11,27 +12,19 @@ use yii\widgets\ActiveForm;
 <div class="booking-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['reportbooking'],
         'method' => 'get',
     ]); ?>
 
     <?php // echo $form->field($model, 'Bid') ?>
 
-    <?= $form->field($model, 'Bdate') ?>
+    <?= $form->field($model, 'month')->dropDownList(
+        ArrayHelper::map(\frontend\models\Month::find()->all(),'Mnum','Mname'),
+        ['promp'=>'เลือกเดือน']
+    ) ?>
 
-    <?php // echo $form->field($model, 'Rid') ?>
+    <?=  $form->field($model, 'year')->dropDownList($model->getYearsList()) ?>
 
-    <?php // echo $form->field($model, 'Uid') ?>
-
-    <?php // echo $form->field($model, 'ADid') ?>
-
-    <?php // echo $form->field($model, 'Bnday') ?>
-
-    <?php // echo $form->field($model, 'Bdatein') ?>
-
-    <?php // echo $form->field($model, 'Bdateout') ?>
-
-    <?php // echo $form->field($model, 'Pid') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

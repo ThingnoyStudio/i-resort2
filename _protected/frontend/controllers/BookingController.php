@@ -65,7 +65,7 @@ class BookingController extends Controller
         $searchModel = new BookingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $content = $this->renderPartial('reportbooking2', [
+        $content = $this->renderPartial('reportbooking', [
 //            'model' => $model,
 //            'model' => $this->findModel($id),
             'searchModel' => $searchModel,
