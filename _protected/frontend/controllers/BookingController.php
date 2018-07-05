@@ -100,11 +100,9 @@ class BookingController extends Controller
         $NewDate = Date('Y-m-d', strtotime("+1 days"));
 
 
-
         $searchModel = new BookingSearch();
 
-        $query = Booking::find()->where(['Bdatein'=>$NewDate])
-        ;
+        $query = Booking::find()->where(['Bdatein' => $NewDate]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -144,8 +142,7 @@ class BookingController extends Controller
         $dateNow = date('Y-m-d');
         $searchModel = new BookingSearch();
 
-        $query = Booking::find()->where(['Bdatein'=>$dateNow])
-        ;
+        $query = Booking::find()->where(['Bdatein' => $dateNow]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -181,19 +178,18 @@ class BookingController extends Controller
     }
 
 
-
     public function actionIndex2()
     {
         $searchModel = new BookingSearch();
 
-        $dataProvider = Booking::find()->where('Uid = '.Yii::$app->request->queryParams)
-        ;
+        $dataProvider = Booking::find()->where('Uid = ' . Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
     public function actionIndex3()
     {
         $searchModel = new BookingSearch();
@@ -211,8 +207,7 @@ class BookingController extends Controller
     {
         $searchModel = new BookingSearch();
 
-        $query = Booking::find()->where('PMid != 3 ')
-        ;
+        $query = Booking::find()->where('PMid != 3 ');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -223,17 +218,16 @@ class BookingController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     public function actionIndex6()
     {
 //        $dateNow = date('Y-m-d');
         $NewDate = Date('Y-m-d', strtotime("+1 days"));
 
 
-
         $searchModel = new BookingSearch();
 
-        $query = Booking::find()->where(['Bdatein'=>$NewDate])
-        ;
+        $query = Booking::find()->where(['Bdatein' => $NewDate]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -244,14 +238,14 @@ class BookingController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     public function actionIndex7()
     {
 
         $dateNow = date('Y-m-d');
         $searchModel = new BookingSearch();
 
-        $query = Booking::find()->where(['Bdatein'=>$dateNow])
-        ;
+        $query = Booking::find()->where(['Bdatein' => $dateNow]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -262,6 +256,7 @@ class BookingController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     public function actionIndex4()
     {
         $searchModel = new BookingSearch();
@@ -277,8 +272,7 @@ class BookingController extends Controller
     public function actionChbooking()
     {
         $searchModel = new BookingSearch();
-        $query = Booking::find()->where(['PMid'=> 3 ])
-        ;
+        $query = Booking::find()->where(['PMid' => 3]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -287,7 +281,6 @@ class BookingController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
 
 
     /**
@@ -302,28 +295,30 @@ class BookingController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+
     public function actionView3($id)
     {
         return $this->render('view3', [
             'model' => $this->findModel($id),
         ]);
     }
+
     public function actionUpdatebil($id)
     {
         $model = $this->findModel($id);
-            $model->PMid = "4";
-            $model->save();
-            return $this->redirect(['chbooking']);
+        $model->PMid = "4";
+        $model->save();
+        return $this->redirect(['chbooking']);
 
     }
 
-    public function actionUpdatestatus($id,$id2)
+    public function actionUpdatestatus($id, $id2)
     {
         $model = $this->findModel2($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $model->Rimg = $model->upload($model,'Rimg');
+            $model->Rimg = $model->upload($model, 'Rimg');
             $model->save();
 
             $searchModel = new BookingSearch();
@@ -341,7 +336,7 @@ class BookingController extends Controller
                 'orientation' => Pdf::ORIENT_PORTRAIT,
                 'destination' => Pdf::DEST_BROWSER,
 //                'format' => Pdf::FORMAT_A4,
-            'format' => [100, 236],
+                'format' => [100, 236],
                 'cssFile' => '@frontend/pdf.css',
                 'cssInline' => '.kv-heading-1{font-size:18px}',
                 'options' => [
@@ -390,7 +385,7 @@ class BookingController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $model->Bbil = $model->upload2($model,'Bbil');
+            $model->Bbil = $model->upload2($model, 'Bbil');
             $model->save();
             return $this->redirect(['view', 'id' => $model->Bid]);
         }
@@ -413,7 +408,7 @@ class BookingController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $model->Bbil = $model->upload2($model,'Bbil');
+            $model->Bbil = $model->upload2($model, 'Bbil');
             $model->save();
             return $this->redirect(['view', 'id' => $model->Bid]);
         }
@@ -491,6 +486,7 @@ class BookingController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
     protected function findModel2($id)
     {
         if (($model2 = Room::findOne($id)) !== null) {
@@ -508,7 +504,6 @@ class BookingController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 
 
 }
