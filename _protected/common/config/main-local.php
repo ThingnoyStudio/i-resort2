@@ -24,8 +24,8 @@ return [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'systemudon@gmail.com',
-                'password' => '11111111.',
+                'username' => 'pondsleep.official@gmail.com',
+                'password' => 'jwhvwevxbjgxgkvq',
                 'port' => '587',
                 'encryption' => 'tls',
             ],
