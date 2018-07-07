@@ -55,9 +55,10 @@ class UsersController extends Controller
     public function actionIndex2()
     {
         $searchModel = new UsersSearch();
-        $dataProvider = new ActiveDataProvider([
-            'query' => Users::find()->where(['USid' => 1]),
-        ]);
+        $dataProvider =  $searchModel->search(Yii::$app->request->queryParams);
+//        $dataProvider = new ActiveDataProvider([
+//            'query' => Users::find()->where(['USid' => 1]),
+//        ]);
         return $this->render('index2', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,

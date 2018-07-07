@@ -406,10 +406,8 @@ class BookingController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
-            $model->Bbil = $model->upload2($model, 'Bbil');
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
             return $this->redirect(['view', 'id' => $model->Bid]);
         }
 

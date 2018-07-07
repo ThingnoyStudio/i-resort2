@@ -294,7 +294,11 @@ class SiteController extends Controller
 
                         // insert data to table
                         Yii::$app->db->createCommand()->insert('users', [
-                            'iduser' => $user->id,'USid' => 1,
+                            'iduser' => $user->id,
+                            'USid' => 1,
+                            'Uemail' => $user->email,
+
+
                         ])->execute();
 
                         return $this->goHome();

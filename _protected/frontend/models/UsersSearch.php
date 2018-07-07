@@ -48,6 +48,7 @@ class UsersSearch extends Users
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query2,
+//            'sort' => ['attributes' => ['Ufname', 'Ulname', 'Uemail', 'Uphone']]
         ]);
 
         $this->load($params);
