@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 //            'RSid',
-            'roomstatus.RSname',
+//            'roomstatus.RSname',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => "การทำงาน",

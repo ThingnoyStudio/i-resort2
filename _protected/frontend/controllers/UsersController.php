@@ -99,6 +99,7 @@ class UsersController extends Controller
     public function actionCreate()
     {
         $model = new Users();
+        $model2 = new  Address();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->Uid]);
@@ -106,6 +107,7 @@ class UsersController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'model2' => $model2,
         ]);
     }
 
