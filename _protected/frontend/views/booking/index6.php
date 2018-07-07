@@ -2,7 +2,7 @@
 
 use kartik\export\ExportMenu;
 use yii\helpers\Html;
-use kartik\grid\GridView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BookingSearch */

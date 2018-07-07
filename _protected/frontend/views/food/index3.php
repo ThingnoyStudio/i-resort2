@@ -98,11 +98,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             left: 50%;
                             position: relative;
                             transform: translateX(-50%);">
-                        <a href="#" class="thumb-cover" data-toggle="modal" data-target="#<?= $model['Fname'] ?>"></a>
+                        <a href="#" class="thumb-cover" data-toggle="modal" data-target="#<?= $model['Fid'] ?>"></a>
                         <b class="actions">
                             <a class="btn btn-info btn-round btn-fill" rel="tooltip" title="" data-remote="true"
                                href="#" data-original-title="สั่งอาหาร" data-toggle="modal"
-                               data-target="#<?= $model['Fname'] ?>">
+                               data-target="#<?= $model['Fid'] ?>">
                                 <i class="fa fa-shopping-cart"></i>
                             </a>
                         </b>
@@ -125,7 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <!-- Modal Core -->
-            <div class="modal fade" id="<?= $model['Fname'] ?>" tabindex="-1" role="dialog"
+            <div class="modal fade" id="<?= $model['Fid'] ?>" tabindex="-1" role="dialog"
                  aria-labelledby="myModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
