@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <p>
-        <?= Html::a('Print', ['mpdfdemo2'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('พิมพ์รายงาน', ['mpdfdemo2'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <table>

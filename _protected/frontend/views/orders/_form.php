@@ -29,12 +29,13 @@ HTML;
     <?= $form->field($model, 'Optotal')->textInput(['type' => 'number']) ?>
 
     <?= $form->field($model, 'Pid')->dropDownList(
-        ArrayHelper::map(\frontend\models\Payment::find()->all(),'PMid','PMname'),
-        ['promp'=>'เลือกประเภทตำแหน่ง']
+        ArrayHelper::map(\frontend\models\Payment::find()->all(), 'PMid', 'PMname'),
+        ['promp' => 'เลือกประเภทตำแหน่ง']
     ) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'สร้าง' : 'แก้ไข', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'ยกเลิก'), ['orders/index'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

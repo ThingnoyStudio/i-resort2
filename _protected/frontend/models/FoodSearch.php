@@ -19,7 +19,7 @@ class FoodSearch extends Food
     {
         return [
             [['Fid'], 'integer'],
-            [['Fname', 'Fprice', 'Fimg'], 'safe'],
+            [['Fname', 'Fprice'], 'safe'],
         ];
     }
 
@@ -63,8 +63,7 @@ class FoodSearch extends Food
         ]);
 
         $query->andFilterWhere(['like', 'Fname', $this->Fname])
-            ->andFilterWhere(['like', 'Fprice', $this->Fprice])
-            ->andFilterWhere(['like', 'Fimg', $this->Fimg]);
+            ->andFilterWhere(['like', 'Fprice', $this->Fprice]);
 
         return $dataProvider;
     }

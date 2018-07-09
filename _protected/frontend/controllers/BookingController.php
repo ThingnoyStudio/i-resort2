@@ -49,23 +49,28 @@ class BookingController extends Controller
         ]);
     }
 
-    public function actionReportbooking()
+    public function actionReportbooking($type = null)
     {
         $searchModel = new BookingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('reportbooking', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        if ($type == 'pdf'){
+           return $this->Mpdfdemo1($searchModel,$dataProvider);
+
+        }else{
+            return $this->render('reportbooking', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
-    public function actionMpdfdemo1()
+    private function Mpdfdemo1($searchModel,$dataProvider)
     {
-        $searchModel = new BookingSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//        $searchModel = new BookingSearch();
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $content = $this->renderPartial('reportbooking', [
+        $content = $this->renderPartial('reportpdf', [
 //            'model' => $model,
 //            'model' => $this->findModel($id),
             'searchModel' => $searchModel,

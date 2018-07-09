@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\FoodSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Foods';
+$this->title = 'อาหาร';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="food-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Food', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('สร้าง', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return Html::tag('div', '', [
                         'style' => 'width:200px;height:200px;
-                              border-top: 10px solid rgba(255, 255, 255, .46);
                               background-image:url(' . Yii::getAlias('@ShowF') . $model->Fimg . ');
                               background-size: cover;
                               background-position:center center;
@@ -54,22 +53,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('<i class="fa fa-eye"></i>', $url,
-                            ['title' => 'View user',
+                            ['title' => 'View',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'idA' => 'ADid',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'update' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-pencil"></i>', $url,
-                            ['title' => 'Edit user',
+                        return Html::a('<i class="fas fa-pencil-alt"></i>', $url,
+                            ['title' => 'Edit',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'delete' => function ($url, $model, $key) {
                         return Html::a('<i class="fa fa-trash"></i>', $url, [
-                            'title' => Yii::t('yii', 'Delete user'),
+                            'title' => 'Delete',
                             'data-confirm' => Yii::t('yii', 'คุณต้องการลบรายการนี้หรือไม่?'),
                             'data-method' => 'post',
                             'data-pjax' => '0',

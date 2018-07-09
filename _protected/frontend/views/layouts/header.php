@@ -160,7 +160,7 @@ use yii\helpers\Html;
                             <a class="nav-link" rel="tooltip" title="รายงานการเข้าพัก" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/booking/reportbooking']) ?>"
                                target="">
-                                <i class="material-icons">assignment</i>
+                                <i class="material-icons">hotel</i>
                                 <p class="d-lg-none d-xl-none">รายงานการเข้าพัก</p>
                             </a>
                         </li>
@@ -168,7 +168,7 @@ use yii\helpers\Html;
                             <a class="nav-link" rel="tooltip" title="รายงานการสั่งซื้ออาหาร" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/orders/index2']) ?>"
                                target="">
-                                <i class="material-icons">assignment</i>
+                                <i class="material-icons">room_service</i>
                                 <p class="d-lg-none d-xl-none">รายงานการสั่งซื้ออาหาร</p>
                             </a>
                         </li>
@@ -179,7 +179,7 @@ use yii\helpers\Html;
                             <a class="nav-link" rel="tooltip" title="ข้อมูลลูกค้า" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/users/index2']) ?>"
                                target="">
-                                <i class="material-icons">assignment</i>
+                                <i class="material-icons">people</i>
                                 <p class="d-lg-none d-xl-none">ข้อมูลลูกค้า</p>
                             </a>
                         </li>
@@ -195,7 +195,7 @@ use yii\helpers\Html;
                             <a class="nav-link" rel="tooltip" title="ห้องพัก" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/room/index2']) ?>"
                                target="">
-                                <i class="material-icons">assignment</i>
+                                <i class="material-icons">hotel</i>
                                 <p class="d-lg-none d-xl-none">ห้องพัก</p>
                             </a>
                         </li>
@@ -206,7 +206,7 @@ use yii\helpers\Html;
                             <a class="nav-link" rel="tooltip" title="จัดการสถานะห้องพัก" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/room/index3']) ?>"
                                target="">
-                                <i class="material-icons">assignment</i>
+                                <i class="material-icons">hotel</i>
                                 <p class="d-lg-none d-xl-none">จัดการสถานะห้องพัก</p>
                             </a>
                         </li>
@@ -219,11 +219,11 @@ use yii\helpers\Html;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" rel="tooltip" title="รายงานห้องหักที่มีลูกค้าพักอยู่" data-placement="bottom"
+                            <a class="nav-link" rel="tooltip" title="รายงานห้องพักที่มีลูกค้าพักอยู่" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/booking/index7']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>
-                                <p class="d-lg-none d-xl-none">รายงานห้องหักที่มีลูกค้าพักอยู่</p>
+                                <p class="d-lg-none d-xl-none">รายงานห้องพักที่มีลูกค้าพักอยู่</p>
                             </a>
                         </li>
                         <?php
@@ -233,12 +233,12 @@ use yii\helpers\Html;
                             <a class="nav-link" rel="tooltip" title="จัดการข้อมูลอาหาร" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/food/index']) ?>"
                                target="">
-                                <i class="material-icons">assignment</i>
-                                <p class="d-lg-none d-xl-none">จัดการข้อมูลอาหาร</p>
+                                <i class="material-icons">room_service</i>
+                                <p class="d-lg-none d-xl-none">อาหาร</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" rel="tooltip" title="การสั่งซื้อ" data-placement="bottom"
+                            <a class="nav-link" rel="tooltip" title="จัดการข้อมูลการสั่งซื้อ" data-placement="bottom"
                                href="<?= yii\helpers\Url::to(['/orders/index']) ?>"
                                target="">
                                 <i class="material-icons">assignment</i>

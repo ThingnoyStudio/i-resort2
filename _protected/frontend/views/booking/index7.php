@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="booking-index" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:height="http://www.w3.org/1999/xhtml">
 
     <p>
-        <?= Html::a('Print', ['mpdfdemo3'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('พิมพ์รายงาน', ['mpdfdemo3'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <table>

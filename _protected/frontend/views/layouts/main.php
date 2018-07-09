@@ -36,6 +36,7 @@ AppAsset::register($this);
 <body class="profile-page sidebar-collapse" id="mybody">
 <?php $this->beginBody() ?>
 
+<input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
 
 <!-- header -->
 <?= $this->render(
