@@ -54,10 +54,10 @@ class BookingController extends Controller
         $searchModel = new BookingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        if ($type == 'pdf'){
-           return $this->Mpdfdemo1($searchModel,$dataProvider);
+        if ($type == 'pdf') {
+            return $this->Mpdfdemo1($searchModel, $dataProvider);
 
-        }else{
+        } else {
             return $this->render('reportbooking', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
@@ -65,7 +65,7 @@ class BookingController extends Controller
         }
     }
 
-    private function Mpdfdemo1($searchModel,$dataProvider)
+    private function Mpdfdemo1($searchModel, $dataProvider)
     {
 //        $searchModel = new BookingSearch();
 //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -211,11 +211,11 @@ class BookingController extends Controller
     public function actionIndex5()
     {
         $searchModel = new BookingSearch();
-
-        $query = Booking::find()->where('PMid != 3 ');
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = $searchModel->search_counter(Yii::$app->request->queryParams);
+//        $query = Booking::find()->where('PMid != 3 ');
+//        $dataProvider = new ActiveDataProvider([
+//            'query' => $query,
+//        ]);
 
 
         return $this->render('index5', [
@@ -297,6 +297,13 @@ class BookingController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    public function actionView_counter($id)
+    {
+        return $this->render('view_counter', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -421,6 +428,20 @@ class BookingController extends Controller
         ]);
     }
 
+    public function actionUpdate_counter($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            return $this->redirect(['view_counter', 'id' => $model->Bid]);
+        }
+
+        return $this->render('update_counter', [
+            'model' => $model,
+        ]);
+    }
+
     /**
      * @param $id
      * @return int|\yii\web\Response
@@ -465,6 +486,13 @@ class BookingController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDelete_counter($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index5']);
     }
 
     public function actionDelete2($id)

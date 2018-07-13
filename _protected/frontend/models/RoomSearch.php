@@ -13,14 +13,17 @@ use yii\db\Query;
  */
 class RoomSearch extends Room
 {
+    public $roomstatus;
+    public $roomtype;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['Rid', 'RSid','RTid'], 'integer'],
-            [['Rname', 'Rnumber', 'Rdes', 'Rimg'], 'safe'],
+            [['Rid', 'RSid', 'RTid'], 'integer'],
+            [['Rname', 'Rnumber', 'Rdes', 'roomstatus', 'roomtype'], 'safe'],
         ];
     }
 
@@ -49,10 +52,9 @@ class RoomSearch extends Room
         $query = new Query();
         $query->select('*')
             ->from('room')
-            ->join('INNER JOIN','roomstatus','room.RSid = roomstatus.RSid')
-            ->join('INNER JOIN','roomtype','room.RTid = roomtype.RTid')
+            ->join('INNER JOIN', 'roomstatus', 'room.RSid = roomstatus.RSid')
+            ->join('INNER JOIN', 'roomtype', 'room.RTid = roomtype.RTid')
             ->all();
-
 
 
         // add conditions that should always apply here
@@ -88,7 +90,7 @@ class RoomSearch extends Room
 
     public function search2($params)
     {
-        $query = Room::find()->where('Rid ='.$params);
+        $query = Room::find()->where('Rid =' . $params);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -121,11 +123,10 @@ class RoomSearch extends Room
 
     public function search3($params)
     {
-        $query = Room::find();
+        $query = Room::find()->joinWith(['roomstatus', 'roomtype']);
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-//            'p' => $p
+            'query' => $query
         ]);
 
         $this->load($params);
@@ -146,8 +147,9 @@ class RoomSearch extends Room
         $query->andFilterWhere(['like', 'Rname', $this->Rname])
             ->andFilterWhere(['like', 'Rnumber', $this->Rnumber])
             ->andFilterWhere(['like', 'Rdes', $this->Rdes])
-            ->andFilterWhere(['like', 'Rimg', $this->Rimg]);
-
+            ->andFilterWhere(['like', 'Rimg', $this->Rimg])
+            ->andFilterWhere(['like', 'roomstatus.RSname', $this->roomstatus])
+            ->andFilterWhere(['like', 'roomtype.RTname', $this->roomtype]);
 
         return $dataProvider;
     }

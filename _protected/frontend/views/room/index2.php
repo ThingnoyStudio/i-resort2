@@ -1,13 +1,16 @@
 <?php
 
+use frontend\assets\AppAssetJs;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RoomSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $p yii\data\ActiveDataProvider */
 
+AppAssetJs::register($this);
 
 $this->title = 'ห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
@@ -19,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
-
+    <?php Pjax::begin(['enablePushState' => false]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -27,14 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //            ['class' => 'yii\grid\SerialColumn'],
 
             [
-                'options'=>['style'=>'width:150px;'],
-                'format'=>'raw',
-                'attribute'=>'Rimg',
-                'value'=>function($model){
-                    return Html::tag('div','',[
-                        'style'=>'width:100px;height:100px;
-                              border-top: 10px solid rgba(255, 255, 255, .46);
-                              background-image:url('.Yii::getAlias('@ShowR').$model->Rimg.');
+                'options' => ['style' => 'width:150px;'],
+                'format' => 'raw',
+                'attribute' => 'Rimg',
+                'value' => function ($model) {
+                    return Html::tag('div', '', [
+                        'style' => 'width:100px;height:100px;
+                              background-image:url(' . Yii::getAlias('@ShowR') . $model->Rimg . ');
                               background-size: cover;
                               background-position:center center;
                               background-repeat:no-repeat;
@@ -50,41 +52,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 //            'RSid',
-//            'roomstatus.RSname',
             [
-                'class' => 'yii\grid\ActionColumn',
-                'header' => "การทำงาน",
-                'options' => ['style' => 'width:135px;'],
-                'headerOptions' => ['class' => 'text-center'],
-                'template' => '<div class="btn-group btn-group-sm" role="group" aria-label="..."> {view} {update} {delete} </div>',
-                'buttons' => [
-                    'view' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-eye"></i>', $url,
-                            ['title' => 'View user',
-                                'class' => 'btn btn-success',
-                                'id' => 'actioncol',
-                                'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
-                    },
-                    'update' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-pencil"></i>', $url,
-                            ['title' => 'Edit user',
-                                'class' => 'btn btn-success',
-                                'id' => 'actioncol',
-                                'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
-                    },
-                    'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-trash"></i>', $url, [
-                            'title' => Yii::t('yii', 'Delete user'),
-                            'data-confirm' => Yii::t('yii', 'คุณต้องการลบรายการนี้หรือไม่?'),
-                            'data-method' => 'post',
-                            'data-pjax' => '0',
-                            'class' => 'btn btn-success',
-                            'id' => 'actioncol',
-                            'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;'
-                        ]);
-                    }
-                ]
-            ],// ActionColumn
+                'label' => 'สถานะห้อง',
+                'attribute' => 'roomstatus',
+                'value' => 'roomstatus.RSname',
+                'filter' => Html::activeDropDownList($searchModel, 'roomstatus', \frontend\models\Roomstatus::getRoomStatusName()
+                    , ['class' => 'form-control', 'prompt' => '--กรุณาเลือกรายการ--']),
+            ],
+            [
+                'label' => 'ประเภทห้อง',
+                'attribute' => 'roomtype',
+                'value' => 'roomtype.RTname',
+                'filter' => Html::activeDropDownList($searchModel, 'roomtype', \frontend\models\Roomtype::getRoomTypeName()
+                    , ['class' => 'form-control', 'prompt' => '--กรุณาเลือกรายการ--']),
+            ],
+
+//            'roomstatus.RSname',
+//            'roomtype.RTname',
+
         ],
     ]); ?>
+    <?php Pjax::end(); ?>
 </div>

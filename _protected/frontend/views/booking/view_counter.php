@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\Booking */
 
 $this->title = $model->Bid;
-$this->params['breadcrumbs'][] = ['label' => 'การจอง', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'การจอง', 'url' => ['index5']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="booking-view">
@@ -16,13 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a("<i class=\"glyphicon glyphicon-menu-left\"></i> " . Yii::t('app', 'กลับ'),
-            ['index'],
+            ['index5'],
             ['class' => 'btn btn-default']) ?>
         <?= Html::a("<i class=\"glyphicon glyphicon-pencil\"></i> " . Yii::t('app', 'แก้ไข'),
-            ['update', 'id' => $model->Bid],
+            ['update_counter', 'id' => $model->Bid],
             ['class' => 'btn btn-primary']) ?>
         <?= Html::a("<i class=\"glyphicon glyphicon-trash\"></i> " . Yii::t('app', 'ลบ'),
-            ['delete', 'id' => $model->Bid],
+            ['delete_counter', 'id' => $model->Bid],
             [
                 'class' => 'btn btn-danger',
                 'data' => [

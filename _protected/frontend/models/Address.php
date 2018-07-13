@@ -49,7 +49,7 @@ class Address extends \yii\db\ActiveRecord
             'ADsubdistrict' => 'ตำบล',
             'ADdistrict' => 'อำเภอ',
             'ADprovince' => 'จังหวัด',
-            'ADzipcode' => 'รหัสไปรษณี',
+            'ADzipcode' => 'รหัสไปรษณีย์',
             'Uid' => 'Uid',
         ];
     }

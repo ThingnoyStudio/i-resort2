@@ -40,4 +40,10 @@ class Roomstatus extends \yii\db\ActiveRecord
             'RSname' => 'สถานะห้อง',
         ];
     }
+
+    public static function getRoomStatusName()
+    {
+        $model = Roomstatus::find()->asArray()->all();
+        return \yii\helpers\ArrayHelper::map($model, 'RSname', 'RSname');
+    }
 }

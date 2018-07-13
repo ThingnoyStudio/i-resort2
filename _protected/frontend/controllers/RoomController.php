@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use frontend\models\Booking;
 use frontend\models\Users;
+use frontend\models\UsersSearch;
 use kartik\mpdf\Pdf;
 use Yii;
 use frontend\models\Room;
@@ -60,16 +61,14 @@ class RoomController extends Controller
         $query2->select('Pdistant')
             ->from('promotion')
             ->andFilterWhere(['<=', 'Pdatestart', $dateNow])
-            ->andFilterWhere(['>=', 'Pdateend', $dateNow])
-
-        ;
+            ->andFilterWhere(['>=', 'Pdateend', $dateNow]);
         $command = $query2->createCommand();
         $data = $command->queryAll();
-        if(count($data)==0){
-            $p =0;
-        }else{
-            foreach ($data as $item1){
-            $p = $item1['Pdistant'];
+        if (count($data) == 0) {
+            $p = 0;
+        } else {
+            foreach ($data as $item1) {
+                $p = $item1['Pdistant'];
             }
 //            $p =50;
         }
@@ -77,6 +76,41 @@ class RoomController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'p' => $p,
+        ]);
+    }
+
+    public function actionIndex_counter()
+    {
+        $searchModel = new RoomSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $searchUser = new UsersSearch();
+        $dataUserProvider = $searchUser->search(Yii::$app->request->queryParams);
+        $dataUserProvider->pagination->pageSize=5;
+
+        $dateNow = date('Y-m-d');
+        $query2 = new Query();
+        $query2->select('Pdistant')
+            ->from('promotion')
+            ->andFilterWhere(['<=', 'Pdatestart', $dateNow])
+            ->andFilterWhere(['>=', 'Pdateend', $dateNow]);
+        $command = $query2->createCommand();
+        $data = $command->queryAll();
+        if (count($data) == 0) {
+            $p = 0;
+        } else {
+            foreach ($data as $item1) {
+                $p = $item1['Pdistant'];
+            }
+//            $p =50;
+        }
+
+        return $this->render('index_counter', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'searchUser' => $searchUser,
+            'dataUserProvider' => $dataUserProvider,
             'p' => $p,
         ]);
     }
@@ -98,15 +132,15 @@ class RoomController extends Controller
 
         ]);
     }
+
     public function actionIndex3()
     {
         $searchModel = new RoomSearch();
 //        $dataProvider = $searchModel->search3(Yii::$app->request->queryParams);
         $query = Room::find()->where('RSid = 6');
-            $dataProvider = new ActiveDataProvider([
-                'query' => $query,
-            ]);
-
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
 
 
         return $this->render('index3', [
@@ -129,6 +163,7 @@ class RoomController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+
     public function actionView2($id)
     {
         return $this->render('view2', [
@@ -146,7 +181,7 @@ class RoomController extends Controller
         $model = new Room();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->Rimg = $model->upload($model,'Rimg');
+            $model->Rimg = $model->upload($model, 'Rimg');
             $model->save();
             return $this->redirect(['view', 'id' => $model->Rid]);
         }
@@ -168,7 +203,7 @@ class RoomController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->Rimg = $model->upload($model,'Rimg');
+            $model->Rimg = $model->upload($model, 'Rimg');
             $model->save();
             return $this->redirect(['view', 'id' => $model->Rid]);
         }
@@ -184,9 +219,9 @@ class RoomController extends Controller
 
 //        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 //            $model->Rimg = $model->upload($model,'Rimg');
-            $model->RSid = 5 ;
-            $model->save();
-            return $this->redirect(['index3']);
+        $model->RSid = 5;
+        $model->save();
+        return $this->redirect(['index3']);
 //        }
 
 //        return $this->render('update', [
@@ -199,7 +234,7 @@ class RoomController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->Rimg = $model->upload($model,'Rimg');
+            $model->Rimg = $model->upload($model, 'Rimg');
             $model->save();
 
 //            $searchModel = new BookingSearch();
@@ -278,7 +313,7 @@ class RoomController extends Controller
      * @param null $RTname
      * @return mixed
      */
-    public function actionPdf($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null, $p = null, $rtname= null, $rsname = null)
+    public function actionPdf($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null, $p = null, $rtname = null, $rsname = null)
     {
         date_default_timezone_set('asia/bangkok');
         if (Yii::$app->user->isGuest) {
@@ -288,7 +323,7 @@ class RoomController extends Controller
 //        $searchModel = new RoomSearch();
 //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$roomId);
         $model = Room::findOne(['Rid' => $roomId]);
-        $date = $sdate.' - '.$edate;
+        $date = $sdate . ' - ' . $edate;
         $price_befor = $p;
         $total = $price * $amt;
         $roomType = $rtname;
@@ -314,7 +349,6 @@ class RoomController extends Controller
             ->send();
 
 
-
         // get your HTML raw content without any layouts or scripts
         $content = $this->renderPartial('_preview', [
             'model' => $model,
@@ -329,7 +363,7 @@ class RoomController extends Controller
         $pdf = new Pdf([
             'mode' => Pdf::MODE_UTF8,
             // A4 paper format
-            'format' => [100,202],
+            'format' => [100, 202],
             // portrait orientation
             'orientation' => Pdf::ORIENT_PORTRAIT,
             // stream to browser inline
@@ -342,7 +376,7 @@ class RoomController extends Controller
             // any css to be embedded if required
             'cssInline' => '.bd{border:1.5px solid; text-align: center;} .ar{text-align:right} .imgbd{border:1px solid}',
             // set mPDF properties on the fly
-            'options' => ['title' => 'Preview Report Case: '.$roomId],
+            'options' => ['title' => 'Preview Report Case: ' . $roomId],
             // call mPDF methods on the fly
             'methods' => [
                 //'SetHeader'=>[''],
@@ -374,6 +408,42 @@ class RoomController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionPaymoney($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null, $p = null, $rtname = null, $rsname = null, $userid = null)
+    {
+        date_default_timezone_set('asia/bangkok');
+
+        $model = Room::findOne(['Rid' => $roomId]);
+        $date = $sdate . ' - ' . $edate;
+        $price_befor = $p;
+        $total = $price * $amt;
+        $roomType = $rtname;
+        $roomStatus = $rsname;
+
+        if ($userid == null){
+            $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
+        }else{
+            $userId = $userid; // รหัสผู้ใช้
+        }
+
+//        return var_dump('userid: ' . $userId);
+
+        // booking
+        $booking = new Booking();
+        $booking->Bdate = date('Y-m-d H:i:s') . "";
+        $booking->Rid = $roomId . "";
+        $booking->Btotal = $total . "";
+        $booking->Bnday = $amt . "";
+        $booking->Uid = $userId . "";
+        $booking->Bdatein = $sdate;
+        $booking->Bdateout = $edate;
+        $booking->PMid = "5";// สถานะ จ่ายสด
+        $booking->month = date('m');
+        $booking->year = date('Y');
+        $booking->save();
+
+        return print "test";
     }
 
 

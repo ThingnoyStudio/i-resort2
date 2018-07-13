@@ -79,6 +79,14 @@ class Room extends \yii\db\ActiveRecord
         return $this->hasOne(Roomstatus::className(), ['RSid' => 'RSid']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRoomtype()
+    {
+        return $this->hasOne(Roomtype::className(), ['RTid' => 'RTid']);
+    }
+
     public function getAll()
     {
         $get = Room::find()->all();

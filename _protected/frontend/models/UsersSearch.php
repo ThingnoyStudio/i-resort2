@@ -19,7 +19,7 @@ class UsersSearch extends Users
     {
         return [
             [['Uid', 'ADid', 'USid', 'iduser'], 'integer'],
-            [['Ufname', 'Ulname', 'Uemail', 'Uphone', 'Uimg'], 'safe'],
+            [['Ufname', 'Ulname', 'Uemail', 'Uphone'], 'safe'],
         ];
     }
 

@@ -22,29 +22,29 @@ Yii::setAlias('@themes', Yii::$app->view->theme->baseUrl);
  * @since 2.0
  * -----------------------------------------------------------------------------
  */
-class AppAsset extends AssetBundle
+class AppAssetJs extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@themes';
 
     public $css = [
-        'css/bootstrap.min.css',
-        'css/now-ui-kit.css',
-        'css/header.css',
-        'css/profilecard.css',
-        'css/daterangepicker.css',
-        'https://fonts.googleapis.com/css?family=Montserrat:400,700,200',
-        'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
-        'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
-        'https://fonts.googleapis.com/icon?family=Material+Icons',
+//        'css/bootstrap.min.css',
+//        'css/now-ui-kit.css',
+//        'css/header.css',
+//        'css/profilecard.css',
+//        'css/daterangepicker.css',
+//        'https://fonts.googleapis.com/css?family=Montserrat:400,700,200',
+//        'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
+//        'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+//        'https://fonts.googleapis.com/icon?family=Material+Icons',
     ];
     public $js = [
-        'js/core/popper.min.js',
-//        'js/core/jquery.3.2.1.min.js',
-        'js/core/bootstrap.min.js',
-        'js/now-ui-kit.js',
-        'js/plugins/bootstrap-switch.js',
-        'js/daterangepicker.js',
+//        'js/core/popper.min.js',
+        'js/core/jquery.3.2.1.min.js',
+//        'js/core/bootstrap.min.js',
+//        'js/now-ui-kit.js',
+//        'js/plugins/bootstrap-switch.js',
+//        'js/daterangepicker.js',
 //        'js/plugins/moment.min.js',
 
 

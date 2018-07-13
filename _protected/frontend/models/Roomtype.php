@@ -40,4 +40,10 @@ class Roomtype extends \yii\db\ActiveRecord
             'RTname' => 'ชื่อประเภทห้อง',
         ];
     }
+
+    public static function getRoomTypeName()
+    {
+        $model = Roomtype::find()->asArray()->all();
+        return \yii\helpers\ArrayHelper::map($model, 'RTname', 'RTname');
+    }
 }

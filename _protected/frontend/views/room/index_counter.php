@@ -1,8 +1,8 @@
 <?php
 
-use frontend\assets\AppAssetJs;
 use kartik\daterange\DateRangePicker;
 //use kartik\widgets\ActiveForm;
+use frontend\assets\AppAssetJs;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\web\View;
@@ -13,6 +13,8 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\models\RoomSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $p yii\data\ActiveDataProvider */
+//$this->registerJsFile(Yii::getAlias('@appRoot3').'/themes/nowui/js/core/jquery.3.2.1.min.js',
+//    ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 AppAssetJs::register($this);
 
@@ -42,12 +44,20 @@ $this->registerJs(" function ff(id,price) {
 //  console.log('end_date: '+end_date);
   console.log('e_date: '+e_date);
   console.log('url: '+window.location);
-  if(amount > 0 ){
-      window.location.href = \" " . \yii\helpers\Url::to(['paypal/paypal']) . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount+\"&sdate=\"+s_date+\"&edate=\"+e_date;
-
+  
+  var userid =  $(\"input[name=hidden_id]\").val();
+  if(!userid){
+  alert('กรุณาเลือกผู้เข้าพัก');
   }else{
-  alert('กรุณาเลือกช่วงเวลาที่เข้าพัก')
+      if(amount > 0 ){
+          window.location.href = \" " . \yii\helpers\Url::to(['paypal/paypal']) . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount+\"&sdate=\"+s_date+\"&edate=\"+e_date+\"&userid=\"+userid;
+    
+      }else{
+      alert('กรุณาเลือกช่วงเวลาที่เข้าพัก')
+      }
   }
+  
+  
   
 
 
@@ -73,18 +83,47 @@ $this->registerJs(" function exportPdf(id,price,rtname,rsname) {
   console.log('rtname: '+roomType);
   
   console.log('url: '+window.location);
-  if(amount > 0 ){
-      var url = \" " . \yii\helpers\Url::to(['room/pdf'])
-    . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount+\"&sdate=\"+s_date+\"&edate=\"+e_date+\"&p=\"+p+\"&rtname=\"+roomType+\"&rsname=\"+roomStatus;
-
-window.open(url, '_blank');
+  
+    var userid =  $(\"input[name=hidden_id]\").val();
+  if(!userid){
+    alert('กรุณาเลือกผู้เข้าพัก');
   }else{
-  alert('กรุณาเลือกช่วงเวลาที่เข้าพัก')
+        if(amount > 0 ){
+          var url = \" " . \yii\helpers\Url::to(['room/paymoney'])
+        . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount+\"&sdate=\"+s_date+\"&edate=\"+e_date+\"&p=\"+p+\"&rtname=\"+roomType+\"&rsname=\"+roomStatus+\"&userid=\"+userid;
+    
+        //window.open(url, '_blank');
+        window.open(url, '_self');
+    
+          }else{
+          alert('กรุณาเลือกช่วงเวลาที่เข้าพัก')
+          }
   }
+  
   
 
 
 } ", View::POS_END, 'my-options2');
+$this->registerJs(" function getUser(id) {
+  console.log('getUser worked! -> '+id);
+  
+//  var vv = $('#grid').yiiGridView('getSelectedRows');
+
+//  var amount = $(\"span[name=days\"+id+\"]\").text();
+//  var date = $(\"input[name=kvdate\"+id+\"]\").val();
+  var userId = id.split('-')[0];
+  var fname = id.split('-')[1];
+  var lname = id.split('-')[2];
+  
+  $(\"input[name=user]\").val(fname+' '+lname);
+  $(\"input[name=hidden_id]\").val(userId);
+  
+  console.log('id: '+id);
+  console.log('userid: '+userId);
+  document.getElementsByName(\"user\")[0].setAttribute(\"value\", \"myhigh\");
+
+
+} ", View::POS_END, 'my-options4');
 
 //$this->registerJs(" function checkDate(id) {
 //  var date = $(\"input[name=kvdate\"+id+\"]\").val();
@@ -107,11 +146,11 @@ window.open(url, '_blank');
 //} ", View::POS_LOAD, 'my-options2');
 
 $script = <<< JS
-function con() {
-    console.log("sss");
-  $('.modal.in:visible').modal('hide');
-  
-}
+// function con() {
+//     console.log("sss");
+//   $('.modal.in:visible').modal('hide');
+//  
+// }
 JS;
 $this->registerJs($script, View::POS_END, 'myOption3');
 
@@ -121,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--<php Pjax::begin(['id'=>'content']); ?>-->
 <div class="room-index">
 
-
+    <?= Html::a('กลับ', ['booking/index5'], ['class' => 'btn btn-success']) ?>
     <div class="row">
         <div class="clearfix"></div>
 
@@ -323,6 +362,49 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <span style="font-size: large">วัน</span>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <h4 id="<?= $model['Rnumber'] ?>">เลือกผู้เข้าพัก</h4>
+                                <?php Pjax::begin([ 'enablePushState' => false ]); ?>
+                                <?= GridView::widget([
+                                        'id'=> 'grid',
+                                    'dataProvider' => $dataUserProvider,
+                                    'filterModel' => $searchUser,
+                                    'summary' => '',
+                                    'rowOptions' => function ($model2, $key, $index, $grid) {
+                                        return ['id' => $model2->Uid.'-'.$model2->Ufname.'-'.$model2->Ulname,
+                                            'name'=> 'test',
+                                            'onclick' => 'getUser(this.id);'];
+                                    },
+                                    'columns' => [
+                                            'Uid',
+                                        [
+                                            'label' => 'ชื่อ',
+                                            'attribute' => 'Ufname',
+                                            'value' => 'Ufname',
+//                'filter' => Html::activeDropDownList($searchModel, 'roomstatus', \frontend\models\Roomstatus::getRoomStatusName()
+//                    , ['class' => 'form-control', 'prompt' => '--กรุณาเลือกรายการ--']),
+                                        ],
+                                        [
+                                            'label' => 'นามสกุล',
+                                            'attribute' => 'Ulname',
+                                            'value' => 'Ulname',
+//                'filter' => Html::activeDropDownList($searchModel, 'roomstatus', \frontend\models\Roomstatus::getRoomStatusName()
+//                    , ['class' => 'form-control', 'prompt' => '--กรุณาเลือกรายการ--']),
+                                        ],
+                                    ],
+                                ]); ?>
+                                <?php Pjax::end(); ?>
+                            </div>
+                            <hr>
+                            <div class="col-12" style="display: flex; align-items: baseline;">
+                                <div class="col-6">
+                                    <label style="font-size: large">ผู้เข้าพัก</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="hidden" name="hidden_id">
+                                    <input class="form-control" disabled type="text" name="user">
+                                </div>
+                            </div>
                             <div class="col-12" style="display: flex;font-size: x-large;">
                                 <div class="col-md-6">ยอดรวมสุทธิ</div>
                                 <div class="col-md-6" style="text-align: right;color: #FF281E;font-weight: 500;">
@@ -345,8 +427,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     onclick="exportPdf(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - $p) . ',\'' . $model['RTname'] .'\'' . ',\'' . $model['RSname'] .'\''    ?>)" style="    margin: 10px 1px;
                                     padding-left: 30px;
                                     width: 100%;">
-                                <i class="fa fa-bank"
-                                   style="font-size: large; position: absolute; margin-left: -12%;"></i> ชำระเงินผ่านธนาคาร ฿
+                                <i class="fa fa-money"
+                                   style="font-size: large; position: absolute; margin-left: -16%;"></i> ชำระเงินสด ฿
                                 <span name="pay<?= $model['Rnumber'] ?>">0</span>
                             </button>
 

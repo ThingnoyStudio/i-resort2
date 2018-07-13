@@ -149,8 +149,9 @@ class PaypalController extends Controller
      * @param null $edate
      * @return \yii\web\Response
      * @throws Exception
+     * @throws NotFoundHttpException
      */
-    public function actionPaypal($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null)
+    public function actionPaypal($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null, $userid = null)
     {
         date_default_timezone_set('asia/bangkok');
         if (Yii::$app->user->isGuest) {
@@ -171,10 +172,16 @@ class PaypalController extends Controller
             $total_price = $price * $amt;// ราคาสุทธิ
             $days = $amt;// จำนวนวัน
             $RId = $roomId;// รหัสห้อง
-            $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
+            if ($userid == null){
+                $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
+            }else{
+                $userId = $userid; // รหัสผู้ใช้
+            }
+
             $s_date = $sdate;// วันที่เข้าพัก
             $e_date = $edate;// วันที่ออก
-//            return var_dump('userid: ' . $s_date.'-'.$e_date);
+
+//            return var_dump('userid: ' . $userId);
 
             $payer = new Payer();
             $details = new Details();
@@ -214,7 +221,7 @@ class PaypalController extends Controller
                 Yii::$app->session['paypal_hash'] = $hash;
 
                 $transactionPaypal = new TransactionPaypal;
-                $transactionPaypal->user_id = Yii::$app->user->getId();
+                $transactionPaypal->user_id = $userId;
                 $transactionPaypal->payment_id = $payment->getId();
                 $transactionPaypal->product_id = $room->Rid;
                 $transactionPaypal->create_time = '-';

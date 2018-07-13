@@ -21,11 +21,7 @@ HTML;
 
     <?php $form = ActiveForm::begin(); ?>
 
-
-
     <?= $form->field($model, 'Rid')->textInput(['type' => 'number'])?>
-
-
 
     <?php
 
@@ -50,10 +46,9 @@ HTML;
     echo '</div>';
     ?>
 
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'สร้าง' : 'แก้ไข', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'ยกเลิก'), ['index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::a(Yii::t('app', 'ยกเลิก'), ['index5'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

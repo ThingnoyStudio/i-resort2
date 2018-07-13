@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BookingSearch */
@@ -16,8 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
-    <?= Html::a('เพิ่ม', ['room/index'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('เพิ่มการจอง', ['room/index_counter'], ['class' => 'btn btn-success']) ?>
 
+    <?php Pjax::begin([ 'enablePushState' => false ]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -26,10 +28,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'Bid',
             'Bdate:ntext',
-            'room.Rnumber',
-            'room.Rname',
-            'users.Ufname',
-            'users.Ulname',
+            [
+                'label' => 'หมายเลขห้อง',
+                'attribute' => 'Rnumber',
+                'value' => 'room.Rnumber',
+//                'filter' => Html::activeDropDownList($searchModel, 'roomstatus', \frontend\models\Roomstatus::getRoomStatusName()
+//                    , ['class' => 'form-control', 'prompt' => '--กรุณาเลือกรายการ--']),
+            ],
+[
+                'label' => 'ชื่อห้อง',
+                'attribute' => 'Rname',
+                'value' => 'room.Rname',
+//                'filter' => Html::activeDropDownList($searchModel, 'roomstatus', \frontend\models\Roomstatus::getRoomStatusName()
+//                    , ['class' => 'form-control', 'prompt' => '--กรุณาเลือกรายการ--']),
+            ],
+[
+                'label' => 'ชื่อ',
+                'attribute' => 'Ufname',
+                'value' => 'users.Ufname',
+//                'filter' => Html::activeDropDownList($searchModel, 'roomstatus', \frontend\models\Roomstatus::getRoomStatusName()
+//                    , ['class' => 'form-control', 'prompt' => '--กรุณาเลือกรายการ--']),
+            ],
+[
+                'label' => 'นามสกุล',
+                'attribute' => 'Ulname',
+                'value' => 'users.Ulname',
+//                'filter' => Html::activeDropDownList($searchModel, 'roomstatus', \frontend\models\Roomstatus::getRoomStatusName()
+//                    , ['class' => 'form-control', 'prompt' => '--กรุณาเลือกรายการ--']),
+            ],
+
+//            'room.Rnumber',
+//            'room.Rname',
+//            'users.Ufname',
+//            'users.Ulname',
             'Bnday:ntext',
             'Bdatein:ntext',
             'Bdateout:ntext',
@@ -43,23 +74,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '<div class="btn-group btn-group-sm" role="group" aria-label="..."> {view} {update} {delete} </div>',
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-eye"></i>', $url,
-                            ['title' => 'View user',
+                        return Html::a('<i class="fa fa-eye"></i>',
+                            ['view_counter','id'=>$model->Bid],
+                            ['title' => 'View',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'idA' => 'ADid',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'update' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-pencil"></i>', $url,
-                            ['title' => 'Edit user',
+                        return Html::a('<i class="fas fa-pencil-alt"></i>',
+                            ['update_counter','id'=>$model->Bid],
+                            ['title' => 'Edit',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-trash"></i>', $url, [
-                            'title' => Yii::t('yii', 'Delete user'),
+                        return Html::a('<i class="fa fa-trash"></i>',
+                            ['delete_counter','id'=>$model->Bid],
+                            [
+                            'title' => Yii::t('yii', 'Delete'),
                             'data-confirm' => Yii::t('yii', 'คุณต้องการลบรายการนี้หรือไม่?'),
                             'data-method' => 'post',
                             'data-pjax' => '0',
@@ -72,6 +107,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],// ActionColumn
         ],
     ]); ?>
-
+    <?php Pjax::end(); ?>
 
 </div>

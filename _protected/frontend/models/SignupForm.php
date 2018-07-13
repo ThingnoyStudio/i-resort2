@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\models;
 
 use common\models\User;
@@ -16,6 +17,7 @@ class SignupForm extends Model
     public $email;
     public $password;
     public $status;
+    public $password_repeat;
 
     /**
      * Returns the validation rules for attributes.
@@ -28,17 +30,21 @@ class SignupForm extends Model
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'string', 'min' => 2, 'max' => 255],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 
-                'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User',
+                'message' => 'username นี้มีอยู่แล้วในระบบ.'],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 
-                'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User',
+                'message' => 'email นี้มีอยู่แล้วในระบบ.'],
 
             ['password', 'required'],
+
+            ['password', 'string', 'min' => 6],
+            ['password_repeat', 'required'],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password', 'message' => "การยืนยันรหัสผ่านไม่ตรงกัน"],
             // use passwordStrengthRule() method to determine password strength
             $this->passwordStrengthRule(),
 
@@ -63,14 +69,14 @@ class SignupForm extends Model
 
         // password strength rule is determined by StrengthValidator 
         // presets are located in: vendor/nenad/yii2-password-strength/presets.php
-        $strong = [['password'], StrengthValidator::className(), 'preset'=>'normal'];
+        $strong = [['password'], StrengthValidator::className(), 'preset' => 'normal'];
 
         // use normal yii rule
         $normal = ['password', 'string', 'min' => 6];
 
         // if 'Force Strong Password' is set to 'true' use $strong rule, else use $normal rule
         return ($fsp) ? $strong : $normal;
-    }    
+    }
 
     /**
      * Returns the attribute labels.
@@ -83,6 +89,7 @@ class SignupForm extends Model
             'username' => Yii::t('app', 'ชื่อผู้ใช้'),
             'password' => Yii::t('app', 'รหัสผ่าน'),
             'email' => Yii::t('app', 'อีเมล'),
+            'password_repeat' => Yii::t('app', 'ยันยันรหัสผ่าน'),
         ];
     }
 
@@ -92,6 +99,8 @@ class SignupForm extends Model
      * that user need to activate his account using email confirmation method.
      *
      * @return User|null The saved model or null if saving fails.
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function signup()
     {
@@ -104,8 +113,7 @@ class SignupForm extends Model
         $user->status = $this->status;
 
         // if scenario is "rna" we will generate account activation token
-        if ($this->scenario === 'rna')
-        {
+        if ($this->scenario === 'rna') {
             $user->generateAccountActivationToken();
         }
 

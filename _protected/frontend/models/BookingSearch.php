@@ -12,6 +12,11 @@ use frontend\models\Booking;
  */
 class BookingSearch extends Booking
 {
+    public $Rnumber;
+    public $Rname;
+    public $Ufname;
+    public $Ulname;
+
     /**
      * {@inheritdoc}
      */
@@ -19,7 +24,8 @@ class BookingSearch extends Booking
     {
         return [
             [['Bid'], 'integer'],
-            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday', 'Bdatein', 'Bdateout', 'PMid', 'Btotal', 'Bbil', 'month','year'], 'safe'],
+            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday', 'Bdatein', 'Bdateout', 'PMid',
+                'Btotal', 'Bbil', 'month', 'year', 'Rnumber','Rname','Ufname','Ulname'], 'safe'],
         ];
     }
 
@@ -155,6 +161,51 @@ class BookingSearch extends Booking
             ->andFilterWhere(['like', 'Bbil', $this->Bbil])
             ->andFilterWhere(['like', 'month', $this->month])
             ->andFilterWhere(['like', 'year', $this->year]);
+
+        return $dataProvider;
+    }
+
+    public function search_counter($params)
+    {
+        $query = Booking::find()->where('PMid != 3 ')->joinWith(['room','users']);
+//        $query = Booking::findOne($params);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'Bid' => $this->Bid,
+        ]);
+
+        $query->andFilterWhere(['like', 'Bdate', $this->Bdate])
+            ->andFilterWhere(['like', 'Rid', $this->Rid])
+            ->andFilterWhere(['like', 'Uid', $this->Uid])
+            ->andFilterWhere(['like', 'ADid', $this->ADid])
+            ->andFilterWhere(['like', 'Bnday', $this->Bnday])
+            ->andFilterWhere(['like', 'Bdatein', $this->Bdatein])
+            ->andFilterWhere(['like', 'Bdateout', $this->Bdateout])
+            ->andFilterWhere(['like', 'PMid', $this->PMid])
+            ->andFilterWhere(['like', 'Btotal', $this->Btotal])
+            ->andFilterWhere(['like', 'Bbil', $this->Bbil])
+            ->andFilterWhere(['like', 'month', $this->month])
+            ->andFilterWhere(['like', 'year', $this->year])
+            ->andFilterWhere(['like', 'room.Rnumber', $this->Rnumber])
+            ->andFilterWhere(['like', 'room.Rname', $this->Rname])
+            ->andFilterWhere(['like', 'users.Ufname', $this->Ufname])
+            ->andFilterWhere(['like', 'users.Ulname', $this->Ulname]);
+
 
         return $dataProvider;
     }

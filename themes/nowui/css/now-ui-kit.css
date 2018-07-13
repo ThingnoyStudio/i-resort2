@@ -3015,9 +3015,9 @@ textarea.form-control:active {
 .pagination .arrow-margin-right {
     position: absolute;
 }
-
+/*editbyboy*/
 .pagination .arrow-margin-right {
-    right: 0;
+    right: 17px;
 }
 
 .pagination .arrow-margin-left {

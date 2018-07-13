@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-            <?= Html::a('เพิ่ม', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('เพิ่ม', ['signup'], ['class' => 'btn btn-success']) ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function($model){
                     return Html::tag('div','',[
                         'style'=>'width:100px;height:100px;
-                              border-top: 10px solid rgba(255, 255, 255, .46);
                               background-image:url('.Yii::getAlias('@ShowU').$model->Uimg.');
                               background-size: cover;
                               background-position:center center;
@@ -54,25 +53,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => "การทำงาน",
                 'options' => ['style' => 'width:135px;'],
                 'headerOptions' => ['class' => 'text-center'],
-                'template' => '<div class="btn-group btn-group-sm" role="group" aria-label="..."> {view} {update} {delete} </div>',
+                'template' => '<div class="btn-group btn-group-sm" role="group" aria-label="..."> {view} {update}  </div>',
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-eye"></i>', $url,
-                            ['title' => 'View user',
+                        return Html::a('<i class="fa fa-eye"></i>',
+                            ['view_counter','id'=>$model->Uid],
+                            ['title' => 'View',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'update' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-pencil"></i>', $url,
-                            ['title' => 'Edit user',
+                        return Html::a('<i class="fas fa-pencil-alt"></i>',
+                            ['update_counter','id'=>$model->Uid],
+                            ['title' => 'Edit',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-trash"></i>', $url, [
-                            'title' => Yii::t('yii', 'Delete user'),
+                        return Html::a('<i class="fa fa-trash"></i>', $url,
+                            [
+                            'title' => 'Delete',
                             'data-confirm' => Yii::t('yii', 'คุณต้องการลบรายการนี้หรือไม่?'),
                             'data-method' => 'post',
                             'data-pjax' => '0',

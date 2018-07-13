@@ -23,9 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
 //                'method' => 'post',
 //            ],
 //        ]) ?>-->
-<!--        <= Html::a("<i class=\"glyphicon glyphicon-menu-left\"></i> " . Yii::t('app', 'กลับ'),-->
-<!--            ['users/index2'],-->
-<!--            ['class' => 'btn btn-default']) ?>-->
+        <?= Html::a("<i class=\"glyphicon glyphicon-menu-left\"></i> " . Yii::t('app', 'กลับ'),
+            ['users/index2'],
+            ['class' => 'btn btn-default']) ?>
         <?= Html::a("<i class=\"glyphicon glyphicon-pencil\"></i> " . Yii::t('app', 'แก้ไข'),
             ['update', 'id' => $model->Uid],
             ['class' => 'btn btn-primary']) ?>
