@@ -58,7 +58,7 @@ class PaypalController extends Controller
         return parent::beforeAction($action);
     }
 
-    public function actionCancel()
+    public function actionCancel($payfrom = null)
     {
         Yii::$app->getSession()->setFlash('Oops', [
             'body' => 'การชำระเงินถูกยกเลิก',
@@ -66,7 +66,11 @@ class PaypalController extends Controller
 //                        'options'=>['class'=>'alert-warning']
         ]);
 
-        return $this->redirect(['room/index']);
+        if ($payfrom == 'counter') {
+            return $this->redirect(['room/index_counter']);
+        } else {
+            return $this->redirect(['room/index']);
+        }
 //        return $this->render('cancel');
     }
 
@@ -87,7 +91,7 @@ class PaypalController extends Controller
         return $this->redirect(['room/index']);
     }
 
-    public function actionPay($approved = null, $PayerID = null)
+    public function actionPay($approved = null, $PayerID = null, $payfrom =null)
     {
         if ($approved === 'true') {
             $transactionPayment = TransactionPaypal::findOne(['hash' => Yii::$app->session['paypal_hash']]);
@@ -121,15 +125,19 @@ class PaypalController extends Controller
                 ->setSubject('YesBootstrap - '.$transactionPayment->product->name)
                 ->send();
             */
+            if ($payfrom == 'counter') {
+                return $this->redirect(['success','payfrom'=>$payfrom]);
+            } else {
+                return $this->redirect(['success']);
+            }
 
-            return $this->redirect(['success']);
         } else {//if approved !== true
             return $this->redirect(['cancel']);
         }
 
     }
 
-    public function actionSuccess()
+    public function actionSuccess($payfrom = null)
     {
         Yii::$app->getSession()->setFlash('Oops', [
             'body' => 'ชำระเงินเสร็จเรียบร้อย',
@@ -137,7 +145,11 @@ class PaypalController extends Controller
 //                        'options'=>['class'=>'alert-warning']
         ]);
 
-        return $this->redirect(['room/index']);
+        if ($payfrom == 'counter') {
+            return $this->redirect(['room/index_counter']);
+        } else {
+            return $this->redirect(['room/index']);
+        }
 //        return $this->render('success');
     }
 
@@ -151,7 +163,7 @@ class PaypalController extends Controller
      * @throws Exception
      * @throws NotFoundHttpException
      */
-    public function actionPaypal($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null, $userid = null)
+    public function actionPaypal($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null, $userid = null, $payfrom = null)
     {
         date_default_timezone_set('asia/bangkok');
         if (Yii::$app->user->isGuest) {
@@ -164,7 +176,12 @@ class PaypalController extends Controller
                 'type' => 'warning',
 //                        'options'=>['class'=>'alert-warning']
             ]);
-            return $this->redirect(['room/index']);
+            if ($payfrom == 'counter') {
+                return $this->redirect(['room/index_counter']);
+            } else {
+                return $this->redirect(['room/index']);
+            }
+
         }
         if ($roomId && $price && $amt != 0) {
             $room = Room::findOne(['Rid' => $roomId]);
@@ -172,9 +189,9 @@ class PaypalController extends Controller
             $total_price = $price * $amt;// ราคาสุทธิ
             $days = $amt;// จำนวนวัน
             $RId = $roomId;// รหัสห้อง
-            if ($userid == null){
+            if ($userid == null) {
                 $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
-            }else{
+            } else {
                 $userId = $userid; // รหัสผู้ใช้
             }
 
@@ -210,9 +227,18 @@ class PaypalController extends Controller
                 ->setPayer($payer)
                 ->setTransactions([$transaction]);
 
-            //Redirect URLs
-            $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/pay/?approved=true')
-                ->setCancelUrl('http://localhost/i-resort2/paypal/cancel/?approved=false');
+            if ($payfrom == 'counter') {
+                //Redirect URLs
+                $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/pay/?approved=true&payfrom='.$payfrom)
+                    ->setCancelUrl('http://localhost/i-resort2/paypal/cancel/?approved=false&payfrom='.$payfrom);
+            } else {
+                //Redirect URLs
+                $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/pay/?approved=true')
+                    ->setCancelUrl('http://localhost/i-resort2/paypal/cancel/?approved=false');
+            }
+
+
+
             $payment->setRedirectUrls($redirectUrls);
             try {
                 $payment->create(Yii::$app->paypal->getApiContext());
@@ -233,7 +259,7 @@ class PaypalController extends Controller
                 $booking = new  Booking();
                 $booking->Bdate = date('Y-m-d H:i:s') . "";
                 $booking->Rid = $RId . "";
-                $booking->Btotal = $total_price ."";
+                $booking->Btotal = $total_price . "";
                 $booking->Bnday = $days . "";
                 $booking->Uid = $userId . "";
                 $booking->Bdatein = $s_date;
@@ -275,7 +301,11 @@ class PaypalController extends Controller
 //                        'options'=>['class'=>'alert-warning']
                 ]);
 
-                return $this->redirect(['room/index']);
+                if ($payfrom == 'counter') {
+                    return $this->redirect(['room/index_counter']);
+                } else {
+                    return $this->redirect(['room/index']);
+                }
 //                print("<pre>" . print_r($ex, true) . "</pre>");
             }
             if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
@@ -417,9 +447,6 @@ class PaypalController extends Controller
                 $od->Oid = $orders->Oid;
 
                 $od->save();
-
-
-
 
 
             } catch (PayPalConnectionException $ex) {

@@ -87,7 +87,7 @@ class RoomController extends Controller
 
         $searchUser = new UsersSearch();
         $dataUserProvider = $searchUser->search(Yii::$app->request->queryParams);
-        $dataUserProvider->pagination->pageSize=5;
+        $dataUserProvider->pagination->pageSize = 3;
 
         $dateNow = date('Y-m-d');
         $query2 = new Query();
@@ -421,9 +421,9 @@ class RoomController extends Controller
         $roomType = $rtname;
         $roomStatus = $rsname;
 
-        if ($userid == null){
+        if ($userid == null) {
             $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
-        }else{
+        } else {
             $userId = $userid; // รหัสผู้ใช้
         }
 

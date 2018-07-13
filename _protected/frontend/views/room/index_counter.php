@@ -50,7 +50,7 @@ $this->registerJs(" function ff(id,price) {
   alert('กรุณาเลือกผู้เข้าพัก');
   }else{
       if(amount > 0 ){
-          window.location.href = \" " . \yii\helpers\Url::to(['paypal/paypal']) . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount+\"&sdate=\"+s_date+\"&edate=\"+e_date+\"&userid=\"+userid;
+          window.location.href = \" " . \yii\helpers\Url::to(['paypal/paypal']) . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount+\"&sdate=\"+s_date+\"&edate=\"+e_date+\"&userid=\"+userid+\"&payfrom=counter\";
     
       }else{
       alert('กรุณาเลือกช่วงเวลาที่เข้าพัก')

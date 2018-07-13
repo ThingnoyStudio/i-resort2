@@ -1,11 +1,13 @@
 <?php
 
+use frontend\assets\AppAssetJs;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\FoodSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+AppAssetJs::register($this);
 
 $this->title = 'อาหาร';
 $this->params['breadcrumbs'][] = $this->title;

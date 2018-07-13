@@ -1,5 +1,6 @@
 <?php
 
+use frontend\assets\AppAssetJs;
 use kartik\daterange\DateRangePicker;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -16,6 +17,7 @@ use yii\web\View;
 //    margin: 0;
 //}
 //");
+AppAssetJs::register($this);
 
 $addon = <<< HTML
 <span class="input-group-addon" style="padding: 10px 18px 10px 0;">
