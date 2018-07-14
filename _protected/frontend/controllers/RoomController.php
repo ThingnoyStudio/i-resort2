@@ -443,7 +443,8 @@ class RoomController extends Controller
         $booking->year = date('Y');
         $booking->save();
 
-        return print "test";
+        return $this->redirect(['booking/index5']);
+//        return print "test";
     }
 
 
