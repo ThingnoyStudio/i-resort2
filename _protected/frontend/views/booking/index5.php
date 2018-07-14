@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\models\BookingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'การจอง';
+$this->title = 'การเข้าพัก';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="booking-index" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:height="http://www.w3.org/1999/xhtml">

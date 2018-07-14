@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\Booking */
 
 $this->title = $model->Bid;
-$this->params['breadcrumbs'][] = ['label' => 'การจอง', 'url' => ['index5']];
+$this->params['breadcrumbs'][] = ['label' => 'การเข้าพัก', 'url' => ['index5']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="booking-view">

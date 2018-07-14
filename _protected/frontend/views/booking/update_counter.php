@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Booking */
 
-$this->title = 'แก้ไขการจอง: ' . $model->Bid;
-$this->params['breadcrumbs'][] = ['label' => 'การจอง', 'url' => ['index5']];
+$this->title = 'แก้ไขการเข้าพัก: ' . $model->Bid;
+$this->params['breadcrumbs'][] = ['label' => 'การเข้าพัก', 'url' => ['index5']];
 $this->params['breadcrumbs'][] = ['label' => $model->Bid, 'url' => ['view_counter', 'id' => $model->Bid]];
 $this->params['breadcrumbs'][] = 'แก้ไข';
 ?>
