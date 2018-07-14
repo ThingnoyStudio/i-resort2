@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="users-form">
+<div class="users-form col-lg-6 col-lg-offset-3">
 
     <?php $form = ActiveForm::begin(); ?>
 
