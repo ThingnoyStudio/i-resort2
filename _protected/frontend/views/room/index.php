@@ -136,39 +136,18 @@ $this->params['breadcrumbs'][] = $this->title;
                              data-retina="<?= Yii::getAlias('@ShowR') . $model['Rimg'] ?>" alt="No Image">
 
                         <a href="#" class="thumb-cover" data-toggle="modal" data-target="#<?= $model['Rnumber'] ?>"></a>
-
-                        <!--                        <div class="details">-->
-                        <!--                            <span class="badge badge-primary">ไม่ว่าง</span>-->
-                        <!--                            <div class="numbers">-->
-                        <!---->
-                        <!--                                <b class="downloads"><i class="fa fa-arrow-circle-o-down"></i> 35</b>-->
-                        <!--                                <b class="comments-icon"><i class="fa fa-comment"></i> 12</b>-->
-                        <!--                            </div>-->
-                        <!--                            <div class="clearfix"></div>-->
-                        <!--                        </div>-->
-
                         <b class="actions">
-                            <!--                            <a href="#" class="btn btn-neutral btn-round btn-fill" rel="tooltip" title=""-->
-                            <!--                               data-original-title="รายละเอียด">-->
-                            <!--                                <i class="fa fa-align-left"></i>-->
-                            <!--                            </a>-->
-
-                            <!--                            <a href="https://demos.creative-tim.com/paper-dashboard-2-pro/examples/dashboard.html" class="btn btn-neutral btn-fill btn-round" target="_blank" title="" rel="tooltip" data-original-title="Live Preview">-->
-                            <!--                                <i class="fa fa-laptop"></i>-->
-                            <!--                            </a>-->
                             <a class="btn btn-info btn-round btn-fill" rel="tooltip" title="" data-remote="true"
                                href="#" data-original-title="จองห้องพัก" data-toggle="modal"
                                data-target="#<?= $model['Rnumber'] ?>">
                                 <i class="fa fa-shopping-cart"></i>
                             </a>
-
                         </b>
 
                     </div>
                     <div class="card-info">
 
                         <a>
-
                             <h3><span class="badge badge-info"
                                       style="margin-right: 4px"><?= $model['Rnumber'] ?></span><?= $model['Rname'] ?>
                                 <div class="time pull-right  premium-product ">
@@ -228,7 +207,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ฿<?= $model['Rprice'] ?>
                                                     </span>
                                                     <span class="line-through " style="color: #FF281E;">
-                                                        ฿<?= ($model['Rprice'] - $p) ?>
+                                                        ฿<?= $model['Rprice'] - (($model['Rprice'] * $p) / 100) ?>
                                                     </span>
                                                 </div>
                                             </h3>
@@ -249,7 +228,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="col-7">
                                     <?php
                                     $ss = $model['Rnumber'];
-                                    $price = $model['Rprice'] - $p;
+                                    $price = $model['Rprice'] - (($model['Rprice'] * $p) / 100);
                                     $total_price = 0;
                                     $callback = new \yii\web\JsExpression(
                                         "function validate (start_date, end_date){ 
@@ -335,14 +314,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <button type="button" class="btn btn-default " data-dismiss="modal" style="    margin-right: .25rem; padding-right: 30px; padding-left: 30px;">ยกเลิก</button>
                             <button class="btn btn-info btn-lg btn-block btn-capital" name="pay<?= $model['Rnumber'] ?>"
-                                    onclick="ff(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - $p) ?>)" style="    margin: 10px 1px;
+                                    onclick="ff(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - (($model['Rprice'] * $p) / 100)) ?>)" style="    margin: 10px 1px;
                                         padding-left: 30px;
                                         width: 100%;">
                                 <i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -12%;"></i> ชำระเงินทันที ฿
                                 <span name="pay<?= $model['Rnumber'] ?>">0</span>
                             </button>
                             <button class="btn btn-success btn-lg btn-block btn-capital" name="pay<?= $model['Rnumber'] ?>"
-                                    onclick="exportPdf(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - $p) . ',\'' . $model['RTname'] .'\'' . ',\'' . $model['RSname'] .'\''    ?>)" style="    margin: 10px 1px;
+                                    onclick="exportPdf(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - (($model['Rprice'] * $p) / 100)) . ',\'' . $model['RTname'] .'\'' . ',\'' . $model['RSname'] .'\''    ?>)" style="    margin: 10px 1px;
                                     padding-left: 30px;
                                     width: 100%;">
                                 <i class="fa fa-bank"

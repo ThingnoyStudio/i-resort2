@@ -267,7 +267,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ฿<?= $model['Rprice'] ?>
                                                     </span>
                                                     <span class="line-through " style="color: #FF281E;">
-                                                        ฿<?= ($model['Rprice'] - $p) ?>
+                                                        ฿<?= ($model['Rprice'] - (($model['Rprice'] * $p) / 100)) ?>
                                                     </span>
                                                 </div>
                                             </h3>
@@ -288,7 +288,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="col-7">
                                     <?php
                                     $ss = $model['Rnumber'];
-                                    $price = $model['Rprice'] - $p;
+                                    $price = $model['Rprice'] - (($model['Rprice'] * $p) / 100);
                                     $total_price = 0;
                                     $callback = new \yii\web\JsExpression(
                                         "function validate (start_date, end_date){ 
@@ -417,14 +417,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <button type="button" class="btn btn-default " data-dismiss="modal" style="    margin-right: .25rem; padding-right: 30px; padding-left: 30px;">ยกเลิก</button>
                             <button class="btn btn-info btn-lg btn-block btn-capital" name="pay<?= $model['Rnumber'] ?>"
-                                    onclick="ff(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - $p) ?>)" style="    margin: 10px 1px;
+                                    onclick="ff(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - (($model['Rprice'] * $p) / 100)) ?>)" style="    margin: 10px 1px;
                                         padding-left: 30px;
                                         width: 100%;">
                                 <i class="fab fa-paypal" style="font-size: large; position: absolute; margin-left: -12%;"></i> ชำระเงินทันที ฿
                                 <span name="pay<?= $model['Rnumber'] ?>">0</span>
                             </button>
                             <button class="btn btn-success btn-lg btn-block btn-capital" name="pay<?= $model['Rnumber'] ?>"
-                                    onclick="exportPdf(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - $p) . ',\'' . $model['RTname'] .'\'' . ',\'' . $model['RSname'] .'\''    ?>)" style="    margin: 10px 1px;
+                                    onclick="exportPdf(<?= $model['Rnumber'] . ',' . ($model['Rprice'] - (($model['Rprice'] * $p) / 100)) . ',\'' . $model['RTname'] .'\'' . ',\'' . $model['RSname'] .'\''    ?>)" style="    margin: 10px 1px;
                                     padding-left: 30px;
                                     width: 100%;">
                                 <i class="fa fa-money"
