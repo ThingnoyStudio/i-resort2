@@ -319,7 +319,9 @@ class BookingController extends Controller
     {
         $model = $this->findModel($id);
         $model->PMid = "4";
+        $model->Bstatus = "เช็คอิน";
         $model->save();
+
         return $this->redirect(['chbooking']);
 
     }
@@ -331,7 +333,11 @@ class BookingController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $model->Rimg = $model->upload($model, 'Rimg');
+            $model->RSid = "6";
             $model->save();
+            $model2 = Booking::findOne($id2);
+            $model2->Bstatus = "เช็คเอ้า";
+            $model2->save();
 
             $searchModel = new BookingSearch();
             $dataProvider = $searchModel->search($id2);
@@ -370,6 +376,29 @@ class BookingController extends Controller
         ]);
     }
 
+    public function actionUpdatestatus2($id, $id2)
+    {
+        $model = $this->findModel2($id);
+
+        $model->RSid = "4";
+        $model->save();
+
+        $model2 = Booking::findOne($id2);
+        $model2->Bstatus = "เช็คอิน";
+        $model2->save();
+
+        $searchModel = new BookingSearch();
+        $dataProvider = $searchModel->search_counter(Yii::$app->request->queryParams);
+
+        return $this->render('index5', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+
+
+    }
+
     public function actionView2($id)
     {
         $model = Booking::findOne($id);
@@ -398,6 +427,9 @@ class BookingController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $model->Bbil = $model->upload2($model, 'Bbil');
+
+            $model->Bstatus = "จอง";
+
             $model->save();
             return $this->redirect(['view', 'id' => $model->Bid]);
         }

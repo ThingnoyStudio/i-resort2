@@ -395,6 +395,7 @@ class RoomController extends Controller
         $booking->PMid = "3";
         $booking->month = date('m');
         $booking->year = date('Y');
+        $booking->Bstatus = "จอง";
         $booking->save();
 
         // return the pdf output as per the destination setting
@@ -441,6 +442,7 @@ class RoomController extends Controller
         $booking->PMid = "5";// สถานะ จ่ายสด
         $booking->month = date('m');
         $booking->year = date('Y');
+        $booking->Bstatus = "จอง";
         $booking->save();
 
         return $this->redirect(['booking/index5']);

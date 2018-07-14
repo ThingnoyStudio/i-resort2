@@ -22,6 +22,7 @@ use yii\web\UploadedFile;
  * @property string $Bbil ใบเสร็จ
  * @property string $month เดือน
  * @property string $year ปี
+* @property string $Bstatus สถานะการจอง
 
 
  */
@@ -41,7 +42,7 @@ class Booking extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween','Btotal','month','year'], 'string'],
+            [['Bdate', 'Rid', 'Uid', 'ADid', 'Bnday',  'PMid','datebetween','Btotal','month','year','Bstatus'], 'string'],
             [
                 ['Bbil'],'file',
                 'skipOnEmpty' => true,
@@ -73,6 +74,7 @@ class Booking extends \yii\db\ActiveRecord
             'Bbil'=>'ใบเสร็จชำระเงิน',
             'month'=>'เดือน',
             'year'=>'ปี',
+            'Bstatus' => 'สถานะการจอง',
         ];
     }
 

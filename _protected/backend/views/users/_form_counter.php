@@ -1,6 +1,6 @@
 <?php
 
-
+use borales\extensions\phoneInput\PhoneInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="users-form col-lg-6 col-lg-offset-3">
+<div class="users-form ">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -61,7 +61,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton($user->isNewRecord ? 'สร้าง' : 'แก้ไข', ['class' => $user->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'ยกเลิก'), ['users/index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::a(Yii::t('app', 'ยกเลิก'), ['users/index2'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

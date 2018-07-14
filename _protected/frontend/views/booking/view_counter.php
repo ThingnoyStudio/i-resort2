@@ -59,4 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <p>
+        <?= Html::a('เช็คอิน', ['updatestatus2', 'id' => $model->Rid, 'id2' => $model->Bid], ['class' => 'btn btn-primary']) ?>
+    </p>
+
 </div>
