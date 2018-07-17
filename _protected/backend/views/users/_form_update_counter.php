@@ -7,23 +7,23 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $user backend\models\Users */
-/* @var $address backend\models\Address */
+/* @var $user frontend\models\Users */
+/* @var $address frontend\models\Address */
 
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="users-form ">
+<div class="users-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username') ?>
-    <?= $form->field($model, 'email') ?>
-    <?= $form->field($model, 'password')->passwordInput() ?>
-    <?= $form->field($model, 'password_repeat')->passwordInput() ?>
-
-    <hr style="border-top: 1px solid #d0b9b9;">
-    <br>
+<!--    <= $form->field($model, 'username') ?>-->
+<!--    <= $form->field($model, 'email') ?>-->
+<!--    <= $form->field($model, 'password')->passwordInput() ?>-->
+<!--    <= $form->field($model, 'password_repeat')->passwordInput() ?>-->
+<!---->
+<!--    <hr>-->
+<!--    <br>-->
 
     <?= $form->field($user, 'Ufname')->textInput(['maxlength' => true]) ?>
 
@@ -37,16 +37,8 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-md-6">
-            <div class="well text-center"
-                 style="min-height: 20px;
-                    padding: 19px;
-                    margin-bottom: 20px;
-                    background-color: #f5f5f5;
-                    border: 1px solid #e3e3e3;
-                    border-radius: 4px;
-                    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-                    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);">
-                <?= Html::img(Yii::getAlias('@ShowU') . '/' . $user->Uimg, ['style' => 'width:100px;', 'class' => 'img-rounded', 'style' => 'border-radius: 6px;']); ?>
+            <div class="well text-center">
+                <?= Html::img(Yii::getAlias('@ShowU') . '/' . $user->Uimg, ['style'=>'width:100%;','class'=>'img-rounded']); ?>
             </div>
         </div>
         <div class="col-md-6">
@@ -58,7 +50,6 @@ use yii\widgets\ActiveForm;
         ArrayHelper::map(Userstatus::find()->all(),'USid','USname'),
         ['promp'=>'เลือกประเภทตำแหน่ง']
     ) ?>
-<!--    <= $form->field($user, 'USid')->hiddenInput()->label(false) ?>-->
 
     <?= $form->field($user, 'iduser')->hiddenInput()->label(false) ?>
 

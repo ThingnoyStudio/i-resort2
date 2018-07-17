@@ -37,7 +37,13 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Ufname', 'Ulname', 'Uemail', 'Uphone', 'Uimg'], 'string'],
+            [['Ufname', 'Ulname', 'Uemail'], 'string'],
+            [
+                ['Uimg'],'file',
+                'skipOnEmpty' => true,
+                'extensions' => 'png,jpg'
+            ],
+            [['Uphone'], 'string', 'max' => 10],
             [['ADid', 'USid', 'iduser'], 'integer'],
             [['USid'], 'exist', 'skipOnError' => true, 'targetClass' => Userstatus::className(), 'targetAttribute' => ['USid' => 'USid']],
         ];
@@ -49,7 +55,7 @@ class Users extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Uid' => 'Uid',
+            'Uid' => 'รหัสผู้ใช้',
             'Ufname' => 'ชื่อ',
             'Ulname' => 'นามสกุล',
             'Uemail' => 'อีเมล์',
@@ -57,7 +63,7 @@ class Users extends \yii\db\ActiveRecord
             'Uimg' => 'รูปภาพ',
             'ADid' => 'รหัสที่อยู่',
             'USid' => 'สถานะผู้ใช้งาน',
-            'iduser' => 'Iduser',
+            'iduser' => 'รหัสuser',
         ];
     }
 

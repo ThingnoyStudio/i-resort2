@@ -14,6 +14,7 @@ use Yii;
  * @property string $ADdistrict อำเภอ
  * @property string $ADprovince จังหวัด
  * @property string $ADzipcode รหัสไปรษณี
+ * @property string $Uid
  */
 class Address extends \yii\db\ActiveRecord
 {
@@ -31,7 +32,8 @@ class Address extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ADnumber', 'ADhome', 'ADsubdistrict', 'ADdistrict', 'ADprovince', 'ADzipcode'], 'string'],
+            [[ 'ADhome','ADsubdistrict', 'ADdistrict', 'ADprovince', 'Uid'], 'string'],
+            [['ADnumber', 'ADzipcode'], 'string'],
         ];
     }
 
@@ -47,7 +49,8 @@ class Address extends \yii\db\ActiveRecord
             'ADsubdistrict' => 'ตำบล',
             'ADdistrict' => 'อำเภอ',
             'ADprovince' => 'จังหวัด',
-            'ADzipcode' => 'รหัสไปรษณี',
+            'ADzipcode' => 'รหัสไปรษณีย์',
+            'Uid' => 'Uid',
         ];
     }
 }

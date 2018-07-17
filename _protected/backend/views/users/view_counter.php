@@ -6,15 +6,15 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Users */
 
-$this->title = 'โปรไฟล์ลูกค้า';
-$this->params['breadcrumbs'][] = ['label' => 'ข้อมูลลูกค้า', 'url' => ['index2']];
+$this->title = 'ข้อมูลผู้ใช้งาน';
+$this->params['breadcrumbs'][] = ['label' => 'ผู้ใช้งาน', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="users-view ">
+<div class="users-view">
 
     <p>
         <?= Html::a("<i class=\"glyphicon glyphicon-menu-left\"></i> " . Yii::t('app', 'กลับ'),
-            ['index2'],
+            ['index'],
             ['class' => 'btn btn-default']) ?>
         <?= Html::a("<i class=\"glyphicon glyphicon-pencil\"></i> " . Yii::t('app', 'แก้ไข'),
             ['update_counter', 'id' => $model->Uid],
@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Uid',
             'Ufname:ntext',
             'Ulname:ntext',
+            'user.username',
             'Uemail:ntext',
             'Uphone:ntext',
 //            'Uimg:ntext',

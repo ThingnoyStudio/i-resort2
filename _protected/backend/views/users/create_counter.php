@@ -8,13 +8,13 @@ use yii\helpers\Html;
 /* @var $user frontend\models\Users */
 /* @var $address frontend\models\Address */
 
-$this->title = 'สร้าง';
-$this->params['breadcrumbs'][] = ['label' => 'ผู้ใช้', 'url' => ['index']];
+$this->title = 'สร้างผู้ใช้งาน';
+$this->params['breadcrumbs'][] = ['label' => 'ผู้ใช้งาน', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="users-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!--    <h1><= Html::encode($this->title) ?></h1>-->
 
     <?= $this->render('_form_counter', [
         'user' => $user,

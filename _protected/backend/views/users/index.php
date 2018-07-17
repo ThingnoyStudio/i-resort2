@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\UsersSearch */
@@ -19,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('เพิ่ม ผู้ใช้งาน', ['signup'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <?php Pjax::begin([ 'enablePushState' => false ]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -33,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function($model){
                     return Html::tag('div','',[
                         'style'=>'width:100px;height:100px;
-                              border-top: 10px solid rgba(255, 255, 255, .46);
+                              
                               background-image:url('.Yii::getAlias('@ShowU').$model->Uimg.');
                               background-size: cover;
                               background-position:center center;
@@ -45,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'Uimg:ntext',
             'Ufname:ntext',
             'Ulname:ntext',
+            'user.username',
             'Uemail:ntext',
             'Uphone:ntext',
 
@@ -64,7 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '<div class="btn-group btn-group-sm" role="group" aria-label="..."> {view} {update} {delete} </div>',
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-eye"></i>', $url,
+                        return Html::a('<i class="fa fa-eye"></i>',
+                            ['view_counter','id'=>$model->Uid],
                             ['title' => 'View user',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
@@ -72,7 +76,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'update' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-pencil"></i>', $url,
+                        return Html::a('<i class="fa fa-pencil"></i>',
+                            ['update_counter','id'=>$model->Uid],
                             ['title' => 'Edit user',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
@@ -93,4 +98,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],// ActionColumn
         ],
     ]); ?>
+    <?php Pjax::end(); ?>
 </div>
