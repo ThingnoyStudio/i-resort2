@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\OrdersSearch */
@@ -16,9 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('สร้าง', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('สร้าง', ['food/index_food'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <?php Pjax::begin([ 'enablePushState' => false ]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -46,7 +48,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'orderDetail.ODnum',
             'Optotal:ntext',
             'payment.PMname',
-            'Bid',
+//            'Bid',
+            [
+                'attribute' => 'Bid',
+                'value'=>function($model, $key, $index, $column){
+                    return $model->Bid == 0 ? "ซื้อกลับบ้าน" : $model->Bid;
+                }
+            ],
 
 
             [
@@ -85,4 +93,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],// ActionColumn
         ],
     ]); ?>
+    <?php Pjax::end(); ?>
 </div>

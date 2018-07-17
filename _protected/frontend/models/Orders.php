@@ -44,7 +44,7 @@ class Orders extends \yii\db\ActiveRecord
             'Odate' => 'วันที่',
             'Optotal' => 'ราคารวม',
             'Pid' => 'การชำระเงิน',
-            'Bid' => 'ห้องที่',
+            'Bid' => 'ห้องที่สั่ง',
         ];
     }
 

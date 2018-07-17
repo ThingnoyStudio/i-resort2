@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Orderdetail;
+use frontend\models\Orders;
 use Yii;
 use frontend\models\Food;
 use frontend\models\FoodSearch;
@@ -61,6 +63,16 @@ class FoodController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index3', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+public function actionIndex_food()
+    {
+        $searchModel = new FoodSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index_food', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -157,4 +169,39 @@ class FoodController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionPaymoney($foodId = null, $price = null, $amt = null, $roomId = null)
+    {
+        date_default_timezone_set('asia/bangkok');
+
+        $food = Food::findOne(['Fid' => $foodId]);
+
+        $total_price = $price * $amt;// ราคาสุทธิ
+        $amts = $amt;// จำนวน
+        $FId = $foodId;// รหัสอาหาร
+        $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
+        $Rid = $roomId; // รหัสห้อง ถ้าเป็น 0 คือซื้อกลับบ้าน ไม่ให้ไปส่งที่ห้อง
+
+//        return var_dump('userid: ' . $userId);
+
+        // ordering
+        $orders = new Orders();
+        $orders->Odate = date('Y-m-d H:i:s') . "";
+        $orders->Optotal = $total_price . "";
+        $orders->Pid = '5';
+        $orders->Bid = $Rid;
+        $orders->save();
+
+        $od = new Orderdetail();
+        $od->Fid = $FId;
+        $od->ODnum = $amts;
+        $od->Oid = $orders->Oid;
+
+        $od->save();
+
+        return $this->redirect(['orders/index']);
+//        return print "test";
+    }
+
+
 }

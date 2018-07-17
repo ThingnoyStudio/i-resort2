@@ -270,9 +270,9 @@ class PaypalController extends Controller
                 $booking->save();
 
                 //แก้ไขสถานะห้อง
-                $rooms = Room::findOne($RId);
-                $rooms->RSid = 2;
-                $rooms->save();
+//                $rooms = Room::findOne($RId);
+//                $rooms->RSid = 2;
+//                $rooms->save();
 
 
                 //ส่งเมล์
@@ -369,7 +369,7 @@ class PaypalController extends Controller
     }
 
 
-    public function actionPaypalfood($foodId = null, $price = null, $amt = null, $roomId = null)
+    public function actionPaypalfood($foodId = null, $price = null, $amt = null, $roomId = null, $payfrom = null)
     {
         date_default_timezone_set('asia/bangkok');
         if (Yii::$app->user->isGuest) {
@@ -416,8 +416,16 @@ class PaypalController extends Controller
                 ->setTransactions([$transaction]);
 
             //Redirect URLs
-            $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/payfood/?approved=true')
-                ->setCancelUrl('http://localhost/i-resort2/paypal/cancelfood/?approved=false');
+            if ($payfrom == 'food') {
+                //Redirect URLs
+                $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/payfood/?approved=true&payfrom='.$payfrom)
+                    ->setCancelUrl('http://localhost/i-resort2/paypal/cancelfood/?approved=false&payfrom='.$payfrom);
+            } else {
+                //Redirect URLs
+                $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/payfood/?approved=true')
+                    ->setCancelUrl('http://localhost/i-resort2/paypal/cancelfood/?approved=false');
+            }
+
             $payment->setRedirectUrls($redirectUrls);
             try {
                 $payment->create(Yii::$app->paypal->getApiContext());
@@ -456,7 +464,11 @@ class PaypalController extends Controller
 //                        'options'=>['class'=>'alert-warning']
                 ]);
 
-                return $this->redirect(['food/index3']);
+                if ($payfrom == 'food') {
+                    return $this->redirect(['food/index_food']);
+                } else {
+                    return $this->redirect(['food/index3']);
+                }
 //                print("<pre>" . print_r($ex, true) . "</pre>");
             }
             if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
@@ -483,7 +495,7 @@ class PaypalController extends Controller
 
     }
 
-    public function actionPayfood($approved = null, $PayerID = null)
+    public function actionPayfood($approved = null, $PayerID = null, $payfrom = null)
     {
         if ($approved === 'true') {
             $transactionPayment = TransactionPaypal::findOne(['hash' => Yii::$app->session['paypal_hash']]);
@@ -518,14 +530,19 @@ class PaypalController extends Controller
                 ->send();
             */
 
-            return $this->redirect(['successfood']);
+            if ($payfrom == 'food') {
+                return $this->redirect(['successfood','payfrom'=>$payfrom]);
+            } else {
+                return $this->redirect(['successfood']);
+            }
+
         } else {//if approved !== true
             return $this->redirect(['cancelfood']);
         }
 
     }
 
-    public function actionSuccessfood()
+    public function actionSuccessfood($payfrom = null)
     {
         Yii::$app->getSession()->setFlash('Oops', [
             'body' => 'ชำระเงินเสร็จเรียบร้อย',
@@ -533,7 +550,11 @@ class PaypalController extends Controller
 //                        'options'=>['class'=>'alert-warning']
         ]);
 
-        return $this->redirect(['food/index3']);
+        if ($payfrom == 'food') {
+            return $this->redirect(['food/index_food']);
+        } else {
+            return $this->redirect(['food/index3']);
+        }
 //        return $this->render('success');
     }
 
