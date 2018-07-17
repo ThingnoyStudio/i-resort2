@@ -13,7 +13,20 @@ $mount = explode('&',$str_mount)[0];
 
 $this->title = 'รายงานการเข้าพัก';
 ?>
-<h1><?= Html::encode($this->title) ?></h1>
+<table>
+    <tr>
+        <td>
+            <?=Html::img(Yii::getAlias('@HeaderIcon'), ['width' => 120])?>
+        </td>
+        <td>
+            <h4>I-Resort</h4>
+            <strong><i> มหาวิทยาลัยราชภัฎอุดระานี</i></strong><br />
+            <small>Email : systemudon@gmail.com Tel : 0123456789</small>
+            <h3>รายงานการสั่งซื้ออาหาร</h3>
+        </td>
+    </tr>
+</table>
+<h2 style="margin-top: unset"><?= Html::encode($this->title) ?></h2>
 <span>เดือน <?php if ($mount!=null){echo $mount;}else{echo '-';} ?></span><br>
 <span>ปี <?php if ($year!=null){echo $year;}else{echo '-';} ?></span>
 <!--<php echo $this->render('_search', ['model' => $searchModel]); ?>-->

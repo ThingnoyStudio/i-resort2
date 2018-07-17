@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BookingSearch */
@@ -18,6 +19,7 @@ $this->title = 'รายงานการเข้าพัก';
 <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 <div class="booking-index" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:height="http://www.w3.org/1999/xhtml">
 
+    <?php Pjax::begin([ 'enablePushState' => false ]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
@@ -34,4 +36,5 @@ $this->title = 'รายงานการเข้าพัก';
             'Btotal',
         ],
     ]); ?>
+    <?php Pjax::end(); ?>
 </div>

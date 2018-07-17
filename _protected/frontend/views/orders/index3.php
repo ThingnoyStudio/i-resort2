@@ -27,18 +27,18 @@ $this->title = 'Orders';
 
     <table class="table_bordered" width="100%" border="0" cellpadding="2" cellspacing="0">
         <tr>
-            <td>
+            <th>
                 วันที่สั่งซื้อ
-            </td>
-            <td>
+            </th>
+            <th>
                 ราคารวม
-            </td>
-            <td>
+            </th>
+            <th>
                 การชำระเงิน
-            </td>
-            <td>
+            </th>
+            <th>
                 เมนูอาหาร
-            </td>
+            </th>
         </tr>
 
 

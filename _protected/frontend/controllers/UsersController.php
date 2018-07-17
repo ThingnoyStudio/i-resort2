@@ -349,6 +349,10 @@ class UsersController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->findAddressModel($id)->delete();
+
+        $this->findUserModel($id)->delete();
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -392,6 +396,15 @@ class UsersController extends Controller
         }
     }
 
+    protected function findUserModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * @return string|\yii\web\Response
      * @throws \yii\base\Exception
@@ -427,7 +440,7 @@ class UsersController extends Controller
 
                         if ($model_address->load(Yii::$app->request->post()) && $model_address->validate()) {
                             try {
-
+                                $model_address->Uid = $user->id.'';
                                 if ($model_address->save()) {
 
                                     $model_user->ADid = $model_address->ADid;

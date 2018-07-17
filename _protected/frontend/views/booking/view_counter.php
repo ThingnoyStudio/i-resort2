@@ -31,6 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data-pjax' => '1'
                 ],
             ]) ?>
+
+        <?= Html::a('เช็คอิน', ['updatestatus2', 'id' => $model->Rid, 'id2' => $model->Bid], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -58,9 +60,5 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'PMid:ntext',
         ],
     ]) ?>
-
-    <p>
-        <?= Html::a('เช็คอิน', ['updatestatus2', 'id' => $model->Rid, 'id2' => $model->Bid], ['class' => 'btn btn-primary']) ?>
-    </p>
 
 </div>

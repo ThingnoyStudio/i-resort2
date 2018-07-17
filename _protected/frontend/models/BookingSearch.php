@@ -167,7 +167,7 @@ class BookingSearch extends Booking
 
     public function search_counter($params)
     {
-        $query = Booking::find()->where('PMid != 3 and Bstatus != "เช็คเอ้า" ')->joinWith(['room','users']);
+        $query = Booking::find()->where('PMid != 3')->joinWith(['room','users']);
 //        $query = Booking::findOne($params);
 
         // add conditions that should always apply here
