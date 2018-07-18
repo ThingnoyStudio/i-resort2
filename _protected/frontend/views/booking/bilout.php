@@ -21,13 +21,11 @@ use yii\widgets\DetailView;
                 <h4>I-Resort</h4>
                 <strong><i> มหาวิทยาลัยราชภัฎอุดรธานี</i></strong><br />
                 <small>Email : systemudon@gmail.com Tel : 0123456789</small>
-                <h3>ใบเสร็จ</h3>
             </td>
         </tr>
     </table>
+    <h3 style="margin-left: 40%;">ใบเสร็จ</h3>
 
-
-    <br>
 <?php
 foreach ($dataProvider->models as $model){
 

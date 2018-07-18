@@ -100,7 +100,7 @@ class PromotionController extends Controller
             $range = $model->kvdate1;
             $model->Pdatestart = explode(' ', $range)[0];
             $model->Pdateend = explode(' ', $range)[2];;
-            if ($this->findDdate($model->Pdatestart,$model->Pdateend)){
+            if ($this->findDdate($model->Pdatestart, $model->Pdateend)) {
                 Yii::$app->getSession()->setFlash('Oops', [
                     'body' => 'ช่วงเวลานี้ มีในโปรโมชั่นแล้ว: ',
                     'type' => 'warning',
@@ -108,8 +108,6 @@ class PromotionController extends Controller
                 ]);
                 return $this->redirect(['promotion/index']);
             }
-
-
 
 
             $model->Pimg = $model->upload($model, 'Pimg');
@@ -140,7 +138,7 @@ class PromotionController extends Controller
             $range = $model->kvdate1;
             $model->Pdatestart = explode(' ', $range)[0];
             $model->Pdateend = explode(' ', $range)[2];;
-            if ($this->findDdate($model->Pdatestart,$model->Pdateend)){
+            if ($this->findDdate($model->Pdatestart, $model->Pdateend)) {
                 Yii::$app->getSession()->setFlash('Oops', [
                     'body' => 'ช่วงเวลานี้ มีในโปรโมชั่นแล้ว: ',
                     'type' => 'warning',
@@ -171,6 +169,13 @@ class PromotionController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDelete_money($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index3']);
     }
 
     /**

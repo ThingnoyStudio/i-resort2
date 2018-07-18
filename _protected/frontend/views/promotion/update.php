@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Promotion */
 
-$this->title = 'Update Promotion: ' . $model->Pid;
-$this->params['breadcrumbs'][] = ['label' => 'Promotions', 'url' => ['index']];
+$this->title = 'แก้ไขโปรโมชั่น: ' . $model->Pid;
+$this->params['breadcrumbs'][] = ['label' => 'โปรโมชั่น', 'url' => ['index3']];
 $this->params['breadcrumbs'][] = ['label' => $model->Pid, 'url' => ['view', 'id' => $model->Pid]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'แก้ไข';
 ?>
 <div class="promotion-update">
 

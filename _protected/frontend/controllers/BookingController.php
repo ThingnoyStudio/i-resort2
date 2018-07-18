@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use frontend\models\Room;
 use frontend\models\RoomSearch;
+use frontend\models\Users;
 use kartik\mpdf\Pdf;
 use Yii;
 use frontend\models\Booking;
@@ -333,11 +334,11 @@ class BookingController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $model->Rimg = $model->upload($model, 'Rimg');
-            $model->RSid = "6";
-            $model->save();
+            $model->RSid = "6";//ทำความสะอาด
+//            $model->save();
             $model2 = Booking::findOne($id2);
-            $model2->Bstatus = "เช็คเอ้า";
-            $model2->save();
+            $model2->Bstatus = "เช็คเอ้าท์";
+//            $model2->save();
 
             $searchModel = new BookingSearch();
             $dataProvider = $searchModel->search($id2);
@@ -394,7 +395,6 @@ class BookingController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-
 
 
     }
@@ -486,7 +486,7 @@ class BookingController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->Bbil = $model->upload($model, 'Bbil');
 
-            if ($model->Bbil == null){
+            if ($model->Bbil == null) {
 //                return print 'ddd';
                 Yii::$app->getSession()->setFlash('Oops', [
                     'body' => 'กรุณาเลือกภาพสลิปการชำระเงินและอัพโหลด เพื่อยืนยันการชำระเงิน!',
@@ -569,6 +569,15 @@ class BookingController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    protected function findUsersModel($id)
+    {
+        if (($model2 = Users::findOne($id)) !== null) {
+            return $model2;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
     protected function findModel3($id)
     {
         if (($model = Booking::findOne($id)) !== null) {
@@ -578,5 +587,61 @@ class BookingController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    public function actionPrintslip($id)
+    {
+        $model = $this->findModel($id);
+
+        $user = $this->findUsersModel($model->Uid);
+
+//        return print("<pre>".print_r($user,true)."</pre>");
+
+        $content = $this->renderPartial('print_money', [
+            'model' => $model,
+            'user' => $user,
+        ]);
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            'content' => $content,
+            'filename' => 'your_filename.pdf',
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+//                'format' => Pdf::FORMAT_A4,
+            'format' => [110, 136],
+            'cssFile' => '@frontend/pdf.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'options' => [
+                'title' => 'Factuur',
+
+            ],
+            'methods' => [
+
+            ]
+        ]);
+
+        return $pdf->render();
+    }
+
+    public function actionCheckout($id, $roomid)
+    {
+//        return print ($id .' ,'. $roomid);
+        $room = $this->findModel2($roomid);
+        $room->RSid = 6;//ทำความสะอาด
+        $room->save();
+
+        $booking = Booking::findOne($id);
+        $booking->Bstatus = 'เช็คเอ้าท์';
+        if($booking->save()){
+
+            Yii::$app->getSession()->setFlash('Oops', [
+                'body' => 'การเช็คเอ้าท์สำเร็จ!',
+                'type' => 'success',
+            ]);
+
+            return $this->redirect(['index3']);
+        }
+
+        return $this->redirect(['index3']);
+    }
 
 }

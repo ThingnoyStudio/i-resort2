@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2018 at 10:28 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.8
+-- Generation Time: Jul 18, 2018 at 06:00 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -46,12 +46,11 @@ CREATE TABLE `address` (
 INSERT INTO `address` (`ADid`, `ADnumber`, `ADhome`, `ADsubdistrict`, `ADdistrict`, `ADprovince`, `ADzipcode`, `Uid`) VALUES
 (1, '111', 'ghghg', 'bfghgfhg', 'gbfgfg', 'fgbfgbfg', '14242', '6'),
 (2, '232', 'สามแยก', 'หนองลอ', 'บ้านโข่ง', 'อุดรธานี', '41000', '10'),
-(3, '333', 'สามแยก', 'หนองลอ', 'บ้านโข่ง', 'อุดรธานี', '41000', NULL),
-(4, '333', 'สามแยก', 'หนองลอ', 'บ้านโข่ง', 'อุดรธานี', '41000', NULL),
-(5, '333', 'สามแยก', '', 'บ้านโข่ง', 'อุดรธานี', '41000', NULL),
-(6, '333', 'สามแยก', '', '', '', '', NULL),
-(7, '232', 'สามแยก', 'หนองลอ', '', '', '', '12'),
-(8, '1', 'สามแยก', 'หนองลอ', '', '', '', '14');
+(3, '333', 'สามแยก', 'หนองลอ', 'บ้านโข่ง', 'อุดรธานี', '41000', '7'),
+(4, '333', 'สามแยก', 'หนองลอ', 'บ้านโข่ง', 'อุดรธานี', '41000', '8'),
+(6, '333', 'สามแยก', '', '', '', '', '9'),
+(7, '888', 'โภชนาการ', 'ใจสพุง', 'สว่าง', 'สกลนคร', '47000', '12'),
+(18, '999', 'สะพานใหม่', 'หนองลุง', 'กว่าง', 'บุรีรัมย์', '49000', '25');
 
 -- --------------------------------------------------------
 
@@ -101,7 +100,18 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('member', 13, 1531320784),
 ('member', 14, 1531320953),
 ('member', 15, 1531321026),
-('member', 16, 1531321123);
+('member', 16, 1531321123),
+('member', 17, 1531844672),
+('member', 18, 1531845137),
+('member', 19, 1531848769),
+('member', 20, 1531849385),
+('member', 21, 1531850029),
+('member', 22, 1531850536),
+('member', 23, 1531851685),
+('member', 24, 1531851801),
+('member', 25, 1531853651),
+('member', 26, 1531853985),
+('member', 27, 1531854098);
 
 -- --------------------------------------------------------
 
@@ -217,7 +227,7 @@ CREATE TABLE `booking` (
 --
 
 INSERT INTO `booking` (`Bid`, `Bdate`, `Rid`, `Uid`, `ADid`, `Bnday`, `Bdatein`, `Bdateout`, `PMid`, `datebetween`, `Btotal`, `Bbil`, `month`, `year`, `Bstatus`) VALUES
-(5, '2018-07-01', '5', '6', NULL, '3', '2018-07-11', '2018-07-11', '2', '', '8970', NULL, '07', '2018', 'จอง'),
+(5, '2018-07-01', '5', '6', NULL, '3', '2018-07-11', '2018-07-11', '2', '', '8970', NULL, '07', '2018', 'เช็คเอาท์'),
 (6, '2018-07-01', '4', '6', NULL, '3', '2018-07-03', '0000-00-00', '2', NULL, '7470', NULL, '07', '2018', 'จอง'),
 (11, '2018-07-03 22:19:51', '3', '6', NULL, '1', '2018-07-20', '2018-07-21', '3', NULL, '1490', NULL, '07', '2018', 'จอง'),
 (12, '2018-07-03 22:19:52', '3', '6', NULL, '1', '2018-07-20', '2018-07-21', '3', NULL, '1490', NULL, '07', '2018', 'จอง'),
@@ -225,13 +235,7 @@ INSERT INTO `booking` (`Bid`, `Bdate`, `Rid`, `Uid`, `ADid`, `Bnday`, `Bdatein`,
 (15, '2018-07-04 00:17:02', '3', '6', NULL, '1', '2018-08-12', '2018-08-13', '2', NULL, '1490', NULL, '07', '2018', 'จอง'),
 (16, '2018-07-04 00:21:30', '5', '6', NULL, '1', '2018-08-23', '2018-08-24', '2', NULL, '2990', NULL, '07', '2018', 'จอง'),
 (17, '2018-07-04 00:28:30', '5', '6', NULL, '1', '2018-08-24', '2018-08-25', '2', NULL, '2990', NULL, '07', '2018', 'จอง'),
-(18, '2018-08-04 00:29:54', '3', '6', NULL, '1', '2018-08-17', '2018-08-18', '2', NULL, '1490', NULL, '08', '2018', 'จอง'),
-(19, '2018-07-06 00:00:25', '2', '11', NULL, '1', '2018-07-19', '2018-07-20', '2', NULL, '1990', NULL, '07', '2018', 'จอง'),
-(20, '2018-07-06 01:24:51', '2', '11', NULL, '1', '2018-08-19', '2018-08-20', '2', NULL, '1990', NULL, '07', '2018', 'จอง'),
-(21, '2018-07-06 01:53:09', '2', '11', NULL, '1', '2018-08-27', '2018-08-28', '2', NULL, '1990', NULL, '07', '2018', 'จอง'),
-(23, '2018-07-14 00:32:09', '3', '13', NULL, '1', '2018-07-14', '2018-07-15', '2', NULL, '1500', NULL, '07', '2018', 'จอง'),
-(24, '2018-07-14 10:49:20', '2', '13', NULL, '1', '2018-09-06', '2018-09-07', '5', NULL, '2000', NULL, '07', '2018', 'จอง'),
-(25, '2018-07-14 10:49:48', '3', '6', NULL, '1', '2018-09-07', '2018-09-08', '5', NULL, '1500', NULL, '07', '2018', 'เช็คอิน');
+(18, '2018-08-04 00:29:54', '3', '6', NULL, '1', '2018-08-17', '2018-08-18', '2', NULL, '1490', NULL, '08', '2018', 'จอง');
 
 -- --------------------------------------------------------
 
@@ -252,7 +256,7 @@ CREATE TABLE `food` (
 
 INSERT INTO `food` (`Fid`, `Fname`, `Fprice`, `Fimg`) VALUES
 (1, 'ข้าวผัด', '30', '462cc737-ee9f-4457-ad06-3a826ab245b3.jpg'),
-(2, 'ส้มตำ', '34', 'DSC_8155.jpg');
+(2, 'ส้มตำ', '35', 'DSC_8155.jpg');
 
 -- --------------------------------------------------------
 
@@ -350,7 +354,13 @@ CREATE TABLE `orderdetail` (
 INSERT INTO `orderdetail` (`ODid`, `Fid`, `Oid`, `ODnum`) VALUES
 (1, 1, 1, NULL),
 (2, 2, 1, NULL),
-(3, 2, 2, 5);
+(3, 2, 2, 5),
+(4, 2, 3, 2),
+(5, 1, 4, 1),
+(6, 1, 5, 2),
+(7, 1, 6, 1),
+(8, 2, 7, 1),
+(9, 1, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -371,8 +381,12 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`Oid`, `Odate`, `Optotal`, `Pid`, `Bid`) VALUES
-(1, '2018-06-14', '500', 1, NULL),
-(2, '2018-07-02 20:57:40', '170', 2, NULL);
+(3, '2018-07-18 02:55:45', '70', 2, '0'),
+(4, '2018-07-18 03:50:50', '30', 5, '1'),
+(5, '2018-07-18 03:51:14', '60', 5, '0'),
+(6, '2018-07-18 03:51:34', '30', 2, '4'),
+(7, '2018-07-18 04:07:28', '35', 2, '0'),
+(8, '2018-07-18 04:08:32', '30', 2, '5');
 
 -- --------------------------------------------------------
 
@@ -417,10 +431,7 @@ CREATE TABLE `promotion` (
 --
 
 INSERT INTO `promotion` (`Pid`, `Pname`, `Pdatestart`, `Pdateend`, `Pdistant`, `Pimg`, `kvdate1`) VALUES
-(1, 'อกดอดกอกดอกดอกดเเเ', '2018-06-14', '2018-07-15', 50, 'images.jpg', NULL),
-(4, 'nfgnfgnfgnfg', '2018-06-21', '2018-07-09', 10, 'hjh.jpg', '2018-06-21 - 2018-07-09'),
-(12, 'bgebdgbd', '2018-07-01', '2018-07-04', 10, '462cc737-ee9f-4457-ad06-3a826ab245b3.jpg', '2018-07-01 - 2018-07-04'),
-(13, 'rgbgrbrgbrgb', '2018-08-30', '2018-08-31', 10, '462cc737-ee9f-4457-ad06-3a826ab245b3.jpg', '2018-08-30 - 2018-08-31');
+(1, 'อกดอดกอกดอกดอกดเเเ', '2018-06-14', '2018-07-15', 50, 'images.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -446,9 +457,9 @@ CREATE TABLE `room` (
 INSERT INTO `room` (`Rid`, `Rname`, `Rnumber`, `Rprice`, `Rdes`, `Rimg`, `RSid`, `RTid`) VALUES
 (1, 'สวิท', '1', '1500', 'jghmhmnghnhg', 'ghnhgng.jpg', 5, 1),
 (2, 'ไม่สวิท', '2', '2000', 'เ้เ่เ้่เ้่เ้่ด้เ่tjhjfgjdjd', 'hgnghnghng.jpg', 2, 1),
-(3, 'ดอกไม้', '3', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 4, 2),
-(4, 'ดอกไม้บาน', '4', '2500', 'เ้ท้่ทเ่้ท่้ท้่ทเ่ทเ่', 'hjh.jpg', 2, 2),
-(5, 'ดอกไม้บานมาก', '5', '3000', 'เืเืเ้ื้ื้พื้ดืbbnngfnjnhjmg', 'images.jpg', 2, 3);
+(3, 'ดอกไม้', '3', '1500', 'เกเ้เด้ดเ้กด้กดเหเพเ้เพ้้ะำะ', 'ghnhgng.jpg', 6, 2),
+(4, 'ดอกไม้บาน', '4', '2500', 'เ้ท้่ทเ่้ท่้ท้่ทเ่ทเ่', 'hjh.jpg', 6, 2),
+(5, 'ดอกไม้บานมาก', '5', '3000', 'เืเืเ้ื้ื้พื้ดืbbnngfnjnhjmg', 'images.jpg', 6, 3);
 
 -- --------------------------------------------------------
 
@@ -468,9 +479,7 @@ CREATE TABLE `roomstatus` (
 INSERT INTO `roomstatus` (`RSid`, `RSname`) VALUES
 (1, 'ว่าง'),
 (2, 'จอง'),
-(3, 'กำลังจะเข้าพัก'),
 (4, 'เข้าพักแล้ว'),
-(5, 'พร้อมเข้าพัก'),
 (6, 'ทำความสะอาด');
 
 -- --------------------------------------------------------
@@ -510,12 +519,8 @@ CREATE TABLE `session` (
 --
 
 INSERT INTO `session` (`id`, `expire`, `data`) VALUES
-('5se2grkvpbc0c5n2gaa11em8k1', 1531217904, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a31303b5f5f72657475726e55726c7c733a33383a22687474703a2f2f6c6f63616c686f73742f692d7265736f7274322f726f6f6d2f696e64657832223b),
-('d7glnnv2d6c7c0nqehcvb613ff', 1531551521, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b),
-('joqb1hd5o8t0gbosmcnkidvsmo', 1531158908, 0x5f5f666c6173687c613a303a7b7d),
-('r045q140i12gvqikgc5et1ptjg', 1531412921, 0x5f5f666c6173687c613a303a7b7d),
-('ree2d21ovg6nvt93fr52cdlffj', 1531499289, 0x5f5f666c6173687c613a303a7b7d5f5f69647c693a31303b5f5f72657475726e55726c7c733a34353a22687474703a2f2f6c6f63616c686f73742f692d7265736f7274322f726f6f6d2f696e6465785f636f756e746572223b),
-('uh882dbg88brno4dikit67j16r', 1531558318, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a33373a22687474703a2f2f6c6f63616c686f73742f692d7265736f7274322f736974652f696e646578223b5f5f69647c693a363b);
+('3a6i8ghhdcpo5hta1a1gn5anil', 1531908605, 0x5f5f666c6173687c613a303a7b7d5f5f72657475726e55726c7c733a31393a222f692d7265736f7274322f6261636b656e642f223b5f5f69647c693a313b),
+('qrm3uqi31e15tvhk3qrksa0r4f', 1531931029, 0x5f5f666c6173687c613a303a7b7d);
 
 -- --------------------------------------------------------
 
@@ -577,7 +582,11 @@ INSERT INTO `transaction_paypal` (`id`, `user_id`, `payment_id`, `hash`, `comple
 (36, 11, 'PAY-6PR1762004740714WLM7GE4I', '39ba258299e1102eef344a7bb7747ca2', NULL, '-', '-', 2),
 (37, 11, 'PAY-1M6583161T890153NLM7GSEY', '2b66b0ad27d0dc8faef6da4c5cf84580', NULL, '-', '-', 2),
 (38, 11, 'PAY-5A665872UC2795209LNANMDY', 'cef75a3be6052b878c895e8a50912df6', 1, '2018-07-07T15:07:57Z', '2018-07-07T15:07:54Z', 3),
-(39, 13, 'PAY-9TP57409AP540005BLNEOEGQ', 'dfbd89bd2495a2ecf54e5c5ebfd8defa', NULL, '-', '-', 3);
+(39, 13, 'PAY-9TP57409AP540005BLNEOEGQ', 'dfbd89bd2495a2ecf54e5c5ebfd8defa', NULL, '-', '-', 3),
+(40, 25, 'PAY-00J42020S4961732CLNHETPQ', '4dfc775700d00ed37e2a5642cbfa4b53', 1, '2018-07-17T19:56:33Z', '2018-07-17T19:56:31Z', 2),
+(41, 12, 'PAY-1YX39533077442923LNHFNVA', 'ee0afc01f2fe3a5210e08ee8341b7a10', 1, '2018-07-17T20:52:09Z', '2018-07-17T20:52:06Z', 1),
+(42, 12, 'PAY-85743178VT6487700LNHFVDI', '2ede40acf508c76c38528f48253f105a', 1, '2018-07-17T21:07:58Z', '2018-07-17T21:07:56Z', 2),
+(43, 12, 'PAY-3XG67276VT024050KLNHFVTI', '76538a5944416fbf0398f519e866f980', 1, '2018-07-17T21:08:52Z', '2018-07-17T21:08:50Z', 1);
 
 -- --------------------------------------------------------
 
@@ -609,12 +618,8 @@ INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `status`, `auth_
 (8, 'boss', 'po@gmail.com', '$2y$13$aNtPpyjsrAGkLxuiNEZLJ.GP80NNrPQWkCUfLVd7KUT8pvG/gnnge', 10, 'uKQV6HsB8Tu2lpkodJQ50ttJfnlJkAEo', NULL, NULL, 1529289544, 1531157624),
 (9, 'money', 'money@gmail.com', '$2y$13$3veArBszCd9qvGYiBvTcdubIMQkVgGnQWt292zn3iRhVJxaYai2Du', 10, 'FknxZPBRmRhDbXp8SJ6-KefIqJM3nkL2', NULL, NULL, 1529754130, 1529754130),
 (10, 'counter', 'tonrub@gmail.com', '$2y$13$LXLxGRIHW.A4JX5HL0wwBOE59VJqN24QhdAOnErf62MM.41RReaiy', 10, '2PwHj-qKYWXxPGTirp4Lc_tv5YfC9xDm', NULL, NULL, 1530529333, 1531218374),
-(11, 'fff', 'ffff@ff.com', '$2y$13$cVoRwc9YXzKczYtBp4VVHuVVjOeJ3yKexHS3v5xl6BBt5zisPD496', 10, 'B5xtERC1qvWJjGtIpwExh0M4eGTsUhsh', NULL, NULL, 1530809974, 1530809974),
-(12, 'aaa', 'admiddn@gmail.com', '$2y$13$ZQjVr79CRlUVvJQ0zVFjuu3QND2hZLXileNfag1s1Sq8VrI1tTQyy', 10, 'hCKiucHlNwmyGDArgxc0_VsPepP3kxKK', NULL, NULL, 1531319159, 1531319159),
-(13, 'adda', 'add@gmail.com', '$2y$13$uvC2tLiGJIgXDytZci3Qce8P.kmkOzks.VzqVEvPYJqX/N5snOX1i', 10, 'mgG8ewH4dVd4n2dQw7edJQBcHKhrsBJ6', NULL, NULL, 1531320784, 1531320784),
-(14, 'sss', 'asssdd@gmail.coms', '$2y$13$nQEc84He2qN0wtShbuMu1er/G8VqfT0WugKrIBGMR1TXaJFY9pXee', 10, 'RWfwo7w43p0YhAOYIwfr1xkMgLUOrSh7', NULL, NULL, 1531320953, 1531320953),
-(15, 'ssss', 'assssdd@gmail.coms', '$2y$13$LLjJgRXzGQ/D7XtBwrMxEevjF2Rg4bbntNzhwPRBpLz7e4BuzwnDC', 10, 'MkGVvxYU4C8J4MfPAPz9MwcTyjp4Tzee', NULL, NULL, 1531321025, 1531321025),
-(16, 'fsa', 'dfa@ff.com', '$2y$13$gp1YB4mYJBbJBnwNkIpWv.bVF/i6pbckZS/3TGoel6PFC4h1oXjWy', 10, '4Z5SYMdRkm5vmZSSrEBJ5q6rz6EGbKp5', NULL, NULL, 1531321123, 1531321123);
+(12, 'food', 'admiddn@gmail.com', '$2y$13$ZQjVr79CRlUVvJQ0zVFjuu3QND2hZLXileNfag1s1Sq8VrI1tTQyy', 10, 'hCKiucHlNwmyGDArgxc0_VsPepP3kxKK', NULL, NULL, 1531319159, 1531853838),
+(25, 'member', 'member@gmail.com', '$2y$13$f/RKtFYBUqsyRsDYqHgeIeuaGV6PW9d8602V79x/0NLfJMQs6Zoii', 10, '9yVBN04J23B2vYhrG5qA_HnJCuBnO6op', NULL, NULL, 1531853651, 1531853651);
 
 -- --------------------------------------------------------
 
@@ -640,16 +645,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`Uid`, `Ufname`, `Ulname`, `Uemail`, `Uphone`, `Uimg`, `ADid`, `USid`, `iduser`) VALUES
 (6, 'อัยการ', 'อัย', 'noppakit15@gmail.com', '025785963', 'marc.jpg', 1, 1, 6),
-(7, 'ใจดี', 'โคตรๆ', 'f@gmail.com', '0814586952', 'tim_80x80.png', 1, 4, 7),
-(8, 'po', 'po', 'po15@gmail.com', '02457787545', 'อูจิน1.jpg', 1, 2, 8),
-(9, 'การ', 'เงิน', 'dd@gmail.com', '0254875368', 'DSC_8155.jpg', 1, 6, 9),
-(10, 'TingnoyChannel', 'รับ', 'boyskypart@gmail.com', '0254879652', 'DSC_8155.jpg', 2, 3, 10),
-(11, 'กดเ้', 'sdfsd', '', '', NULL, NULL, 5, 11),
-(12, 'sssss', 'ssssss', 'admiddn@gmail.com', '342342434', 'Koala.jpg', 7, 1, 12),
-(13, 'sd', 'dd', 'add@gmail.com', '3333333333', 'Penguins.jpg', 3, 1, NULL),
-(14, 'sdfs', 'sdf', 'asssdd@gmail.coms', '2323232323', 'Jellyfish.jpg', 8, 1, NULL),
-(15, 'ssssss', 'ss', 'assssdd@gmail.coms', '', 'Tulips.jpg', 5, 1, NULL),
-(16, 'wwww', 'www', 'dfa@ff.com', '', 'Koala.jpg', 6, 1, NULL);
+(7, 'แม่บ้าน', 'โคตรๆ', 'f@gmail.com', '0814586952', 'tim_80x80.png', 3, 4, 7),
+(8, 'boss', 'po', 'po15@gmail.com', '0872379837', 'อูจิน1.jpg', 4, 2, 8),
+(9, 'การ', 'เงิน', 'dd@gmail.com', '0254875368', 'DSC_8155.jpg', 6, 6, 9),
+(10, 'ต้อนรับ', 'รับ', 'boyskypart@gmail.com', '0254879652', 'DSC_8155.jpg', 2, 3, 10),
+(12, 'โภชนาการ', 'โภชนาการ', 'admiddn@gmail.com', '342342434', 'Koala.jpg', 7, 5, 12),
+(25, 'สมาชิก', 'สมาชิก', 'member@gmail.com', '0872287732', 'Koala.jpg', 18, 1, 25);
 
 -- --------------------------------------------------------
 
@@ -849,92 +850,110 @@ ALTER TABLE `years`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `ADid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=9;
+  MODIFY `ADid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `article`
 --
 ALTER TABLE `article`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `Bid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=26;
+  MODIFY `Bid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=28;
+
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
   MODIFY `Fid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `month`
 --
 ALTER TABLE `month`
   MODIFY `Mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
   MODIFY `Nid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `orderdetail`
 --
 ALTER TABLE `orderdetail`
-  MODIFY `ODid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=4;
+  MODIFY `ODid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `Oid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=3;
+  MODIFY `Oid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
   MODIFY `PMid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `promotion`
 --
 ALTER TABLE `promotion`
-  MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=14;
+  MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=16;
+
 --
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
   MODIFY `Rid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `roomstatus`
 --
 ALTER TABLE `roomstatus`
   MODIFY `RSid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `roomtype`
 --
 ALTER TABLE `roomtype`
   MODIFY `RTid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `transaction_paypal`
 --
 ALTER TABLE `transaction_paypal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดี', AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดี', AUTO_INCREMENT=44;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
 -- AUTO_INCREMENT for table `userstatus`
 --
 ALTER TABLE `userstatus`
   MODIFY `USid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `years`
 --
 ALTER TABLE `years`
   MODIFY `Yid` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Constraints for dumped tables
 --

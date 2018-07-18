@@ -12,7 +12,8 @@ use yii\widgets\ActiveForm;
 $addon = <<< HTML
 <span class="input-group-addon">
     <!--<i class="glyphicon glyphicon-calendar"></i>-->
-    <i class = "material-icons" > date_range </i>
+    <i class = "material-icons" style="    margin-left: -33px;
+    position: absolute;" > date_range </i>
 </span>
 HTML;
 ?>
@@ -50,7 +51,8 @@ HTML;
     <?= $form->field($model, 'Pimg')->fileInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'สร้าง' : 'แก้ไข', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'ยกเลิก'), ['promotion/index3'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

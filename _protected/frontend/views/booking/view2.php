@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\Booking */
 
 $this->title = $model->Bid;
-$this->params['breadcrumbs'][] = ['label' => 'Bookings', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'จัดการสถานะห้องพัก', 'url' => ['index3']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="booking-view">
@@ -16,7 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('เช็คเอ้า', ['updatestatus', 'id' => $model->Rid, 'id2' => $model->Bid], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('กลับ', ['index3'], ['class' => 'btn btn-default']) ?>
+<!--        <= Html::a('เช็คเอ้า', ['updatestatus', 'id' => $model->Rid, 'id2' => $model->Bid], ['class' => 'btn btn-primary']) ?>-->
+
     </p>
 
     <?= DetailView::widget([

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\PromotionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Promotions';
+$this->title = 'โปรโมชั่น';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="promotion-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Promotion', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('สร้างโปรโมชั่น', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -57,22 +57,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('<i class="fa fa-eye"></i>', $url,
-                            ['title' => 'View user',
+                            ['title' => 'View',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'idA' => 'ADid',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'update' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-pencil"></i>', $url,
-                            ['title' => 'Edit user',
+                        return Html::a('<i class="fas fa-pencil-alt"></i>', $url,
+                            ['title' => 'Edit',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-trash"></i>', $url, [
-                            'title' => Yii::t('yii', 'Delete user'),
+                        return Html::a('<i class="fa fa-trash"></i>',
+                            ['delete_money','id'=>$model->Pid],
+                            [
+                            'title' => Yii::t('yii', 'Delete'),
                             'data-confirm' => Yii::t('yii', 'คุณต้องการลบรายการนี้หรือไม่?'),
                             'data-method' => 'post',
                             'data-pjax' => '0',

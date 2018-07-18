@@ -33,6 +33,8 @@ class Promotion extends \yii\db\ActiveRecord
     {
         return [
             [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'Pimg','kvdate1'], 'string'],
+            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'kvdate1'], 'required'],
+
         ];
     }
 
@@ -46,7 +48,7 @@ class Promotion extends \yii\db\ActiveRecord
             'Pname' => 'ชื่อโปรโมชั่น',
             'Pdatestart' => 'วันที่เริ่ม',
             'Pdateend' => 'วันที่สิ้นสุด',
-            'Pdistant' => 'ส่วนลด',
+            'Pdistant' => 'ส่วนลด(%)',
             'Pimg' => 'รูปภาพ',
             'kvdate1' => 'ช่วงวันที่',
         ];

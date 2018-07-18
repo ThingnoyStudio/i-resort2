@@ -19,7 +19,7 @@ class PromotionSearch extends Promotion
     {
         return [
             [['Pid'], 'integer'],
-            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'Pimg','kvdate1'], 'safe'],
+            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'kvdate1'], 'safe'],
         ];
     }
 
