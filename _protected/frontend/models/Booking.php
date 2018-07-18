@@ -106,7 +106,7 @@ class Booking extends \yii\db\ActiveRecord
     public function upload($model,$attribute)
     {
         $photo  = UploadedFile::getInstance($model, $attribute);
-        $path = Yii::getAlias('@Uploadsbil');
+        $path = Yii::getAlias('@Uploadbil');
         if ($this->validate() && $photo !== null) {
 
             // $fileName = md5($photo->baseName.time()) . '.' . $photo->extension;

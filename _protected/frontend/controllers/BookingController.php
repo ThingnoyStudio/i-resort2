@@ -485,6 +485,16 @@ class BookingController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->Bbil = $model->upload($model, 'Bbil');
+
+            if ($model->Bbil == null){
+//                return print 'ddd';
+                Yii::$app->getSession()->setFlash('Oops', [
+                    'body' => 'กรุณาเลือกภาพสลิปการชำระเงินและอัพโหลด เพื่อยืนยันการชำระเงิน!',
+                    'type' => 'warning',
+//                        'options'=>['class'=>'alert-warning']
+                ]);
+                return $this->redirect(['view3', 'id' => $model->Bid]);
+            }
 //            $model->PMid = "4";
             $model->save();
             return $this->redirect(['index4']);

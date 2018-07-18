@@ -77,7 +77,9 @@ $this->registerJs(" function exportPdf(id,price,rtname,rsname) {
       var url = \" " . \yii\helpers\Url::to(['room/pdf'])
     . "?roomId=\"+roomId+\"&price=\"+price+\"&amt=\"+amount+\"&sdate=\"+s_date+\"&edate=\"+e_date+\"&p=\"+p+\"&rtname=\"+roomType+\"&rsname=\"+roomStatus;
 
-window.open(url, '_blank');
+//window.open(url, '_blank');
+window.open(url, '_self');
+
   }else{
   alert('กรุณาเลือกช่วงเวลาที่เข้าพัก')
   }

@@ -126,7 +126,7 @@ if ($model->PMid == "3") {
         ],
     ]) ?>
 
-    <?= Html::a(Yii::t('app', 'กลับ'), ['booking/index4'], ['class' => 'btn btn-danger']) ?>
+    <?= Html::a(Yii::t('app', 'กลับ'), ['booking/index4'], ['class' => 'btn btn-default']) ?>
 
 </div>
 
