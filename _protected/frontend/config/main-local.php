@@ -4,10 +4,9 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'B6Ol6HK1FwKPi7EmwJyYxApK-aAdzWH1',
+            'cookieValidationKey' => 'gsnREtGNmf797jQbY8U5L2AgYCu8RTUS',
         ],
     ],
-
 ];
 
 if (!YII_ENV_TEST) {
@@ -17,7 +16,6 @@ if (!YII_ENV_TEST) {
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';
-
 }
 
 return $config;
