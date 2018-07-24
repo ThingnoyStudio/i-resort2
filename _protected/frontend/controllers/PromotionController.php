@@ -96,25 +96,20 @@ class PromotionController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-
             $range = $model->kvdate1;
             $model->Pdatestart = explode(' ', $range)[0];
             $model->Pdateend = explode(' ', $range)[2];;
-            if ($this->findDdate($model->Pdatestart, $model->Pdateend)) {
+            if ($this->findDdate($model->Pdatestart, $model->Pdateend) > 0) {
                 Yii::$app->getSession()->setFlash('Oops', [
-                    'body' => 'ช่วงเวลานี้ มีในโปรโมชั่นแล้ว: ',
+                    'body' => 'ช่วงเวลานี้ มีการกำหนดโปรโมชั่นแล้ว!',
                     'type' => 'warning',
-//                        'options'=>['class'=>'alert-warning']
                 ]);
-                return $this->redirect(['promotion/index']);
+                return $this->redirect(['promotion/index3']);
             }
-
 
             $model->Pimg = $model->upload($model, 'Pimg');
             $model->save();
             return $this->redirect(['view', 'id' => $model->Pid]);
-
-
         }
 
         return $this->render('create', [

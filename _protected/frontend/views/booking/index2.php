@@ -16,14 +16,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php Pjax::begin([ 'enablePushState' => false ]); ?>
+    <?php Pjax::begin(['enablePushState' => false]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
+            //            ['class' => 'yii\grid\SerialColumn'],
 
-//            'Bid',
+            //            'Bid',
             'Bdate:ntext',
 
             'room.Rnumber',
@@ -35,15 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'Bdatein:ntext',
             'Bdateout:ntext',
             'Bstatus',
-//            [
-//                'label' => 'สถานะ',
-//                'attribute' => 'room.RSid',
-//                'value' => function ($model, $key, $index, $column) {
-//                    $rs = \frontend\models\Roomstatus::findOne('Bstatus = '. $model->RSid);
-//                    return $rs->RSname;
-//                }
-//            ],
-//            'payment.PMname',
+            //            [
+            //                'label' => 'สถานะ',
+            //                'attribute' => 'room.RSid',
+            //                'value' => function ($model, $key, $index, $column) {
+            //                    $rs = \frontend\models\Roomstatus::findOne('Bstatus = '. $model->RSid);
+            //                    return $rs->RSname;
+            //                }
+            //            ],
+            //            'payment.PMname',
 
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -61,16 +61,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'print_money' => function ($url, $model, $key) {
                         return Html::a('<i class="fa fa-print"></i>',
-                            ['printslip','id'=>$model->Bid],
+                            ['printslip', 'id' => $model->Bid],
                             ['title' => 'พิมพ์สลิป',
                                 'class' => 'btn btn-success',
+                                'target' => '_bank',
                                 'id' => 'actioncol',
                                 'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
                     },
                     'checkout' => function ($url, $model, $key) {
                         if ($model->Bstatus == 'เช็คเอาท์') {
                             return Html::a('<i class="fas fa-sign-out-alt"></i>',
-                                ['checkout','id'=>$model->Bid,'roomid'=>$model->Rid],
+                                ['checkout', 'id' => $model->Bid, 'roomid' => $model->Rid],
                                 ['title' => 'เช็คเอาท์',
                                     'class' => 'btn btn-primary',
                                     'id' => 'actioncol',
@@ -78,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'style' => 'padding: 5px 10px; visibility:hidden; border-right: 2px solid #d4d4e0ab;']);
                         } else if ($model->Bstatus == 'เช็คอิน') {
                             return Html::a('<i class="fas fa-sign-out-alt"></i>',
-                                ['checkout','id'=>$model->Bid,'roomid'=>$model->Rid],
+                                ['checkout', 'id' => $model->Bid, 'roomid' => $model->Rid],
                                 ['title' => 'เช็คเอาท์',
                                     'class' => 'btn btn-primary',
                                     'id' => 'actioncol',
@@ -86,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'style' => 'padding: 5px 10px; border-right: 2px solid #d4d4e0ab;']);
                         } else {
                             return Html::a('<i class="fas fa-sign-out-alt"></i>',
-                                ['checkout','id'=>$model->Bid,'roomid'=>$model->Rid],
+                                ['checkout', 'id' => $model->Bid, 'roomid' => $model->Rid],
                                 ['title' => 'เช็คเอาท์',
                                     'class' => 'btn btn-primary',
                                     'id' => 'actioncol',
@@ -98,7 +99,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],// ActionColumn
         ],
-    ]); ?>
+    ]);
+    ?>
     <?php Pjax::end(); ?>
 
 </div>

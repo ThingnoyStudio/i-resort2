@@ -87,7 +87,7 @@ class Room extends \yii\db\ActiveRecord
         return $this->hasOne(Roomtype::className(), ['RTid' => 'RTid']);
     }
 
-    public function getAll()
+    public static function getAll()
     {
         $get = Room::find()->all();
         $result = ArrayHelper::map($get, 'Rid', 'Rid');
