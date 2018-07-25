@@ -9,6 +9,19 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\Booking */
 /* @var $form yii\widgets\ActiveForm */
 
+$this->registerCss("
+@media screen and (max-width: 1200px) {
+	.table {
+		overflow-x: auto;
+		display: block;
+	}
+  .btn-group {
+    float: left;
+    display:flex;
+    position: relative;
+}
+}");
+
 $this->registerJs(" function upload() {
    alert('ll');
 //  console.log('ff worked! -> '+id);
@@ -44,31 +57,28 @@ $this->registerJs(" function upload() {
 } ", View::POS_END, 'my-upload');
 
 $this->title = $model->Bid;
-$this->params['breadcrumbs'][] = ['label' => 'Bookings', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'การจอง', 'url' => ['index4']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php
 $dateNow = date('Y-m-d');
 $NewDate = Date('Y-m-d', strtotime("+3 days"));
-if ($NewDate <= $model->Bdatein) {
 
+if ($NewDate <= $model->Bdatein) {
     ?>
-    <p>
-        <?= Html::a('ยกเลิกการจอง', ['delete2', 'id' => $model->Bid], [
+    <p><?= Html::a('ยกเลิกการจอง', ['delete2', 'id' => $model->Bid], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'ต้องการยกเลิกการจองรายการนี้หรือไม่?',
                 'method' => 'post',
             ],
-        ]) ?>
-    </p>
+        ]) ?></p>
 
-    <?php
+<?php
 }
 ?>
 
-<?php
-if ($model->PMid == "3") {
+<?php if ($model->PMid == "3") {
     ?>
     <div class="booking-form">
         <?php $form = ActiveForm::begin(); ?>
@@ -90,7 +100,7 @@ if ($model->PMid == "3") {
                 <?= $form->field($model, 'Bbil')->fileInput() ?>
             </div>
         </div>
-        <?= Html::a('อัพโหลด', ['upload2', 'id' => $model->Bid], ['class' => 'btn btn-primary', 'onclick' => 'this.parentNode.submit()', 'data-method' => 'post']) ?>
+        <?= Html::a('อัพโหลด', ['upload2', 'id' => $model->Bid], ['class' => 'btn btn-success', 'onclick' => 'this.parentNode.submit()', 'data-method' => 'post']) ?>
         <?php ActiveForm::end(); ?>
     </div>
     <?php
@@ -101,7 +111,7 @@ if ($model->PMid == "3") {
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-//            'Bid',
+            'Bid',
             'users.Ufname',
             'users.Ulname',
             'users.Uemail',
@@ -126,7 +136,7 @@ if ($model->PMid == "3") {
         ],
     ]) ?>
 
-    <?= Html::a(Yii::t('app', 'กลับ'), ['booking/index4'], ['class' => 'btn btn-default']) ?>
+    <?= Html::a('กลับ', ['booking/index4'], ['class' => 'btn btn-default']) ?>
 
 </div>
 

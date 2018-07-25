@@ -32,8 +32,14 @@ class Promotion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'Pimg','kvdate1'], 'string'],
+            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'kvdate1'], 'string'],
             [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'kvdate1'], 'required'],
+            [
+                ['Pimg'],'file',
+                'skipOnEmpty' => true,
+                'extensions' => 'jpg,png'
+            ],
+            [['Pname', 'Pdatestart', 'Pdateend', 'Pdistant', 'kvdate1'], 'safe'],
 
         ];
     }
@@ -54,16 +60,16 @@ class Promotion extends \yii\db\ActiveRecord
         ];
     }
 
-    public function upload($model,$attribute)
+    public function upload($model, $attribute)
     {
-        $photo  = UploadedFile::getInstance($model, $attribute);
+        $photo = UploadedFile::getInstance($model, $attribute);
         //$path = 'C:/xampp/htdocs/udondeliveryu3/uploads/images/Restaurantimg/';
         $path = Yii::getAlias('@UploadPromotion');
         if ($this->validate() && $photo !== null) {
 
             // $fileName = md5($photo->baseName.time()) . '.' . $photo->extension;
             $fileName = $photo->baseName . '.' . $photo->extension;
-            if($photo->saveAs($path.'/'.$fileName)){
+            if ($photo->saveAs($path . '/' . $fileName)) {
                 return $fileName;
             }
         }

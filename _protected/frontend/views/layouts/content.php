@@ -33,33 +33,31 @@ use yii2mod\alert\Alert;
         </section>
 
         <section class="mycontent">
-<!--            <= Alert::widget() ?>-->
+            <!--            <= Alert::widget() ?>-->
             <?= $content ?>
         </section>
     </div>
 
 </div>
 
-<?php if (Yii::$app->session->hasFlash('Oops')): ?>
-    <!--                    <= \yii\bootstrap\Alert::widget([-->
-    <!--                        'body'=>ArrayHelper::getValue(Yii::$app->session->getFlash('alert'), 'body'),-->
-    <!--                        'options'=>ArrayHelper::getValue(Yii::$app->session->getFlash('alert'), 'options'),-->
-    <!--                    ])?>-->
+<!--Sweet Alert-->
+<?php if (Yii::$app->getSession()->hasFlash('Oops')): ?>
     <?= \yii2mod\alert\Alert::widget([
         'useSessionFlash' => false,
         'options' => [
 //                                'icon' => "warning",
             'timer' => null,
-            'type' => \yii\helpers\ArrayHelper::getValue(Yii::$app->session->getFlash('Oops'), 'type'),
+            'type' => \yii\helpers\ArrayHelper::getValue(Yii::$app->getSession()->getFlash('Oops'), 'type'),
 //                            'type' => \yii2mod\alert\Alert::TYPE_INPUT,
             'title' => "แจ้งเตือน!",
-            'text' => \yii\helpers\ArrayHelper::getValue(Yii::$app->session->getFlash('Oops'), 'body'),
+            'text' => \yii\helpers\ArrayHelper::getValue(Yii::$app->getSession()->getFlash('Oops'), 'body'),
             'confirmButtonText' => "ตกลง",
             'closeOnConfirm' => true,
 //                            'showCancelButton' => true,
             'animation' => "slide-from-top",
 //                            'inputPlaceholder' => "Write something"
         ],]) ?>
+
 <?php endif; ?>
 
 

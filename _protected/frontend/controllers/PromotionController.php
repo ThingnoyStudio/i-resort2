@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Promotion;
 use frontend\models\PromotionSearch;
+use yii\db\Exception;
 use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -80,9 +81,22 @@ class PromotionController extends Controller
         ]);
     }
 
+    /**
+     * @param $sdate
+     * @param $edate
+     * @return array
+     * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
+     */
     public function findDdate($sdate, $edate)
     {
-        return $check_date = Yii::$app->db->createCommand('select * from promotion where \'' . $sdate . '\' between Pdatestart and Pdatestart or \'' . $edate . '\' between Pdateend and Pdateend')->queryAll();
+        $check_date = Yii::$app->db->createCommand('select * from promotion where \'' . $sdate . '\' between Pdatestart and Pdatestart or \'' . $edate . '\' between Pdateend and Pdateend')->queryAll();
+
+        if ($check_date !== null) {
+            return $check_date;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     /**
@@ -92,24 +106,40 @@ class PromotionController extends Controller
      */
     public function actionCreate()
     {
+        date_default_timezone_set('asia/bangkok');
         $model = new Promotion();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $range = $model->kvdate1;//string(23) "27-08-2018 - 28-08-2018"
+            $start = explode(' ', $range)[0];
+            $end = explode(' ', $range)[2];
 
-            $range = $model->kvdate1;
-            $model->Pdatestart = explode(' ', $range)[0];
-            $model->Pdateend = explode(' ', $range)[2];;
-            if ($this->findDdate($model->Pdatestart, $model->Pdateend) > 0) {
+            $newStart = date('Y-m-d', strtotime($start));
+            $newEnd = date('Y-m-d', strtotime($end));
+
+            $model->Pdatestart = $newStart;
+            $model->Pdateend = $newEnd;
+
+            $pro_date = $this->findDdate($newStart, $newEnd);
+
+            if (!empty($pro_date)) {
                 Yii::$app->getSession()->setFlash('Oops', [
                     'body' => 'ช่วงเวลานี้ มีการกำหนดโปรโมชั่นแล้ว!',
                     'type' => 'warning',
                 ]);
-                return $this->redirect(['promotion/index3']);
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
             }
 
             $model->Pimg = $model->upload($model, 'Pimg');
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->Pid]);
+
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->Pid]);
+            } else {
+                print("<pre>".print_r($model,true)."</pre>");
+            }
+
         }
 
         return $this->render('create', [
@@ -130,16 +160,24 @@ class PromotionController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $range = $model->kvdate1;
-            $model->Pdatestart = explode(' ', $range)[0];
-            $model->Pdateend = explode(' ', $range)[2];;
-            if ($this->findDdate($model->Pdatestart, $model->Pdateend)) {
+            $range = $model->kvdate1;//string(23) "27-08-2018 - 28-08-2018"
+            $start = explode(' ', $range)[0];
+            $end = explode(' ', $range)[2];
+
+            $newStart = date('Y-m-d', strtotime($start));
+            $newEnd = date('Y-m-d', strtotime($end));
+
+            $pro_date = $this->findDdate($newStart, $newEnd);
+
+            if (count($pro_date) > 1) {
                 Yii::$app->getSession()->setFlash('Oops', [
                     'body' => 'ช่วงเวลานี้ มีในโปรโมชั่นแล้ว: ',
                     'type' => 'warning',
-//                        'options'=>['class'=>'alert-warning']
                 ]);
-                return $this->redirect(['promotion/index']);
+//                return $this->redirect(['promotion/index']);
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
             }
 
             $model->Pimg = $model->upload($model, 'Pimg');

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Address;
 use frontend\models\Room;
 use frontend\models\RoomSearch;
 use frontend\models\Users;
@@ -278,9 +279,10 @@ class BookingController extends Controller
     public function actionChbooking()
     {
         $searchModel = new BookingSearch();
-        $query = Booking::find()->where(['PMid' => 3]);
+        $query = Booking::find()->where(['PMid' => 6]);// รอการยืนยัน
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['Bid'=>SORT_DESC]],
         ]);
         return $this->render('chbooking', [
             'searchModel' => $searchModel,
@@ -304,8 +306,20 @@ class BookingController extends Controller
 
     public function actionView_counter($id)
     {
+        $booking = $this->findModel($id);
+        $user = $this->findUsersModel($booking->Uid);
+        $address = null;
+        if ($user->ADid) {
+            $address = $this->findAddressById($user->ADid);
+        }
+        if (!$address) {
+            $address = new Address();
+        }
+
         return $this->render('view_counter', [
-            'model' => $this->findModel($id),
+            'model' => $booking,
+            'user' => $user,
+            'address' => $address,
         ]);
     }
 
@@ -319,12 +333,11 @@ class BookingController extends Controller
     public function actionUpdatebil($id)
     {
         $model = $this->findModel($id);
-        $model->PMid = "4";
-        $model->Bstatus = "เช็คอิน";
+        $model->PMid = "4"; //ชำระผ่านธนาคาร
+        $model->Bstatus = "จอง";
         $model->save();
 
         return $this->redirect(['chbooking']);
-
     }
 
     public function actionUpdatestatus($id, $id2)
@@ -381,7 +394,7 @@ class BookingController extends Controller
     {
         $model = $this->findModel2($id);
 
-        $model->RSid = "4";
+        $model->RSid = "4"; //เข้าพักแล้ว
         $model->save();
 
         $model2 = Booking::findOne($id2);
@@ -481,23 +494,41 @@ class BookingController extends Controller
      */
     public function actionUpload2($id)
     {
+        date_default_timezone_set('asia/bangkok');
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->Bbil = $model->upload($model, 'Bbil');
 
-            if ($model->Bbil == null) {
-//                return print 'ddd';
+            $BillImage = $model->Bbil;
+
+            if ($BillImage == null || is_null($BillImage) || empty($BillImage)) {
                 Yii::$app->getSession()->setFlash('Oops', [
                     'body' => 'กรุณาเลือกภาพสลิปการชำระเงินและอัพโหลด เพื่อยืนยันการชำระเงิน!',
                     'type' => 'warning',
-//                        'options'=>['class'=>'alert-warning']
                 ]);
-                return $this->redirect(['view3', 'id' => $model->Bid]);
+
+                return $this->render('view3', [
+                    'model' => $this->findModel($id),
+                ]);
             }
-//            $model->PMid = "4";
-            $model->save();
-            return $this->redirect(['index4']);
+
+            $model->Bstatus = "รอยืนยัน";
+            $model->PMid = "6";// รอการยืนยัน
+
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('Oops', [
+                    'body' => 'อัพโหลดใบเสร็จชำระเงินเสร็จเรียบร้อย! กรุณารอสักครู่...เจ้าหน้าที่กำลังดำเนินการยืนยันใบเสร็จของคุณ',
+                    'type' => 'success',
+                ]);
+                return $this->redirect(['index4']);
+            }
+
+            Yii::$app->getSession()->setFlash('Oops', [
+                'body' => 'อัพโหลดใบเสร็จชำระเงิน ไม่สำเร็จ!',
+                'type' => 'error',
+            ]);
+            return $this->redirect(['view3', 'id' => $model->Bid]);
         }
 
         return $this->redirect(['view3', 'id' => $model->Bid]);
@@ -522,6 +553,9 @@ class BookingController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -578,6 +612,15 @@ class BookingController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    protected function findAddressById($id)
+    {
+        if (($model2 = Address::find()->where(['ADid' => $id])->one()) != null) {
+            return ($model2);
+        } else {
+            return null;
+        }
+    }
+
     protected function findModel3($id)
     {
         if (($model = Booking::findOne($id)) !== null) {
@@ -611,11 +654,9 @@ class BookingController extends Controller
             'cssFile' => '@frontend/pdf.css',
             'cssInline' => '.kv-heading-1{font-size:18px}',
             'options' => [
-                'title' => 'Factuur',
-
+                'title' => 'Print Slip',
             ],
             'methods' => [
-
             ]
         ]);
 
@@ -631,7 +672,7 @@ class BookingController extends Controller
 
         $booking = Booking::findOne($id);
         $booking->Bstatus = 'เช็คเอ้าท์';
-        if($booking->save()){
+        if ($booking->save()) {
 
             Yii::$app->getSession()->setFlash('Oops', [
                 'body' => 'การเช็คเอ้าท์สำเร็จ!',

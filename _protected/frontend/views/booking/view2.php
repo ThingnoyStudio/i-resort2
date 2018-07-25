@@ -17,10 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('กลับ', ['index3'], ['class' => 'btn btn-default']) ?>
-<!--        <= Html::a('เช็คเอ้า', ['updatestatus', 'id' => $model->Rid, 'id2' => $model->Bid], ['class' => 'btn btn-primary']) ?>-->
-
     </p>
-
+    <h4><b>ข้อมูลการจอง</b></h4>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -33,10 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'Bdatein:ntext',
             'Bdateout:ntext',
             'Btotal',
-//            'payment.PMname',
+            'Bstatus',
+            'payment.PMname',
         ],
     ]) ?>
-
+    <h4><b>ข้อมูลห้องพัก</b></h4>
     <?= DetailView::widget([
         'model' => $model2,
         'attributes' => [
@@ -53,6 +52,4 @@ $this->params['breadcrumbs'][] = $this->title;
             'roomstatus.RSname',
         ],
     ]) ?>
-
-
 </div>

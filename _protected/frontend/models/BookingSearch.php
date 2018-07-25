@@ -54,6 +54,7 @@ class BookingSearch extends Booking
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['Bid'=>SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -95,6 +96,7 @@ class BookingSearch extends Booking
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['Bid'=>SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -135,6 +137,7 @@ class BookingSearch extends Booking
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['Bid'=>SORT_DESC]],
         ]);
 
         $this->load($params);

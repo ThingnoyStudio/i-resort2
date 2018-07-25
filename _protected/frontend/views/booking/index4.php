@@ -6,16 +6,26 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BookingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$this->registerCss("
+@media screen and (max-width: 1200px) {
+	.table {
+		overflow-x: auto;
+		display: block;
+	}
+  .btn-group {
+    float: left;
+    display:flex;
+    position: relative;
+}
+}");
 
 $this->title = 'การจอง';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="booking-index" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:height="http://www.w3.org/1999/xhtml">
+<div class="booking-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -35,7 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return Html::tag('div', '', [
                         'style' => 'width:100px;height:100px;
-                              border-top: 10px solid rgba(255, 255, 255, .46);
                               background-image:url(' . Yii::getAlias('@ShowR') . $model->room->Rimg . ');
                               background-size: cover;
                               background-position:center center;
@@ -54,6 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Bdatein:ntext',
             'Bdateout:ntext',
             'Btotal',
+            'Bstatus',
             'payment.PMname',
             //'Pid:ntext',
 
@@ -65,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'view3' => function ($url, $model, $key) {
                         return Html::a('<i class="fa fa-eye"></i>', $url,
-                            ['title' => 'View user',
+                            ['title' => 'เพิ่มเติม',
                                 'class' => 'btn btn-success',
                                 'id' => 'actioncol',
                                 'idA' => 'ADid',
@@ -75,6 +85,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],// ActionColumn
         ],
     ]); ?>
-
 
 </div>

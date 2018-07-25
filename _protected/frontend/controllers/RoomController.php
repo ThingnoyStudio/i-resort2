@@ -279,6 +279,9 @@ class RoomController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -310,8 +313,10 @@ class RoomController extends Controller
      * @param null $sdate
      * @param null $edate
      * @param null $p
-     * @param null $RTname
+     * @param null $rtname
+     * @param null $rsname
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionPdf($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null, $p = null, $rtname = null, $rsname = null)
     {
@@ -322,9 +327,10 @@ class RoomController extends Controller
         }
 //        $searchModel = new RoomSearch();
 //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$roomId);
+
         $model = Room::findOne(['Rid' => $roomId]);
         $date = $sdate . ' - ' . $edate;
-        $price_befor = $p;
+        $price_before = $p;
         $total = $price * $amt;
         $roomType = $rtname;
         $roomStatus = $rsname;
@@ -345,7 +351,7 @@ class RoomController extends Controller
         ])
             ->setFrom(['systemudon@gmail.com' => 'I-Resort'])
             ->setTo($users->Uemail)
-            ->setSubject('การจองห้อง ')
+            ->setSubject('การจองห้องพัก')
             ->send();
 
 
@@ -356,11 +362,11 @@ class RoomController extends Controller
             'roomStatus' => $roomStatus,
             'daterange' => $date,
             'days' => $amt,
-            'p' => $price_befor,
+            'p' => $price_before,
             'total' => $total,
         ]);
 
-        $pdf = new Pdf([
+        $ppp = new Pdf([
             'mode' => Pdf::MODE_UTF8,
             // A4 paper format
             'format' => [100, 202],
@@ -392,14 +398,14 @@ class RoomController extends Controller
         $booking->Uid = $userId . "";
         $booking->Bdatein = $sdate;
         $booking->Bdateout = $edate;
-        $booking->PMid = "3";
+        $booking->PMid = "3"; // ยังไม่ชำระเงิน
         $booking->month = date('m');
         $booking->year = date('Y');
-        $booking->Bstatus = "จอง";
+        $booking->Bstatus = "รอยืนยัน";
         $booking->save();
 
         // return the pdf output as per the destination setting
-        return $pdf->render();
+        return $ppp->render();
     }
 
     protected function findModel2($id)

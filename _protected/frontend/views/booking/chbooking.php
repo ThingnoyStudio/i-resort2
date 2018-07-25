@@ -2,28 +2,25 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BookingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'ตรวจสอบการรชำระเงิน';
+$this->title = 'ตรวจสอบการชำระเงิน';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="booking-index" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:height="http://www.w3.org/1999/xhtml">
-
+<div class="booking-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-
-
+    <?php Pjax::begin([ 'enablePushState' => false ]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'],
 
-//            'Bid',
+            'Bid',
             'Bdate:ntext',
             'users.Ufname',
             'users.Ulname',
@@ -48,7 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return Html::tag('div', '', [
                         'style' => 'width:100px;height:100px;
-                              border-top: 10px solid rgba(255, 255, 255, .46);
                               background-image:url(' . Yii::getAlias('@ShowBil') . $model->Bbil . ');
                               background-size: cover;
                               background-position:center center;
@@ -66,13 +62,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '<div > {updatebil} </div>',
                 'buttons' => [
                     'updatebil' => function ($url, $model, $key) {
-                        return   Html::a('ยืนยัน', ['updatebil', 'id' => $model->Bid], ['class' => 'btn btn-primary', 'onclick' => 'this.parentNode.submit()', 'data-method' => 'post']);
+                        return Html::a('ยืนยัน',
+                            ['updatebil', 'id' => $model->Bid],
+                            [
+                                'title' => Yii::t('yii', 'ยืนยันการชำระเงิน'),
+                                'class' => 'btn btn-primary',
+                                'data-confirm' => Yii::t('yii', 'คุณต้องการยืนยัน ความถูกต้องของการชำระเงิน รายการนี้หรือไม่?'),
+                                'onclick' => 'this.parentNode.submit()',
+                                'data-method' => 'post']);
 
-    }
+                    }
                 ]
             ],// ActionColumn
         ],
     ]); ?>
-
-
+    <?php Pjax::end(); ?>
 </div>

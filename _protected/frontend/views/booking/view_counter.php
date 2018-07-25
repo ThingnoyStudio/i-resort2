@@ -32,9 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
 
-        <?= Html::a('เช็คอิน', ['updatestatus2', 'id' => $model->Rid, 'id2' => $model->Bid], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('เช็คอิน', ['updatestatus2', 'id' => $model->Rid, 'id2' => $model->Bid], ['class' => 'btn btn-success', 'style' => 'margin-left: 8px;']) ?>
     </p>
 
+    <h4><b>ข้อมูลการจอง</b></h4>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -50,8 +51,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'Rid:ntext',
 //            'Uid:ntext',
-            'users.Ufname',
-            'users.Ulname',
+//            'users.Ufname',
+//            'users.Ulname',
+//            'users.Uphone',
 //            'ADid:ntext',
             'Bnday:ntext',
             'Bdatein:ntext',
@@ -61,4 +63,37 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <h4><b>ข้อมูลลูกค้า</b></h4>
+    <?= DetailView::widget([
+        'model' => $user,
+        'attributes' => [
+            'Uid',
+            'Ufname:ntext',
+            'Ulname:ntext',
+            'Uemail:ntext',
+            'Uphone:ntext',
+//            'Uimg:ntext',
+            [
+                'format' => 'raw',
+                'attribute' => 'Uimg',
+                'value' => Html::img(Yii::getAlias('@ShowU')  . $user->Uimg , ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+            ],
+//            'ADid',
+//            'USid',
+//            'iduser',
+        ],
+    ]) ?>
+    <?= DetailView::widget([
+        'model' => $address,
+        'attributes' => [
+//            'ADid',
+            'ADnumber:ntext',
+            'ADhome:ntext',
+            'ADsubdistrict:ntext',
+            'ADdistrict:ntext',
+            'ADprovince:ntext',
+            'ADzipcode',
+//            'Uid',
+        ],
+    ]) ?>
 </div>

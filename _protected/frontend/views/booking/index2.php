@@ -11,39 +11,52 @@ use yii\widgets\Pjax;
 $this->title = 'จัดการสถานะห้องพัก';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="booking-index" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:height="http://www.w3.org/1999/xhtml">
-
+<div class="booking-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php Pjax::begin(['enablePushState' => false]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' => [ 'style' => 'table-layout:fixed;' ],
         'columns' => [
-            //            ['class' => 'yii\grid\SerialColumn'],
+//            [
+//                'class' => 'yii\grid\SerialColumn',
+//                'contentOptions' => ['style' => 'width:10px; overflow: auto; word-wrap: break-word;'],
+//            ],
 
-            //            'Bid',
+//            'Bid',
+//            [
+//                'format' => 'html',
+//                'attribute' => 'room.RSid',
+//                'contentOptions' => [
+//                    'style' => 'max-width:150px; min-height:100px; overflow: auto; word-wrap: break-word;'
+//                ],
+//            ],
+
             'Bdate:ntext',
 
-            'room.Rnumber',
+//            'room.Rnumber',
+            [
+                'attribute' => 'room.Rnumber',
+//                'contentOptions' => ['style' => 'max-width:150px; min-height:100px; overflow: auto; word-wrap: break-word;'],
+                'contentOptions' => ['style' => 'width:5%;'],
+
+            ],
             'room.Rname',
             'users.Ufname',
             'users.Ulname',
 
-            'Bnday:ntext',
+//            'Bnday:ntext',
+            [
+                'attribute' => 'Bnday',
+//                'contentOptions' => ['style' => 'max-width:150px; min-height:100px; overflow: auto; word-wrap: break-word;'],
+                'contentOptions' => ['style' => 'width:5%;'],
+            ],
             'Bdatein:ntext',
             'Bdateout:ntext',
+
             'Bstatus',
-            //            [
-            //                'label' => 'สถานะ',
-            //                'attribute' => 'room.RSid',
-            //                'value' => function ($model, $key, $index, $column) {
-            //                    $rs = \frontend\models\Roomstatus::findOne('Bstatus = '. $model->RSid);
-            //                    return $rs->RSname;
-            //                }
-            //            ],
-            //            'payment.PMname',
+            'payment.PMname',
 
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -62,11 +75,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'print_money' => function ($url, $model, $key) {
                         return Html::a('<i class="fa fa-print"></i>',
                             ['printslip', 'id' => $model->Bid],
-                            ['title' => 'พิมพ์สลิป',
+                            [
+                                'title' => 'พิมพ์สลิป',
                                 'class' => 'btn btn-success',
-                                'target' => '_bank',
+                                'target' => '_blank',
                                 'id' => 'actioncol',
-                                'style' => 'padding: 5px 10px;    border-right: 2px solid #d4d4e0ab;']);
+                                'style' => 'padding: 5px 10px; border-right: 2px solid #d4d4e0ab;'
+                            ]);
                     },
                     'checkout' => function ($url, $model, $key) {
                         if ($model->Bstatus == 'เช็คเอาท์') {
@@ -101,6 +116,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
-    <?php Pjax::end(); ?>
 
 </div>

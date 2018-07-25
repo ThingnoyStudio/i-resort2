@@ -37,7 +37,7 @@ class Payment extends \yii\db\ActiveRecord
     {
         return [
             'PMid' => 'รหัส',
-            'PMname' => 'ประเภทการชำระเงิน',
+            'PMname' => 'สถานะการชำระเงิน',
         ];
     }
 }
