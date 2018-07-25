@@ -30,7 +30,7 @@
                             <span class="line-through "
                                   style="text-decoration: line-through;color: #777777;">฿<?= $model['Rprice'] ?></span>
                             <span class="line-through "
-                                  style="color: #FF281E;">฿<?= ($model['Rprice'] - $p) ?></span>
+                                  style="color: #FF281E;">฿<?= $model['Rprice'] - (($model['Rprice'] * $p) / 100)  ?></span>
                         </div>
                     </h4>
                     <span>รายละเอียด: <?= $model['Rdes'] ?></span><br>
