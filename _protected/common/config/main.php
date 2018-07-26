@@ -5,19 +5,19 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
 
-        'paypal' => [
-            'class' => 'kongoon\yii2\paypal\Paypal',
-            'clientId' => 'AZEjSYroI8kJ1jy3ULcb1Hqg2kG_6GG97O9aErj0gYYLpBlMhJdeVrd-kJMs9O7DUvcUmsOdu81xJYPJ', // เอา Client ID มาใส่ตรงนี้ล่ะ
-            'clientSecret' => 'EGAYyikP_w2Z3T1slu2Udg-Ttf4_av-rcCBT_gGixdaxofLvX_PpZNKQfPsC2knGPWf7inyNfC8xAt3e', // เอา Secret มาใส่ตรงนี้ล่ะ
-            'isProduction' => false,
-            // This is config file for the PayPal system
-            'config' => [
+        'paypal'=> [
+            'class'        => 'cinghie\paypal\components\Paypal',
+            'clientId'     => 'AZEjSYroI8kJ1jy3ULcb1Hqg2kG_6GG97O9aErj0gYYLpBlMhJdeVrd-kJMs9O7DUvcUmsOdu81xJYPJ',
+            'clientSecret' => 'EGAYyikP_w2Z3T1slu2Udg-Ttf4_av-rcCBT_gGixdaxofLvX_PpZNKQfPsC2knGPWf7inyNfC8xAt3e',
+//            'isProduction' => false,
+            // These properties would be found in the Paypal sdk_config.ini
+            'config'       => [
                 'http.ConnectionTimeOut' => 30,
-                'http.Retry' => 1,
-                'mode' => 'SANDBOX', // development (sandbox) or production (live) mode
-                'log.LogEnabled' => YII_DEBUG ? 1 : 0,
-                //'log.FileName'           => '@runtime/logs/paypal.log',
-                'log.LogLevel' => 'FINE',
+                'http.Retry'             => 1,
+                'mode'                   => 'sandbox', // development (sandbox) or production (live) mode
+                'log.LogEnabled'         => YII_DEBUG ? 1 : 0,
+                'log.FileName'           => '@runtime/logs/paypal.log',
+                'log.LogLevel'           => 'ERROR',
             ]
         ],
 
@@ -27,9 +27,7 @@ return [
             'datetimeFormat' => 'php:d/m/Y H:i:s',
             'timeFormat' => 'php:H:i:s',
             'timeZone' => 'Asia/Bangkok',
-
         ],
-
         'assetManager' => [
             'bundles' => [
                 // we will use bootstrap css from our theme

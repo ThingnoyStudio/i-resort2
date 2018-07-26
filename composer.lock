@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3dba517f7972a055188eb285a130d045",
+    "content-hash": "baef15b71f8be4a22916313f1c7f9ee3",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -48,6 +48,55 @@
                 "web"
             ],
             "time": "2018-02-04T12:54:57+00:00"
+        },
+        {
+            "name": "bitcko/yii2-bitcko-paypal-api",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bitcko/yii2-bitcko-paypal-api.git",
+                "reference": "eab1ecdee7ab22c069b8186d1f25d923d6fa8cc8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bitcko/yii2-bitcko-paypal-api/zipball/eab1ecdee7ab22c069b8186d1f25d923d6fa8cc8",
+                "reference": "eab1ecdee7ab22c069b8186d1f25d923d6fa8cc8",
+                "shasum": ""
+            },
+            "require": {
+                "paypal/rest-api-sdk-php": "*",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "bitcko\\paypalrestapi\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Mhmd Backer Shehadi",
+                    "email": "m.backer.shehadi@gmail.com"
+                }
+            ],
+            "description": "Bitcko Yii2 Paypal Api Extension use to integrate Paypal payments in your project using Paylpal php SDK",
+            "keywords": [
+                "PayPal API",
+                "PayPal Php api",
+                "PayPal Rest Api",
+                "PayPal developer",
+                "api",
+                "extension",
+                "payment",
+                "paypal",
+                "simple online payment",
+                "yii2"
+            ],
+            "time": "2018-07-04T19:28:43+00:00"
         },
         {
             "name": "borales/yii2-phone-input",
@@ -456,6 +505,56 @@
                 "yii"
             ],
             "time": "2013-12-10T17:49:58+00:00"
+        },
+        {
+            "name": "cinghie/yii2-paypal",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cinghie/yii2-paypal.git",
+                "reference": "68841b0d8f99333dea84638b6d4e33d2434a32c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cinghie/yii2-paypal/zipball/68841b0d8f99333dea84638b6d4e33d2434a32c2",
+                "reference": "68841b0d8f99333dea84638b6d4e33d2434a32c2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "paypal/rest-api-sdk-php": "*",
+                "php": ">=5.3.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "cinghie\\paypal\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Gogodigital.it",
+                    "email": "info@gogodigital.it",
+                    "homepage": "http://www.gogodigital.it/"
+                }
+            ],
+            "description": "Yii2 Paypal to manage Paypal Payments on your Yii 2 project",
+            "homepage": "https://github.com/cinghie/yii2-paypal",
+            "keywords": [
+                "payments",
+                "paypal",
+                "yii2",
+                "yii2 payments",
+                "yii2 paypal",
+                "yii2 paypal payments"
+            ],
+            "time": "2015-09-06T21:36:51+00:00"
         },
         {
             "name": "composer/installers",
@@ -5407,7 +5506,8 @@
     "stability-flags": {
         "ramosisw/yii2-material-dashboard": 20,
         "kartik-v/yii2-date-range": 20,
-        "kartik-v/yii2-widget-datepicker": 20
+        "kartik-v/yii2-widget-datepicker": 20,
+        "bitcko/yii2-bitcko-paypal-api": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

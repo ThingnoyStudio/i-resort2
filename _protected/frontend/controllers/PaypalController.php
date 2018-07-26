@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-
+use cinghie\paypal\components\Helper;
 use frontend\models\Booking;
 use frontend\models\Orderdetail;
 use frontend\models\Orders;
@@ -10,7 +10,6 @@ use frontend\models\TransactionPaypal;
 use frontend\models\Users;
 use Yii;
 use frontend\models\Food;
-use frontend\models\FoodSearch;
 use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -25,13 +24,14 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Exception\PayPalConnectionException;
 
 use frontend\models\Room;
-use frontend\models\RoomSearch;
 
 /**
  * FoodController implements the CRUD actions for Food model.
  */
 class PaypalController extends Controller
 {
+    public $baseUrl = 'http://localhost/i-resort2/';
+
     /**
      * {@inheritdoc}
      */
@@ -58,111 +58,12 @@ class PaypalController extends Controller
         return parent::beforeAction($action);
     }
 
-    public function actionCancel($payfrom = null)
-    {
-        Yii::$app->getSession()->setFlash('Oops', [
-            'body' => 'การชำระเงินถูกยกเลิก',
-            'type' => 'warning',
-//                        'options'=>['class'=>'alert-warning']
-        ]);
-
-        if ($payfrom == 'counter') {
-            return $this->redirect(['room/index_counter']);
-        } else {
-            return $this->redirect(['room/index']);
-        }
-//        return $this->render('cancel');
-    }
-
-    public function actionError()
-    {
-        Yii::$app->getSession()->setFlash('Oops', [
-            'body' => 'การทำงานผิดพลาด',
-            'type' => 'warning',
-//                        'options'=>['class'=>'alert-warning']
-        ]);
-
-        return $this->redirect(['room/index']);
-
-    }
-
     public function actionIndex()
     {
         return $this->redirect(['room/index']);
     }
 
-    public function actionPay($approved = null, $PayerID = null, $payfrom =null)
-    {
-        if ($approved === 'true') {
-            $transactionPayment = TransactionPaypal::findOne(['hash' => Yii::$app->session['paypal_hash']]);
-//            var_dump($transactionPayment);
-
-            // Get the Paypal payment
-            $payment = Payment::get($transactionPayment->payment_id, Yii::$app->paypal->getApiContext());
-            //var_dump($payment);
-
-            $execution = new PaymentExecution();
-            $execution->setPayerId($PayerID);
-            //Execute Paypal payment (charge)
-            $payment->execute($execution, Yii::$app->paypal->getApiContext());
-
-            // Update transaction
-            $transactionPayment->complete = 1;
-            $transactionPayment->create_time = $payment->create_time;
-            $transactionPayment->update_time = $payment->update_time;
-            $transactionPayment->save();
-
-
-            Yii::$app->session->remove('paypal_hash');
-
-            //SEND Email
-            /*$text = '
-                You will download sourcode'.$transactionPayment->product->name.' in https://programemrthailand.com/account/download
-            ';
-            Yii::$app->mail->compose(['html' => '@app/mail-templates/html-email-01'])
-                ->setFrom('support@programemrthailand.com')
-                ->setTo($transactionPayment->user->email)
-                ->setSubject('YesBootstrap - '.$transactionPayment->product->name)
-                ->send();
-            */
-            if ($payfrom == 'counter') {
-                return $this->redirect(['success','payfrom'=>$payfrom]);
-            } else {
-                return $this->redirect(['success']);
-            }
-
-        } else {//if approved !== true
-            return $this->redirect(['cancel']);
-        }
-
-    }
-
-    public function actionSuccess($payfrom = null)
-    {
-        Yii::$app->getSession()->setFlash('Oops', [
-            'body' => 'ชำระเงินเสร็จเรียบร้อย',
-            'type' => 'success',
-//                        'options'=>['class'=>'alert-warning']
-        ]);
-
-        if ($payfrom == 'counter') {
-            return $this->redirect(['room/index_counter']);
-        } else {
-            return $this->redirect(['room/index']);
-        }
-//        return $this->render('success');
-    }
-
-    /**
-     * @param null $roomId
-     * @param null $price
-     * @param null $amt
-     * @param null $sdate
-     * @param null $edate
-     * @return \yii\web\Response
-     * @throws Exception
-     * @throws NotFoundHttpException
-     */
+    //region Room
     public function actionPaypal($roomId = null, $price = null, $amt = null, $sdate = null, $edate = null, $userid = null, $payfrom = null)
     {
         date_default_timezone_set('asia/bangkok');
@@ -170,6 +71,7 @@ class PaypalController extends Controller
 //            $this->setReturnUrl(Yii::$app->request->getUrl());
             return $this->redirect(['site/login']);
         }
+
         if ($this->findDdate($sdate, $edate)) {
             Yii::$app->getSession()->setFlash('Oops', [
                 'body' => 'ช่วงเวลานี้ มีการจองแล้วกรุณาเลือกช่วงเวลาใหม่: ',
@@ -183,9 +85,10 @@ class PaypalController extends Controller
             }
 
         }
-        if ($roomId && $price && $amt != 0) {
-            $room = Room::findOne(['Rid' => $roomId]);
 
+        if ($roomId && $price && $amt != 0) {
+            // init variable
+            $room = Room::findOne(['Rid' => $roomId]);
             $total_price = $price * $amt;// ราคาสุทธิ
             $days = $amt;// จำนวนวัน
             $RId = $roomId;// รหัสห้อง
@@ -194,52 +97,28 @@ class PaypalController extends Controller
             } else {
                 $userId = $userid; // รหัสผู้ใช้
             }
-
             $s_date = $sdate;// วันที่เข้าพัก
             $e_date = $edate;// วันที่ออก
 
-//            return var_dump('userid: ' . $userId);
+//            return var_dump(number_format($total_price,2, '.', ''));
 
-            $payer = new Payer();
-            $details = new Details();
-            $amount = new Amount();
-            $transaction = new Transaction();
-            $payment = new Payment();
-            $redirectUrls = new RedirectUrls();
-
-            //Payer
-            $payer->setPaymentMethod('paypal');
-
-            //Details
-            $details->setShipping('0.00')
-                ->setTax('0.00')
-                ->setSubtotal($total_price);
-            //Amount
-            $amount->setCurrency('THB')
-                ->setTotal($total_price)
-                ->setDetails($details);
-            //Transaction
-            $transaction->setAmount($amount)
-                ->setDescription($room->Rname);
-
-            //Payment
-            $payment->setIntent('sale')
-                ->setPayer($payer)
-                ->setTransactions([$transaction]);
+            $payer = Helper::setPaypalPayer("paypal");
+            $item1 = Helper::setPaypalItem('ห้องพักหมายเลข ' . $room->Rnumber, "THB", $days, "R" . $RId, $price);
+            $itemList = Helper::setPaypalItemList([$item1]);
+            $details = Helper::setPaypalDetails(0.00, 0.00, $total_price);
+            $amount = Helper::setPaypalAmount("THB", '' . $total_price, $details);
+            $transaction = Helper::setPaypalTransaction($amount, "อัยรีสอร์ท สะดวก สะอาด ปลอดภัย", uniqid(), $itemList);
 
             if ($payfrom == 'counter') {
-                //Redirect URLs
-                $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/pay/?approved=true&payfrom='.$payfrom)
-                    ->setCancelUrl('http://localhost/i-resort2/paypal/cancel/?approved=false&payfrom='.$payfrom);
+                $redirectUrls = Helper::setPaypalRedirectUrls($this->baseUrl . 'paypal/pay/?approved=true&payfrom=' . $payfrom,
+                    $this->baseUrl . 'paypal/cancel/?approved=false&payfrom=' . $payfrom);
             } else {
-                //Redirect URLs
-                $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/pay/?approved=true')
-                    ->setCancelUrl('http://localhost/i-resort2/paypal/cancel/?approved=false');
+                $redirectUrls = Helper::setPaypalRedirectUrls($this->baseUrl . "paypal/pay/?approved=true",
+                    $this->baseUrl . "paypal/cancel/?approved=false");
             }
 
+            $payment = Helper::setPaypalPayment("sale", $payer, $redirectUrls, $transaction);
 
-
-            $payment->setRedirectUrls($redirectUrls);
             try {
                 $payment->create(Yii::$app->paypal->getApiContext());
 
@@ -264,7 +143,9 @@ class PaypalController extends Controller
                 $booking->Uid = $userId . "";
                 $booking->Bdatein = $s_date;
                 $booking->Bdateout = $e_date;
-                $booking->PMid = "2";
+                $booking->Bstatus = 'จอง';
+                $booking->Bbil = '-';
+                $booking->PMid = "2";//ชำระผ่าน paypal
                 $booking->month = date('m');
                 $booking->year = date('Y');
                 $booking->save();
@@ -306,7 +187,6 @@ class PaypalController extends Controller
                 } else {
                     return $this->redirect(['room/index']);
                 }
-//                print("<pre>" . print_r($ex, true) . "</pre>");
             }
             if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
                 foreach ($payment->getLinks() as $link) {
@@ -317,15 +197,284 @@ class PaypalController extends Controller
                 $this->redirect($redirectUrl);
             }
 
-
-//            var_dump($payment->getLinks());
-//            print_r(Yii::$app->paypal);
-//            return $this->redirect(['error']);
         } else {
             return $this->redirect(['error']);
         }
 
+        return false;
     }
+
+    public function actionPay($approved = null, $PayerID = null, $payfrom = null)
+    {
+        if ($approved === 'true') {
+            $transactionPayment = TransactionPaypal::findOne(['hash' => Yii::$app->session['paypal_hash']]);
+//            var_dump($transactionPayment);
+
+            // Get the Paypal payment
+            $payment = Payment::get($transactionPayment->payment_id, Yii::$app->paypal->getApiContext());
+            //var_dump($payment);
+
+            $execution = new PaymentExecution();
+            $execution->setPayerId($PayerID);
+            //Execute Paypal payment (charge)
+            $payment->execute($execution, Yii::$app->paypal->getApiContext());
+
+            // Update transaction
+            $transactionPayment->complete = 1;
+            $transactionPayment->create_time = $payment->create_time;
+            $transactionPayment->update_time = $payment->update_time;
+            $transactionPayment->save();
+
+
+            Yii::$app->session->remove('paypal_hash');
+
+            //SEND Email
+            /*$text = '
+                You will download sourcode'.$transactionPayment->product->name.' in https://programemrthailand.com/account/download
+            ';
+            Yii::$app->mail->compose(['html' => '@app/mail-templates/html-email-01'])
+                ->setFrom('support@programemrthailand.com')
+                ->setTo($transactionPayment->user->email)
+                ->setSubject('YesBootstrap - '.$transactionPayment->product->name)
+                ->send();
+            */
+            if ($payfrom == 'counter') {
+                return $this->redirect(['success', 'payfrom' => $payfrom]);
+            } else {
+                return $this->redirect(['success']);
+            }
+
+        } else {//if approved !== true
+            return $this->redirect(['cancel']);
+        }
+
+    }
+
+    public function actionSuccess($payfrom = null)
+    {
+        Yii::$app->getSession()->setFlash('Oops', [
+            'body' => 'ชำระเงินเสร็จเรียบร้อย',
+            'type' => 'success',
+//                        'options'=>['class'=>'alert-warning']
+        ]);
+
+        if ($payfrom == 'counter') {
+            return $this->redirect(['room/index_counter']);
+        } else {
+            return $this->redirect(['room/index']);
+        }
+//        return $this->render('success');
+    }
+
+    public function actionCancel($payfrom = null)
+    {
+        Yii::$app->getSession()->setFlash('Oops', [
+            'body' => 'การชำระเงินถูกยกเลิก',
+            'type' => 'warning',
+//                        'options'=>['class'=>'alert-warning']
+        ]);
+
+        if ($payfrom == 'counter') {
+            return $this->redirect(['room/index_counter']);
+        } else {
+            return $this->redirect(['room/index']);
+        }
+//        return $this->render('cancel');
+    }
+
+    public function actionError()
+    {
+        Yii::$app->getSession()->setFlash('Oops', [
+            'body' => 'การทำงานผิดพลาด',
+            'type' => 'warning',
+//                        'options'=>['class'=>'alert-warning']
+        ]);
+
+        return $this->redirect(['room/index']);
+
+    }
+    //endregion
+
+    //region Food
+    /*** FOOD
+     * @param null $foodId
+     * @param null $price
+     * @param null $amt
+     * @param null $roomId
+     * @param null $payfrom
+     * @return bool|\yii\web\Response
+     */
+    public function actionPaypalfood($foodId = null, $price = null, $amt = null, $roomId = null, $payfrom = null)
+    {
+        date_default_timezone_set('asia/bangkok');
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+
+        if ($foodId && $price && $amt != 0) {
+            // init variable
+            $food = Food::findOne(['Fid' => $foodId]);
+            $total_price = $price * $amt;// ราคาสุทธิ
+            $amts = $amt;// จำนวน
+            $FId = $foodId;// รหัสอาหาร
+            $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
+            $Rid = $roomId; // รหัสห้อง ถ้าเป็น 0 คือซื้อกลับบ้าน ไม่ให้ไปส่งที่ห้อง
+
+            $payer = Helper::setPaypalPayer("paypal");
+            $item1 = Helper::setPaypalItem('' . $food->Fname, "THB", $amts, "F" . $FId, $food->Fprice);
+            $itemList = Helper::setPaypalItemList([$item1]);
+            $details = Helper::setPaypalDetails(0.00, 0.00, $total_price);
+            $amount = Helper::setPaypalAmount("THB", '' . $total_price, $details);
+            $transaction = Helper::setPaypalTransaction($amount, "อัยรีสอร์ท สะดวก สะอาด ปลอดภัย", uniqid(), $itemList);
+
+            if ($payfrom == 'food') {
+                $redirectUrls = Helper::setPaypalRedirectUrls($this->baseUrl . 'paypal/payfood/?approved=true&payfrom=' . $payfrom,
+                    $this->baseUrl . 'paypal/cancelfood/?approved=false&payfrom=' . $payfrom);
+            } else {
+                $redirectUrls = Helper::setPaypalRedirectUrls($this->baseUrl . "paypal/payfood/?approved=true",
+                    $this->baseUrl . "paypal/cancelfood/?approved=false");
+            }
+
+            $payment = Helper::setPaypalPayment("sale", $payer, $redirectUrls, $transaction);
+
+            try {
+                $payment->create(Yii::$app->paypal->getApiContext());
+
+                $hash = md5($payment->getId());
+                Yii::$app->session['paypal_hash'] = $hash;
+
+                $transactionPaypal = new TransactionPaypal;
+                $transactionPaypal->user_id = $userId;
+                $transactionPaypal->payment_id = $payment->getId();
+                $transactionPaypal->product_id = $food->Fid;
+                $transactionPaypal->create_time = '-';
+                $transactionPaypal->update_time = '-';
+                $transactionPaypal->hash = $hash;
+                $transactionPaypal->save();
+
+                $orders = new Orders();
+                $orders->Odate = date('Y-m-d H:i:s') . "";
+                $orders->Optotal = $total_price . "";
+                $orders->Pid = '2';//ชำระผ่าน paypal
+                $orders->Bid = $Rid;
+                $orders->save();
+
+                $od = new Orderdetail();
+                $od->Fid = $FId;
+                $od->ODnum = $amts;
+                $od->Oid = $orders->Oid;
+
+                $od->save();
+
+
+            } catch (PayPalConnectionException $ex) {
+                Yii::$app->getSession()->setFlash('Oops', [
+                    'body' => 'เกิดข้อผิดพลาดระหว่างชำระเงิน: ' . $ex->getMessage(),
+                    'type' => 'error',
+                ]);
+
+                if ($payfrom == 'food') {
+                    return $this->redirect(['food/index_food']);
+                } else {
+                    return $this->redirect(['food/index3']);
+                }
+            }
+            if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
+                foreach ($payment->getLinks() as $link) {
+                    if ($link->getRel() == 'approval_url') {
+                        $redirectUrl = $link->getHref();
+                    }
+                }
+                $this->redirect($redirectUrl);
+            }
+
+        } else {
+            Yii::$app->getSession()->setFlash('Oops', [
+                'body' => 'เกิดข้อผิดพลาดระหว่างชำระเงิน',
+                'type' => 'error',
+            ]);
+            return $this->redirect(['food/index3']);
+        }
+
+        return false;
+    }
+
+    public function actionPayfood($approved = null, $PayerID = null, $payfrom = null)
+    {
+        if ($approved === 'true') {
+            $transactionPayment = TransactionPaypal::findOne(['hash' => Yii::$app->session['paypal_hash']]);
+//            var_dump($transactionPayment);
+
+            // Get the Paypal payment
+            $payment = Payment::get($transactionPayment->payment_id, Yii::$app->paypal->getApiContext());
+            //var_dump($payment);
+
+            $execution = new PaymentExecution();
+            $execution->setPayerId($PayerID);
+            //Execute Paypal payment (charge)
+            $payment->execute($execution, Yii::$app->paypal->getApiContext());
+
+            // Update transaction
+            $transactionPayment->complete = 1;
+            $transactionPayment->create_time = $payment->create_time;
+            $transactionPayment->update_time = $payment->update_time;
+            $transactionPayment->save();
+
+
+            Yii::$app->session->remove('paypal_hash');
+
+            //SEND Email
+            /*$text = '
+                You will download sourcode'.$transactionPayment->product->name.' in https://programemrthailand.com/account/download
+            ';
+            Yii::$app->mail->compose(['html' => '@app/mail-templates/html-email-01'])
+                ->setFrom('support@programemrthailand.com')
+                ->setTo($transactionPayment->user->email)
+                ->setSubject('YesBootstrap - '.$transactionPayment->product->name)
+                ->send();
+            */
+
+            if ($payfrom == 'food') {
+                return $this->redirect(['successfood', 'payfrom' => $payfrom]);
+            } else {
+                return $this->redirect(['successfood']);
+            }
+
+        } else {//if approved !== true
+            return $this->redirect(['cancelfood']);
+        }
+
+    }
+
+    public function actionSuccessfood($payfrom = null)
+    {
+        Yii::$app->getSession()->setFlash('Oops', [
+            'body' => 'ชำระเงินเสร็จเรียบร้อย',
+            'type' => 'success',
+//                        'options'=>['class'=>'alert-warning']
+        ]);
+
+        if ($payfrom == 'food') {
+            return $this->redirect(['food/index_food']);
+        } else {
+            return $this->redirect(['food/index3']);
+        }
+//        return $this->render('success');
+    }
+
+    public function actionCancelfood()
+    {
+        Yii::$app->getSession()->setFlash('Oops', [
+            'body' => 'การชำระเงินถูกยกเลิก',
+            'type' => 'warning',
+//                        'options'=>['class'=>'alert-warning']
+        ]);
+
+        return $this->redirect(['food/index3']);
+//        return $this->render('cancel');
+    }
+
+    //endregion
 
     protected function findModel2($id)
     {
@@ -369,204 +518,4 @@ class PaypalController extends Controller
     }
 
 
-    public function actionPaypalfood($foodId = null, $price = null, $amt = null, $roomId = null, $payfrom = null)
-    {
-        date_default_timezone_set('asia/bangkok');
-        if (Yii::$app->user->isGuest) {
-//            $this->setReturnUrl(Yii::$app->request->getUrl());
-            return $this->redirect(['site/login']);
-        }
-
-        if ($foodId && $price && $amt != 0) {
-            $food = Food::findOne(['Fid' => $foodId]);
-
-            $total_price = $price * $amt;// ราคาสุทธิ
-            $amts = $amt;// จำนวน
-            $FId = $foodId;// รหัสอาหาร
-            $userId = Yii::$app->user->identity->getId(); // รหัสผู้ใช้
-            $Rid = $roomId; // รหัสห้อง ถ้าเป็น 0 คือซื้อกลับบ้าน ไม่ให้ไปส่งที่ห้อง
-
-//            return var_dump('userid: ' . $s_date.'-'.$e_date);
-
-            $payer = new Payer();
-            $details = new Details();
-            $amount = new Amount();
-            $transaction = new Transaction();
-            $payment = new Payment();
-            $redirectUrls = new RedirectUrls();
-
-            //Payer
-            $payer->setPaymentMethod('paypal');
-
-            //Details
-            $details->setShipping('0.00')
-                ->setTax('0.00')
-                ->setSubtotal($total_price);
-            //Amount
-            $amount->setCurrency('THB')
-                ->setTotal($total_price)
-                ->setDetails($details);
-            //Transaction
-            $transaction->setAmount($amount)
-                ->setDescription($food->Fname);
-
-            //Payment
-            $payment->setIntent('sale')
-                ->setPayer($payer)
-                ->setTransactions([$transaction]);
-
-            //Redirect URLs
-            if ($payfrom == 'food') {
-                //Redirect URLs
-                $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/payfood/?approved=true&payfrom='.$payfrom)
-                    ->setCancelUrl('http://localhost/i-resort2/paypal/cancelfood/?approved=false&payfrom='.$payfrom);
-            } else {
-                //Redirect URLs
-                $redirectUrls->setReturnUrl('http://localhost/i-resort2/paypal/payfood/?approved=true')
-                    ->setCancelUrl('http://localhost/i-resort2/paypal/cancelfood/?approved=false');
-            }
-
-            $payment->setRedirectUrls($redirectUrls);
-            try {
-                $payment->create(Yii::$app->paypal->getApiContext());
-
-                $hash = md5($payment->getId());
-                Yii::$app->session['paypal_hash'] = $hash;
-
-                $transactionPaypal = new TransactionPaypal;
-                $transactionPaypal->user_id = Yii::$app->user->getId();
-                $transactionPaypal->payment_id = $payment->getId();
-                $transactionPaypal->product_id = $food->Fid;
-                $transactionPaypal->create_time = '-';
-                $transactionPaypal->update_time = '-';
-                $transactionPaypal->hash = $hash;
-                $transactionPaypal->save();
-
-                $orders = new Orders();
-                $orders->Odate = date('Y-m-d H:i:s') . "";
-                $orders->Optotal = $total_price . "";
-                $orders->Pid = '2';
-                $orders->Bid = $Rid;
-                $orders->save();
-
-                $od = new Orderdetail();
-                $od->Fid = $FId;
-                $od->ODnum = $amts;
-                $od->Oid = $orders->Oid;
-
-                $od->save();
-
-
-            } catch (PayPalConnectionException $ex) {
-                Yii::$app->getSession()->setFlash('Oops', [
-                    'body' => 'เกิดข้อผิดพลาดระหว่างชำระเงิน: ' . $ex->getMessage(),
-                    'type' => 'error',
-//                        'options'=>['class'=>'alert-warning']
-                ]);
-
-                if ($payfrom == 'food') {
-                    return $this->redirect(['food/index_food']);
-                } else {
-                    return $this->redirect(['food/index3']);
-                }
-//                print("<pre>" . print_r($ex, true) . "</pre>");
-            }
-            if (is_array($payment->getLinks()) || is_object($payment->getLinks())) {
-                foreach ($payment->getLinks() as $link) {
-                    if ($link->getRel() == 'approval_url') {
-                        $redirectUrl = $link->getHref();
-                    }
-                }
-                $this->redirect($redirectUrl);
-            }
-
-
-//            var_dump($payment->getLinks());
-//            print_r(Yii::$app->paypal);
-//            return $this->redirect(['error']);
-        } else {
-            Yii::$app->getSession()->setFlash('Oops', [
-                'body' => 'เกิดข้อผิดพลาดระหว่างชำระเงิน',
-                'type' => 'error',
-            ]);
-
-            return $this->redirect(['food/index3']);
-        }
-
-    }
-
-    public function actionPayfood($approved = null, $PayerID = null, $payfrom = null)
-    {
-        if ($approved === 'true') {
-            $transactionPayment = TransactionPaypal::findOne(['hash' => Yii::$app->session['paypal_hash']]);
-//            var_dump($transactionPayment);
-
-            // Get the Paypal payment
-            $payment = Payment::get($transactionPayment->payment_id, Yii::$app->paypal->getApiContext());
-            //var_dump($payment);
-
-            $execution = new PaymentExecution();
-            $execution->setPayerId($PayerID);
-            //Execute Paypal payment (charge)
-            $payment->execute($execution, Yii::$app->paypal->getApiContext());
-
-            // Update transaction
-            $transactionPayment->complete = 1;
-            $transactionPayment->create_time = $payment->create_time;
-            $transactionPayment->update_time = $payment->update_time;
-            $transactionPayment->save();
-
-
-            Yii::$app->session->remove('paypal_hash');
-
-            //SEND Email
-            /*$text = '
-                You will download sourcode'.$transactionPayment->product->name.' in https://programemrthailand.com/account/download
-            ';
-            Yii::$app->mail->compose(['html' => '@app/mail-templates/html-email-01'])
-                ->setFrom('support@programemrthailand.com')
-                ->setTo($transactionPayment->user->email)
-                ->setSubject('YesBootstrap - '.$transactionPayment->product->name)
-                ->send();
-            */
-
-            if ($payfrom == 'food') {
-                return $this->redirect(['successfood','payfrom'=>$payfrom]);
-            } else {
-                return $this->redirect(['successfood']);
-            }
-
-        } else {//if approved !== true
-            return $this->redirect(['cancelfood']);
-        }
-
-    }
-
-    public function actionSuccessfood($payfrom = null)
-    {
-        Yii::$app->getSession()->setFlash('Oops', [
-            'body' => 'ชำระเงินเสร็จเรียบร้อย',
-            'type' => 'success',
-//                        'options'=>['class'=>'alert-warning']
-        ]);
-
-        if ($payfrom == 'food') {
-            return $this->redirect(['food/index_food']);
-        } else {
-            return $this->redirect(['food/index3']);
-        }
-//        return $this->render('success');
-    }
-
-    public function actionCancelfood()
-    {
-        Yii::$app->getSession()->setFlash('Oops', [
-            'body' => 'การชำระเงินถูกยกเลิก',
-            'type' => 'warning',
-//                        'options'=>['class'=>'alert-warning']
-        ]);
-
-        return $this->redirect(['food/index3']);
-//        return $this->render('cancel');
-    }
 }
