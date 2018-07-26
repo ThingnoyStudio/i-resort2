@@ -29,7 +29,6 @@
         "kartik-v/yii2-grid": "*",
         "kartik-v/yii2-export": "*",
         "kartik-v/yii2-mpdf": "*",
-        "bitcko/yii2-bitcko-paypal-api": "dev-master",
         "cinghie/yii2-paypal": "*"
 
     },
