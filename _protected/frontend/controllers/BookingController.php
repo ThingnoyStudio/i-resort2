@@ -497,7 +497,7 @@ class BookingController extends Controller
         date_default_timezone_set('asia/bangkok');
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post(),'')) {
             $model->Bbil = $model->upload($model, 'Bbil');
 
             $BillImage = $model->Bbil;
