@@ -120,7 +120,16 @@ if ($NewDate <= $model->Bdatein) {
             [
                 'format' => 'raw',
                 'attribute' => 'room.Rimg',
-                'value' => Html::img(Yii::getAlias('@ShowR') . $model->room->Rimg, ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+                'value' => function ($model) {
+                    $img = null;
+                    if (isset($model->room->Rimg) === false) {
+                        $img = 'null';
+                    } else {
+                        $img = $model->room->Rimg;
+                    }
+                    return Html::img(Yii::getAlias('@ShowR') . $img, ['class' => 'img-thumbnail', 'style' => 'width:200px;']);
+                }
+//                'value' => Html::img(Yii::getAlias('@ShowR') . $model->room->Rimg, ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
             ],
             'room.Rnumber:ntext',
             'room.Rname',

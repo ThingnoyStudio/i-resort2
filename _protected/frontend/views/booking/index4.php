@@ -43,9 +43,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'attribute' => 'room.Rimg',
                 'value' => function ($model) {
+                    $img = null;
+                    if (isset($model->room->Rimg) === false) {
+                        $img = 'null';
+                    } else {
+                        $img = $model->room->Rimg;
+                    }
                     return Html::tag('div', '', [
                         'style' => 'width:100px;height:100px;
-                              background-image:url(' . Yii::getAlias('@ShowR') . $model->room->Rimg . ');
+                              background-image:url(' . Yii::getAlias('@ShowR') . $img . ');
                               background-size: cover;
                               background-position:center center;
                               background-repeat:no-repeat;
