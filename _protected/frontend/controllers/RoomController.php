@@ -53,6 +53,7 @@ class RoomController extends Controller
      */
     public function actionIndex()
     {
+        date_default_timezone_set('asia/bangkok');
         $searchModel = new RoomSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -70,8 +71,9 @@ class RoomController extends Controller
             foreach ($data as $item1) {
                 $p = $item1['Pdistant'];
             }
-//            $p =50;
         }
+
+//        return print("<pre>".print_r($command,true)."</pre>");
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -82,6 +84,7 @@ class RoomController extends Controller
 
     public function actionIndex_counter()
     {
+        date_default_timezone_set('asia/bangkok');
         $searchModel = new RoomSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -328,7 +331,7 @@ class RoomController extends Controller
 //        $searchModel = new RoomSearch();
 //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$roomId);
 
-        $model = Room::findOne(['Rid' => $roomId]);
+        $model = Room::findOne(['Rnumber' => $roomId]);
         $date = $sdate . ' - ' . $edate;
         $price_before = $p;
         $total = $price * $amt;
@@ -392,7 +395,7 @@ class RoomController extends Controller
 
         $booking = new Booking();
         $booking->Bdate = date('Y-m-d H:i:s') . "";
-        $booking->Rid = $roomId . "";
+        $booking->Rid = $model->Rid . "";
         $booking->Btotal = $total . "";
         $booking->Bnday = $amt . "";
         $booking->Uid = $userId . "";
@@ -421,7 +424,7 @@ class RoomController extends Controller
     {
         date_default_timezone_set('asia/bangkok');
 
-        $model = Room::findOne(['Rid' => $roomId]);
+        $model = Room::findOne(['Rnumber' => $roomId]);
         $date = $sdate . ' - ' . $edate;
         $price_befor = $p;
         $total = $price * $amt;
@@ -439,7 +442,7 @@ class RoomController extends Controller
         // booking
         $booking = new Booking();
         $booking->Bdate = date('Y-m-d H:i:s') . "";
-        $booking->Rid = $roomId . "";
+        $booking->Rid = $model->Rid . "";
         $booking->Btotal = $total . "";
         $booking->Bnday = $amt . "";
         $booking->Uid = $userId . "";
