@@ -72,7 +72,7 @@ class PaypalController extends Controller
             return $this->redirect(['site/login']);
         }
 
-        if ($this->findDdate($sdate, $edate)) {
+        if ($this->findDdate($sdate, $edate, $roomId)) {
             Yii::$app->getSession()->setFlash('Oops', [
                 'body' => 'ช่วงเวลานี้ มีการจองแล้วกรุณาเลือกช่วงเวลาใหม่: ',
                 'type' => 'warning',
@@ -88,7 +88,7 @@ class PaypalController extends Controller
 
         if ($roomId && $price && $amt != 0) {
             // init variable
-            $room = Room::findOne(['Rid' => $roomId]);
+            $room = Room::findOne(['Rnumber' => $roomId]);
             $total_price = $price * $amt;// ราคาสุทธิ
             $days = $amt;// จำนวนวัน
             $RId = $roomId;// รหัสห้อง
@@ -491,9 +491,9 @@ class PaypalController extends Controller
      * @return array
      * @throws Exception
      */
-    public function findDdate($sdate, $edate)
+    public function findDdate($sdate, $edate, $roomid)
     {
-        return $check_date = Yii::$app->db->createCommand('select * from booking where \'' . $sdate . '\' between Bdatein and Bdatein or \'' . $edate . '\' between Bdateout and Bdateout')->queryAll();
+        return $check_date = Yii::$app->db->createCommand('select * from booking where Rid = \'' . $roomid . '\' and ( \'' . $sdate . '\' between Bdatein and Bdatein or \'' . $edate . '\' between Bdateout and Bdateout )')->queryAll();
     }
 
     /**
@@ -506,11 +506,14 @@ class PaypalController extends Controller
             $data = Yii::$app->request->post();
             $stDate = explode(":", $data['sDate'])[0];
             $enDate = explode(":", $data['eDate'])[0];
-            $booking = $this->findDdate($stDate, $enDate); // your logic;
+            $roomid = explode(":", $data['roomId'])[0];
+
+            $booking = $this->findDdate($stDate, $enDate, $roomid); // your logic;
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return [
                 's_date' => $stDate,
                 'ed' => $enDate,
+                'room_id' => $roomid,
                 'booking' => $booking,
                 'code' => 100,
             ];

@@ -246,7 +246,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                type: 'post',
                                                data: {
                                                          sDate:start_date.format('YYYY-MM-DD') , 
-                                                         eDate:end_date.format('YYYY-MM-DD') , 
+                                                         eDate:end_date.format('YYYY-MM-DD') ,
+                                                         roomId:'".$ss."', 
                                                          _csrf : '" . Yii::$app->request->getCsrfToken() . "'
                                                      },
                                                success: function (data) {
