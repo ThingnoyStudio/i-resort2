@@ -416,6 +416,14 @@ class BookingController extends Controller
     {
         $model = Booking::findOne($id);
         $searchModel = new RoomSearch();
+        $user = $this->findUsersModel($model->Uid);
+        $address = null;
+        if ($user->ADid) {
+            $address = $this->findAddressById($user->ADid);
+        }
+        if (!$address) {
+            $address = new Address();
+        }
 
         $o = $model->Rid;
         $dataProvider = $searchModel->search2($o);
@@ -423,6 +431,8 @@ class BookingController extends Controller
         return $this->render('view2', [
             'model' => $this->findModel($id),
             'model2' => $this->findModel2($o),
+            'user' => $user,
+            'address' => $address,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

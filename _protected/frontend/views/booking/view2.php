@@ -35,6 +35,41 @@ $this->params['breadcrumbs'][] = $this->title;
             'payment.PMname',
         ],
     ]) ?>
+
+    <h4><b>ข้อมูลลูกค้า</b></h4>
+    <?= DetailView::widget([
+        'model' => $user,
+        'attributes' => [
+            'Uid',
+            'Ufname:ntext',
+            'Ulname:ntext',
+            'Uemail:ntext',
+            'Uphone:ntext',
+//            'Uimg:ntext',
+            [
+                'format' => 'raw',
+                'attribute' => 'Uimg',
+                'value' => Html::img(Yii::getAlias('@ShowU')  . $user->Uimg , ['class' => 'img-thumbnail', 'style' => 'width:200px;'])
+            ],
+//            'ADid',
+//            'USid',
+//            'iduser',
+        ],
+    ]) ?>
+    <?= DetailView::widget([
+        'model' => $address,
+        'attributes' => [
+//            'ADid',
+            'ADnumber:ntext',
+            'ADhome:ntext',
+            'ADsubdistrict:ntext',
+            'ADdistrict:ntext',
+            'ADprovince:ntext',
+            'ADzipcode',
+//            'Uid',
+        ],
+    ]) ?>
+    
     <h4><b>ข้อมูลห้องพัก</b></h4>
     <?= DetailView::widget([
         'model' => $model2,
@@ -52,4 +87,5 @@ $this->params['breadcrumbs'][] = $this->title;
             'roomstatus.RSname',
         ],
     ]) ?>
+
 </div>

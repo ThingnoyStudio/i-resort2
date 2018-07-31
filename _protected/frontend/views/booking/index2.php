@@ -25,6 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
 //            ],
 
 //            'Bid',
+            [
+                'attribute' => 'Bid',
+//                'contentOptions' => ['style' => 'max-width:150px; min-height:100px; overflow: auto; word-wrap: break-word;'],
+                'contentOptions' => ['style' => 'width:5%;'],
+
+            ],
 //            [
 //                'format' => 'html',
 //                'attribute' => 'room.RSid',
