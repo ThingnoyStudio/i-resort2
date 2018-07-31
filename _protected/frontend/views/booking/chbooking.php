@@ -57,10 +57,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'header' => "ยืนยันการชำระ",
+                'header' => "การทำงาน",
                 'headerOptions' => ['class' => 'text-center'],
-                'template' => '<div > {updatebil} </div>',
+                'template' => '<div class="btn-group btn-group-sm" role="group" >{view_money} {updatebil} </div>',
                 'buttons' => [
+                    'view_money' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-eye"></i>', $url,
+                            ['title' => 'ดูข้อมูล',
+                                'class' => 'btn btn-success',
+                                'id' => 'actioncol',
+                                'idA' => 'ADid',
+                                'style' => 'padding: 5px 10px; border-right: 2px solid #d4d4e0ab;'
+                            ]);
+                    },
                     'updatebil' => function ($url, $model, $key) {
                         return Html::a('ยืนยัน',
                             ['updatebil', 'id' => $model->Bid],
@@ -69,7 +78,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'btn btn-primary',
                                 'data-confirm' => Yii::t('yii', 'คุณต้องการยืนยัน ความถูกต้องของการชำระเงิน รายการนี้หรือไม่?'),
                                 'onclick' => 'this.parentNode.submit()',
-                                'data-method' => 'post']);
+                                'data-method' => 'post',
+                                'style' => 'padding: 5px 10px; border-right: 2px solid #d4d4e0ab;'
+                            ]);
 
                     }
                 ]

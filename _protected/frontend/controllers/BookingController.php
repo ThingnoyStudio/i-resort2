@@ -282,7 +282,7 @@ class BookingController extends Controller
         $query = Booking::find()->where(['PMid' => 6]);// รอการยืนยัน
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['Bid'=>SORT_DESC]],
+            'sort' => ['defaultOrder' => ['Bid' => SORT_DESC]],
         ]);
         return $this->render('chbooking', [
             'searchModel' => $searchModel,
@@ -438,6 +438,32 @@ class BookingController extends Controller
         ]);
     }
 
+    public function actionView_money($id)
+    {
+        $model = Booking::findOne($id);
+        $searchModel = new RoomSearch();
+        $user = $this->findUsersModel($model->Uid);
+        $address = null;
+        if ($user->ADid) {
+            $address = $this->findAddressById($user->ADid);
+        }
+        if (!$address) {
+            $address = new Address();
+        }
+
+        $o = $model->Rid;
+        $dataProvider = $searchModel->search2($o);
+
+        return $this->render('view_money', [
+            'model' => $this->findModel($id),
+            'model2' => $this->findModel2($o),
+            'user' => $user,
+            'address' => $address,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Creates a new Booking model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -507,7 +533,7 @@ class BookingController extends Controller
         date_default_timezone_set('asia/bangkok');
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post(),'')) {
+        if ($model->load(Yii::$app->request->post(), '')) {
             $model->Bbil = $model->upload($model, 'Bbil');
 
             $BillImage = $model->Bbil;
