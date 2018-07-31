@@ -58,7 +58,7 @@ class Booking extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Bid' => 'รหัส',
+            'Bid' => 'รหัสการจอง',
             'Bdate' => 'วันที่จอง',
             'Rid' => 'เลขห้อง',
             'Uid' => 'ผู้ใช้งาน',
