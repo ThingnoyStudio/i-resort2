@@ -104,6 +104,33 @@ if ($NewDate <= $model->Bdatein) {
         <?php ActiveForm::end(); ?>
     </div>
     <?php
+}else{
+    ?>
+    <h4>อัพโหลดใบเสร็จเรียบร้อยแล้ว</h4>
+    <div class="booking-form">
+        <?php $form = ActiveForm::begin(); ?>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="well text-center"
+                     style="min-height: 20px;
+                    padding: 19px;
+                    margin-bottom: 20px;
+                    background-color: #f5f5f5;
+                    border: 1px solid #e3e3e3;
+                    border-radius: 4px;
+                    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+                    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);">
+                    <?= Html::img(Yii::getAlias('@ShowBil') . '/' . $model->Bbil, ['style' => 'width:100px;', 'class' => 'img-rounded', 'style' => 'border-radius: 6px;']); ?>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'Bbil')->hiddenInput()->label(false) ?>
+            </div>
+        </div>
+<!--        <= Html::a('อัพโหลด', ['upload2', 'id' => $model->Bid], ['class' => 'btn btn-success', 'onclick' => 'this.parentNode.submit()', 'data-method' => 'post']) ?>-->
+        <?php ActiveForm::end(); ?>
+    </div>
+<?php
 }
 ?>
 <div class="booking-view">
