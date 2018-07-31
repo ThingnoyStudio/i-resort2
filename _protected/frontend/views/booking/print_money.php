@@ -44,6 +44,7 @@ use yii\widgets\DetailView;
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
+            <th class="text-center">รหัสการจอง</th>
             <th class="text-center">ห้อง</th>
             <th class="text-center">วันที่เข้าพัก</th>
             <th class="text-center">วันที่ออก</th>
@@ -53,7 +54,9 @@ use yii\widgets\DetailView;
         </thead>
         <tbody>
         <tr>
+            <td><?= print_r($model->Bid,true)?></td>
             <td><?= print_r($model->Rid,true)?></td>
+
             <td><?= print_r($model->Bdatein,true)?></td>
             <td><?= print_r($model->Bdateout,true)?></td>
             <td><?= print_r($model->Bnday,true)?></td>
@@ -61,6 +64,8 @@ use yii\widgets\DetailView;
         </tr>
         <tr>
             <td></td>
+            <td></td>
+
             <td></td>
             <td></td>
             <td></td>

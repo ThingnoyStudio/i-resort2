@@ -686,7 +686,7 @@ class BookingController extends Controller
             'orientation' => Pdf::ORIENT_PORTRAIT,
             'destination' => Pdf::DEST_BROWSER,
 //                'format' => Pdf::FORMAT_A4,
-            'format' => [110, 136],
+            'format' => [120, 136],
             'cssFile' => '@frontend/pdf.css',
             'cssInline' => '.kv-heading-1{font-size:18px}',
             'options' => [
