@@ -4,11 +4,13 @@ namespace frontend\controllers;
 use common\models\User;
 use common\models\LoginForm;
 use frontend\models\AccountActivation;
+use frontend\models\Address;
 use frontend\models\PasswordForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\Users;
 use yii\helpers\Html;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -271,6 +273,7 @@ class SiteController extends Controller
      * @see config/params.php
      *
      * @return string|\yii\web\Response
+     * @throws \yii\db\Exception
      */
     public function actionSignup()
     {  
@@ -280,12 +283,15 @@ class SiteController extends Controller
         // if 'rna' value is 'true', we instantiate SignupForm in 'rna' scenario
         $model = $rna ? new SignupForm(['scenario' => 'rna']) : new SignupForm();
 
+//        return print("<pre>".print_r($model,true)."</pre>");
         // collect and validate user data
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            return print("<pre>".print_r($model,true)."</pre>");
             // try to save user data in database
             if ($user = $model->signup()) 
             {
+                return print 'hh';
                 // if user is active he will be logged in automatically ( this will be first user )
                 if ($user->status === User::STATUS_ACTIVE)
                 {
@@ -363,6 +369,103 @@ class SiteController extends Controller
                 User '.Html::encode($user->username).' could not sign up.
                 Possible causes: verification email could not be sent.');
         }
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionSigup()
+    {
+        $model_user = new Users();
+        $model_address = new  Address();
+
+        // get setting value for 'Registration Needs Activation'
+        $rna = Yii::$app->params['rna'];
+
+        // if 'rna' value is 'true', we instantiate SignupForm in 'rna' scenario
+        $model = $rna ? new SignupForm(['scenario' => 'rna']) : new SignupForm();
+
+        // collect and validate user data
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // try to save user data in database
+            if ($user = $model->signup()) {
+                // if user is active he will be logged in automatically ( this will be first user )
+                if ($user->status === User::STATUS_ACTIVE) {
+//                    if (Yii::$app->getUser()->login($user)) {
+
+                    // insert data to table
+
+//                    if ($model_user->load(Yii::$app->request->post()) && $model_user->validate()) {
+                        $model_user->Uid = $user->id;
+                        $model_user->USid = 1;
+                        $model_user->Uemail = $user->email;
+                        $model_user->iduser = $user->id;
+                        $model_user->Uimg = $model_user->upload($model_user, 'Uimg');
+
+//                        if ($model_address->load(Yii::$app->request->post()) && $model_address->validate()) {
+                            try {
+                                $model_address->Uid = $user->id.'';
+                                if ($model_address->save()) {
+
+                                    $model_user->ADid = $model_address->ADid;
+                                    $model_user->save();
+
+//                                    return $this->redirect(['view_counter',
+//                                        'model' => $this->findModel($user->id),
+//                                        'model2' => $model_address,
+//                                    ]);
+
+                                    if (Yii::$app->getUser()->login($user))
+                                    {
+                                        return $this->goHome();
+                                    }
+
+
+
+//                                    return $this->redirect(['view_counter', 'id' => $model_user->Uid]);
+                                } else {
+                                    return print 'error1_In';
+                                }
+                            } catch (Exception $ex) {
+                                return print 'error: ' . $ex->getMessage();
+                            }
+
+//                        } else {
+//                            return print 'cannot validate address';
+//                        }
+
+//                    } else {
+//                        return print 'cannot validate model Users';
+//                    }
+
+                } // activation is needed, use signupWithActivation()
+                else {
+                    $this->signupWithActivation($model, $user);
+
+                    return $this->refresh();
+                }
+            } // user could not be saved in database
+            else {
+                // display error message to user
+                Yii::$app->session->setFlash('error',
+                    "We couldn't sign you up, please contact us.");
+
+                // log this error, so we can debug possible problem easier.
+                Yii::error('Signup failed! 
+                    User ' . Html::encode($user->username) . ' could not sign up.
+                    Possible causes: something strange happened while saving user in database.');
+
+                return $this->refresh();
+            }
+        }
+
+        return $this->render('regis', [
+            'user' => $model_user,
+            'address' => $model_address,
+            'model' => $model,
+        ]);
     }
 
 /*--------------------*

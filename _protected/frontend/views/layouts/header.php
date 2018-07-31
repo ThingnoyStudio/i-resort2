@@ -378,7 +378,7 @@ use yii\helpers\Html;
                                         <div class="pull-left" style="display:display: -webkit-inline-box;">
                                             <?= Html::a(
                                                 'สมัครสมาชิก',
-                                                ['/site/signup'],
+                                                ['/site/sigup'],
                                                 ['data-method' => 'post', 'class' => 'btn btn-primary btn-round', 'style' => 'padding: 9px 13px;']
                                             ) ?>
                                         </div>
