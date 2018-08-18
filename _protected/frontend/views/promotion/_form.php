@@ -13,7 +13,7 @@ $addon = <<< HTML
 <span class="input-group-addon">
     <!--<i class="glyphicon glyphicon-calendar"></i>-->
     <i class = "material-icons" style="    margin-left: -33px;
-    position: absolute;" > date_range </i>
+    position: absolute; z-index: 3;" > date_range </i>
 </span>
 HTML;
 ?>
@@ -36,6 +36,7 @@ HTML;
             'attribute' => 'kvdate1',
             'useWithAddon'=>true,
             'convertFormat'=>true,
+            'disabled' => true,
             'startAttribute' => 'Pdatestart',
             'endAttribute' => 'Pdateend',
         'language' => 'th',

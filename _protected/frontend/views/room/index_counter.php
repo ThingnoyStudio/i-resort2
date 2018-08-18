@@ -328,6 +328,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             //                                            'value' => date('d-m-Y') . ' - ' . date('d-m-Y'),
                                             'useWithAddon' => true,
                                             'convertFormat' => true,
+                                            'disabled' => true,
                                             'language' => 'th',
                                             'startAttribute' => 'from_date',
                                             'endAttribute' => 'to_date',
