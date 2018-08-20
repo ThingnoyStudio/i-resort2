@@ -65,7 +65,7 @@ class Booking extends \yii\db\ActiveRecord
             'ADid' => 'ที่อยู่',
             'Bnday' => 'จำนวนวัน',
             'Bdatein' => 'วันที่เช็คอิน',
-            'Bdateout' => 'วันที่เช็คเอ้า',
+            'Bdateout' => 'วันที่เช็คเอ้าท์',
             'PMid' => 'การชำระเงิน',
             'Btotal' => 'ราคาสุทธิ',
 

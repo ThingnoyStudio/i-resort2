@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'options' => [ 'style' => 'table-layout:fixed;' ],
+        'options' => ['style' => 'table-layout:fixed;'],
         'columns' => [
 //            [
 //                'class' => 'yii\grid\SerialColumn',
@@ -27,8 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'Bid',
             [
                 'attribute' => 'Bid',
-//                'contentOptions' => ['style' => 'max-width:150px; min-height:100px; overflow: auto; word-wrap: break-word;'],
-                'contentOptions' => ['style' => 'width:5%;'],
+              'contentOptions' => ['style' => 'width:5%;'],
 
             ],
 //            [
@@ -62,7 +61,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'Bdateout:ntext',
 
             'Bstatus',
-            'payment.PMname',
+//            'payment.PMname',
+            [
+                'attribute' => 'payment.PMname',
+                'format' => 'raw',
+                'value' => function ($data) {
+        if ($data->payment->PMname =='ยังไม่ชำระเงิน'){
+            return Html::tag('span', $data->payment->PMname,
+                ['class' => 'badge badge-danger',
+                    'style'=>'font-weight: 700; font-size: 12px; border-color: #f70505; color: #e00303;']);
+        }else if ($data->payment->PMname =='รอยืนยัน'){
+            return Html::tag('span', $data->payment->PMname,
+                ['class' => 'badge badge-info',
+                    'style'=>'font-weight: 700; font-size: 12px;']);
+        }else if ($data->payment->PMname =='ชำระผ่าน paypal'){
+            return Html::tag('span', $data->payment->PMname,
+                ['class' => 'badge badge-success',
+                    'style'=>'font-weight: 700; font-size: 12px; background-color: #18ce0f;color: #fff; border-color: #18ce0f;']);
+        }else if ($data->payment->PMname =='ชำระผ่านธนาคาร'){
+            return Html::tag('span', $data->payment->PMname,
+                ['class' => 'badge badge-success',
+                    'style'=>'font-weight: 700; font-size: 12px; background-color: #18ce0f;color: #fff; border-color: #18ce0f;']);
+        }else{
+            return $data->payment->PMname;
+        }
+
+                }
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
